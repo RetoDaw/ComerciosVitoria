@@ -1,6 +1,9 @@
 # ComerciosVitoria
 Comercios Vitoria nos ha "contratado" para hacer una aplicación web que permita a los comerciantes subir información sobre sus comercios y a los visitantes, poder ver los diferentes comercios.
 
+Enlace trello:
+[https://trello.com/b/xGIflTgr/comercios-vitoria](url)
+
 Acciones de usuarios visitantes:
 1. Ver lista anuncios:
   1.1 Titulo

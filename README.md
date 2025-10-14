@@ -1,5 +1,3 @@
-:sos:
-
 :copyright: Comercios Vitoria nos ha "contratado" para hacer una aplicación web que permita a los usuarios subir anuncios sobre cualquier cosa y ganar dinerillo :heavy_dollar_sign:. 
 
 :soon: Tenemos poco tiempo, pero sin prisa, ni pausa.

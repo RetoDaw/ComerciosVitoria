@@ -4,6 +4,9 @@ Comercios Vitoria nos ha "contratado" para hacer una aplicación web que permita
 Enlace trello:
 https://trello.com/b/xGIflTgr/comercios-vitoria
 
+Enlace figma:
+https://www.figma.com/design/DLUmd5HuIbwA0nVpaGWb9R/PURPOR?node-id=3-5&p=f&t=J1KcncHSzJQACrTm-0
+
 Acciones de usuarios visitantes:
 1. Ver lista anuncios:
   1.1 Titulo

@@ -14,12 +14,23 @@ class ImagenesModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function create($dbh,$imagenes){
-        self::addDirectory($dbh,$imagenes);
+    public static function getById($id) {
+        $dbh = Database::getConnection();
+        $stmt = $dbh->prepare("SELECT ruta
+                                FROM imagenes
+                                WHERE id = :id");
+        $stmt->execute([
+            'id' => $id
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function create($dbh,$imagenes,$id = null){
+        $id ?? $id = $dbh->lastInsertId(); //Si no llega un id, el id es el ultimo insertado
+        self::addDirectory($dbh,$imagenes,$id);
     }
     
-    private static function addDirectory($dbh,$imagenes){
-        $id = $dbh->lastInsertId();
+    private static function addDirectory($dbh,$imagenes,$id){
 
         // Crea la carpeta para las imágenes
         $carpeta = "uploads/anuncios/{$id}";
@@ -64,13 +75,26 @@ class ImagenesModel {
         }
         return false;
     }
+
+    private static function eliminarImagenServidor($ruta){
+        if (file_exists($ruta)) {
+            if (!unlink($ruta)) {
+                throw new Exception("No se pudo eliminar la imagen del servidor");
+            }
+        }
+    }
     
     public static function deleteById($id) {
         $dbh = Database::getConnection();
+        $ruta = self::getById($id)['ruta'];
+        
+        self::eliminarImagenServidor($ruta);
+
         $stmt= $dbh->prepare("DELETE FROM imagenes
                                 WHERE id = :id"
         );
         $data = array('id' => $id);
+
         if (!$stmt->execute($data)):
             throw new Exception("No se pudo borrar la imagen a la base de datos");
         endif;
@@ -78,6 +102,10 @@ class ImagenesModel {
     
     public static function deleteAll($id_anuncio) {
         $dbh = Database::getConnection();
+        foreach (self::getAll($id_anuncio) as $imagen){
+            self::eliminarImagenServidor($imagen['ruta']);
+        }
+
         $stmt= $dbh->prepare("DELETE FROM imagenes
                                 WHERE id_anuncio = :id_anuncio");
         if(!$stmt->execute([
@@ -85,5 +113,13 @@ class ImagenesModel {
         ])):
             throw new Exception("No se pudo borrar ninguna imagen de la base de datos");
         endif;
+    }
+
+    public static function edit($id,$imagenesNuevas,$imagenesBorrar) {
+        $dbh = Database::getConnection();
+        self::create($dbh,$imagenesNuevas,$id);
+        foreach($imagenesBorrar as $imagen){
+            self::deleteById($imagen['id']);
+        }
     }
 }

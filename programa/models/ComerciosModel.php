@@ -60,4 +60,21 @@ class ComerciosModel {
             'id_categoria' => $id_categoria
         ]);
     }
+
+    public static function edit($datos) {
+        $dbh = Database::getConnection();
+        $stmt= $dbh->prepare("UPDATE anuncios
+                            SET titulo = :titulo, precio = :precio, descripcion = :descripcion, direccion = :direccion, id_categoria = :id_categoria
+                            WHERE id = :id"
+        );
+        $data = array(
+            "id" => $datos[0],
+            "titulo" => $datos[1],
+            "precio" => $datos[2],
+            "descripcion" => $datos[3],
+            "direccion" => $datos[4],
+            "id_categoria" => $datos[5]
+        );
+        if($stmt->execute($data)) throw new Exception("No se pudo editar el anuncio");
+    }
 }

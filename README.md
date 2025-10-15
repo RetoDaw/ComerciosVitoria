@@ -14,7 +14,7 @@ https://www.figma.com/design/DLUmd5HuIbwA0nVpaGWb9R/PURPOR?node-id=3-5&p=f&t=J1K
 
 :white_flower: Al entrar :arrow_right: Conexion BD :arrow_right: Mostrar anuncios(solo 1 imagen).
 
-:white_flower: Mostrar anuncio :arrow_right: Coger datos de tabla anuncios, imagenes de tabla imagenes y datos de contacto del usuario.
+:white_flower: Mostrar anuncio :arrow_right: Coger datos de tabla anuncios, imagenes de tabla imagenes, datos de contacto del usuario y el nombre de la categoria de la tabla.
 
 :white_flower: Leer mas :arrow_right: Mostrar toda la informacion (ya esta recogida en variables).
 

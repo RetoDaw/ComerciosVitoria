@@ -25,7 +25,7 @@ class UsuariosModel {
     public static function create($datos) {
         $dbh = Database::getConnection();
         $stmt= $dbh->prepare("INSERT INTO usuarios(user_name,nombre,apellidos,email,password,tipo_usuario,fecha_nacimiento,telefono)
-                            values (:user_name,:nombre,:apellidos,:email,:password,:tipo_usuario,:fecha_nacimiento,:telefono)"
+                            values (:user_name,:nombre,:apellidos,:email,:password, default,:fecha_nacimiento,:telefono)"
         );
         $data = array(
             "user_name" => $datos[0],
@@ -33,9 +33,8 @@ class UsuariosModel {
             "apellidos" => $datos[2],
             "email" => $datos[3],
             "password" => $datos[4],
-            "tipo_usuario" => $datos[5],
-            "fecha_nacimiento" => $datos[6],
-            "telefono" => $datos[7] ?? null
+            "fecha_nacimiento" => $datos[5],
+            "telefono" => $datos[6] ?? null
         );
         if($stmt->execute($data)) throw new Exception("No se pudo añadir el usuario a la base de datos");
     }
@@ -57,4 +56,20 @@ class UsuariosModel {
         if(!$stmt->execute()) throw new Exception("No se pudo borrar ningún anuncio de la base de datos");
     }
     
+    public static function edit($datos) {
+        $dbh = Database::getConnection();
+        $stmt= $dbh->prepare("UPDATE usuarios
+                            SET nombre = :nombre, apellidos = :apellidos, email = :email, fecha_nacimiento = :fecha_nacimiento, telefono = :telefono
+                            WHERE id = :id"
+        );
+        $data = array(
+            "id" => $datos[0],
+            "nombre" => $datos[1],
+            "apellidos" => $datos[2],
+            "email" => $datos[3],
+            "fecha_nacimiento" => $datos[4],
+            "telefono" => $datos[5]
+        );
+        if($stmt->execute($data)) throw new Exception("No se pudo editar el perfil del usuario");
+    }
 }

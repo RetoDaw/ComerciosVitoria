@@ -21,6 +21,17 @@ class CategoriasModel {
         ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public static function getIdByName($nombre) {
+        $dbh = Database::getConnection();
+        $stmt = $dbh->prepare("SELECT id
+                                FROM categorias
+                                WHERE nombre = :nombre");
+        $stmt->execute([
+            'nombre' => $nombre
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     
     public static function create($nombre) {
         $dbh = Database::getConnection();

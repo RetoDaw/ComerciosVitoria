@@ -25,8 +25,18 @@ class ComerciosController extends BaseController {
         ]);
     }
     
-    public function show() {
+    public function editar($id) {
+        $id = $_GET['id'];
 
+        $anuncio = ComerciosModel::getById($id);
+        $imagenes = ImagenesController::CogerImagenesDeAnuncios($id);
+        $categoria = CategoriasController::CogerCategoriasDeAnuncios($id);
+
+        $this->render('edit.view.php', [
+            'anuncio' => $anuncio,
+            'imagenes' => $imagenes,
+            'categoria' => $categoria
+        ]);
     }
     
     public function store($datos) {
@@ -35,20 +45,22 @@ class ComerciosController extends BaseController {
             "descripcion" => $_GET["descripcion"],
             "direccion" => $_GET["direccion"],
             "precio" => $_GET["precio"],
-            "id_usuario" => $_SESSION["user_name"],
-            "id_categoria" => $_GET["id_categoria"]
+            "id_usuario" => UsuariosModel::getIdByUsername($_SESSION["user_name"]),
+            "id_categoria" => CategoriasModel::getIdByName($_GET["categoria"])
         );
+        $imagenes = [];
         if (isset($_FILES)):
             foreach($_FILES as $img):
-                array_push($anuncio,$img);
+                array_push($imagenes,$img);
             endforeach;
         endif;
-        ComerciosModel::create($anuncio,$img);
+        ComerciosModel::create($anuncio,$imagenes);
         $this->redirect('index.php');
     }
     
     public function destroy($id) {
         $id = $_GET["id"];
+
         ComerciosModel::deleteById($id);
         $this->redirect('index.php');
     }

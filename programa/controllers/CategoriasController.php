@@ -11,7 +11,7 @@ class CategoriasController extends BaseController {
         }
         return $categorias;
     }
-    
+
     public function show() {
 
     }

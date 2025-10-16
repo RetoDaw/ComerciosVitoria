@@ -12,7 +12,7 @@ class UsuariosController extends BaseController {
         }
         return $datoscontacto;
     }
-    
+
     public function show() {
 
     }

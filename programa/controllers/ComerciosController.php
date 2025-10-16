@@ -57,10 +57,23 @@ class ComerciosController extends BaseController {
         ComerciosModel::create($anuncio,$imagenes);
         $this->redirect('index.php');
     }
+
+    public function update($id){
+        $id = $_GET['id'];
+
+        $anuncio = array (
+            "titulo" => $_GET["titulo"],
+            "descripcion" => $_GET["descripcion"],
+            "direccion" => $_GET["direccion"],
+            "precio" => $_GET["precio"],
+            "id_categoria" > CategoriasModel::getIdByName($_GET["categoria"])
+        );
+        
+    }
     
     public function destroy($id) {
         $id = $_GET["id"];
-
+        ImagenesModel::deleteById($id);
         ComerciosModel::deleteById($id);
         $this->redirect('index.php');
     }

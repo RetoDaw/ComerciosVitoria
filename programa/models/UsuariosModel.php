@@ -21,6 +21,17 @@ class UsuariosModel {
         ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public static function getDatosContacto($id) {
+        $dbh = Database::getConnection();
+        $stmt = $dbh->prepare("SELECT id, email, telefono
+                                FROM usuarios
+                                WHERE id = :id");
+        $stmt->execute([
+            'id' => $id
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     
     public static function create($datos) {
         $dbh = Database::getConnection();

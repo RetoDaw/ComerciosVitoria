@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="../../../css/registrarse.css" />
+</head>
+<body>
+
+  <button id="openPopup">Registrarme</button>
+
+  <div class="overlay" id="overlay">
+    <div class="popup">
+      <button class="close" id="closePopup">×</button>
+      <h2>Registrarme</h2>
+      <form>
+        <input type="text" placeholder="Nombre" required />
+        <input type="text" placeholder="Apellidos" required />
+        <input type="date" placeholder="Fecha de nacimiento" required />
+        <input type="email" placeholder="Email" required />
+        <input type="tel" placeholder="Teléfono (opcional)" />
+        <input type="text" placeholder="Usuario" required />
+        <input type="password" placeholder="Contraseña" required />
+        <input type="password" placeholder="Repite la contraseña" required />
+        <button type="submit" class="boton">Registrarme</button>
+      </form>
+      <p>¿Ya tienes cuenta? <a href="../iniciarSesion/index.html">Inicia Sesión</a></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

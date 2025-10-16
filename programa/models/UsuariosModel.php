@@ -21,6 +21,17 @@ class UsuariosModel {
         ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public static function getIdByUsername($username) {
+        $dbh = Database::getConnection();
+        $stmt = $dbh->prepare("SELECT id
+                                FROM usuarios
+                                WHERE user_name = :user_name");
+        $stmt->execute([
+            'user_name' => $username
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     
     public static function create($datos) {
         $dbh = Database::getConnection();

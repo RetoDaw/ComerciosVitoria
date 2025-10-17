@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/Database.php';
+require_once __DIR__ . '/config/config.php';
 
 class ImagenesModel {
     
@@ -33,32 +34,33 @@ class ImagenesModel {
     private static function addDirectory($dbh,$imagenes,$id){
 
         // Crea la carpeta para las imágenes
-        $carpeta = "uploads/anuncios/{$id}";
+        $carpetaCrear = MEDIA_FOLDER . $id;
 
         //Comprobar la existencia de la carpeta
-         if (!file_exists($carpeta)) mkdir($carpeta, 0777, true);
+         if (!file_exists($carpetaCrear)) mkdir($carpetaCrear, 0777, true);
             
-        if (self::uploadImage($dbh,$carpeta, $imagenes,$id)):
+        if (self::uploadImage($dbh, $imagenes,$id)):
             return true;
         else:
             throw new Exception("No se pudieron añadir las imagenes a la base de datos.");
         endif;
     }
 
-    private static function uploadImage($dbh,$carpeta, $imagenes,$id_anuncio){
+    private static function uploadImage($dbh, $imagenes,$id_anuncio){
         /*
         tmp_name es un valor de $_FILES, que es una varialbe que guarda información de los archivos
         que se envian como type=file.
         tmp_name es la ruta temporal en la que php ha guardado esta imagen, asi que en el if
         comprobbamos que realmente se ha guardado.
         */
+        $subidasCorrectas = 0;
         foreach ($imagenes['tmp_name'] as $index => $carpetaTemporal)
         if (is_uploaded_file($carpetaTemporal)) {
 
             //Aqui usamos basename para coger solo el nombre de la imagen, sin la ruta tmp_name
             $nombreArchivo = basename($imagenes['name'][$index]);
 
-            $destino = $carpeta . '/' . $nombreArchivo;
+            $destino = MEDIA_FOLDER . $id_anuncio . '/' . $nombreArchivo;
 
             if (move_uploaded_file($carpetaTemporal, $destino)):
                 $stmt = $dbh->prepare("
@@ -66,14 +68,16 @@ class ImagenesModel {
                     VALUES (:id_anuncio, :ruta)
                 ");
 
-                return $stmt->execute([
+                if ($stmt->execute([
                     'id_anuncio' => $id_anuncio,
                     'ruta' => $destino
-                ]);
+                ])) {
+                    $subidasCorrectas++;
+                }
 
             endif;
         }
-        return false;
+        return $subidasCorrectas;
     }
 
     private static function eliminarImagenServidor($ruta){

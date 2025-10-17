@@ -10,17 +10,8 @@ class ComerciosModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    public static function getById($id) {
-    $dbh = Database::getConnection();
-    $stmt = $dbh->prepare("SELECT *
-                           FROM anuncios
-                           WHERE id = :id");
-    $stmt->execute(['id' => $id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
     
-    public static function create($datos,$imagenes) {
+    public static function create($datos,$imagenes = []) {
         $dbh = Database::getConnection();
         $stmt= $dbh->prepare("INSERT INTO anuncios(titulo,descripcion,direccion,precio,id_usuario,id_categoria,estado)
                             values (:titulo,:descripcion,:direccion,:precio,:id_usuario,:id_categoria,true)"
@@ -33,10 +24,12 @@ class ComerciosModel {
             "id_usuario" => $datos[4],
             "id_categoria" => $datos[5]
         );
-        $stmt->execute($data) ? 
-            ImagenesModel::create($dbh,$imagenes) 
-        : 
+        if($stmt->execute($data)){
+            if(!empty($imagenes))
+                ImagenesModel::create($dbh,$imagenes);
+        }else{
             throw new Exception("No se pudo añadir el anuncio a la base de datos");
+        }    
     }
     
     public static function deleteById($id) {
@@ -61,29 +54,20 @@ class ComerciosModel {
         endif;
     }
     
-    public static function deleteCategoria($id_categoria) {
-        $dbh = Database::getConnection();
-        $stmt= $dbh->prepare("DELETE FROM anuncios
-                                WHERE id_categoria = :id_categoria");
-        return $stmt->execute([
-            'id_categoria' => $id_categoria
-        ]);
-    }
-
     public static function edit($datos) {
         $dbh = Database::getConnection();
         $stmt= $dbh->prepare("UPDATE anuncios
-                            SET titulo = :titulo, precio = :precio, descripcion = :descripcion, direccion = :direccion, id_categoria = :id_categoria
+                            SET titulo = :titulo, descripcion = :descripcion, direccion = :direccion, precio = :precio, id_categoria = :id_categoria
                             WHERE id = :id"
         );
         $data = array(
             "id" => $datos[0],
             "titulo" => $datos[1],
-            "precio" => $datos[2],
-            "descripcion" => $datos[3],
-            "direccion" => $datos[4],
+            "descripcion" => $datos[2],
+            "direccion" => $datos[3],
+            "precio" => $datos[4],
             "id_categoria" => $datos[5]
         );
-        if($stmt->execute($data)) throw new Exception("No se pudo editar el anuncio");
+        if(!$stmt->execute($data)) throw new Exception("No se pudo editar el anuncio");
     }
 }

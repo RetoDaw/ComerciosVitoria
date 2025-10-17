@@ -22,17 +22,6 @@ class UsuariosModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function getDatosContacto($id) {
-        $dbh = Database::getConnection();
-        $stmt = $dbh->prepare("SELECT id, email, telefono
-                                FROM usuarios
-                                WHERE id = :id");
-        $stmt->execute([
-            'id' => $id
-        ]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-    
     public static function getIdByUsername($username) {
         $dbh = Database::getConnection();
         $stmt = $dbh->prepare("SELECT id
@@ -58,7 +47,7 @@ class UsuariosModel {
             "fecha_nacimiento" => $datos[5],
             "telefono" => $datos[6] ?? null
         );
-        if($stmt->execute($data)) throw new Exception("No se pudo añadir el usuario a la base de datos");
+        if(!$stmt->execute($data)) throw new Exception("No se pudo añadir el usuario a la base de datos");
     }
     
     public static function deleteById($id) {
@@ -92,6 +81,6 @@ class UsuariosModel {
             "fecha_nacimiento" => $datos[4],
             "telefono" => $datos[5]
         );
-        if($stmt->execute($data)) throw new Exception("No se pudo editar el perfil del usuario");
+        if(!$stmt->execute($data)) throw new Exception("No se pudo editar el perfil del usuario");
     }
 }

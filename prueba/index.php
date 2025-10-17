@@ -1,11 +1,11 @@
 <form action="index.php" method="POST" enctype="multipart/form-data">
-    <!--
-    <input type="file" name="imagenes[]" accept="image/png, image/jpeg, image/jpg">
-    <input type="file" name="imagenes[]" accept="image/png, image/jpeg, image/jpg">
 
+    <input type="file" name="imagenes[]" accept="image/png, image/jpeg, image/jpg">
+    <input type="file" name="imagenes[]" accept="image/png, image/jpeg, image/jpg">
+    <!--
     <input type="date" name="fecha_nacimiento">
-    <input type="submit">
         -->
+    <input type="submit">
 </form>
 <?php
 require_once __DIR__ . '/CategoriasModel.php';
@@ -69,13 +69,12 @@ UsuariosModel::edit([
     999999999
 ]);
 UsuariosModel::deleteById(7);
-*/
+
 var_dump(UsuariosModel::getById(6));
 var_dump(UsuariosModel::getIdByUsername("jorge"));
 foreach(UsuariosModel::getAll() as $usuario){
     var_dump($usuario);
 }
-/*
 */
 /*
 $dbh = Database::getConnection();
@@ -84,6 +83,15 @@ if (!empty($_FILES['imagenes'])){
     echo "hay imagen";
     ImagenesModel::create($dbh,$_FILES['imagenes'],1);
 }
+*/
+/*
+ImagenesModel::deleteById(17);
+
+ImagenesModel::edit(1,$_FILES['imagenes'],[
+    "imagen1" => [
+        "id" => 18
+    ]
+]);
 foreach(ImagenesModel::getAll("1") as $imagen){
     var_dump($imagen);
 }

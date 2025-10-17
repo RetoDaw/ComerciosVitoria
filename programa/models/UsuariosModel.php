@@ -11,6 +11,24 @@ class UsuariosModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getDatosContacto($id_usuario) {
+    $dbh = Database::getConnection();
+    $stmt = $dbh->prepare("SELECT id, email, telefono 
+                           FROM usuarios 
+                           WHERE id = :id_usuario");
+    $stmt->execute(['id_usuario' => $id_usuario]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function getDatosMostrar() {
+    $dbh = Database::getConnection();
+    $stmt = $dbh->prepare("SELECT nombre, apellidos, email, user_name 
+                            FROM usuarios");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     public static function getById($id) {
         $dbh = Database::getConnection();
         $stmt = $dbh->prepare("SELECT *

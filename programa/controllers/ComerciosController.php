@@ -62,13 +62,21 @@ class ComerciosController extends BaseController {
         $id = $_GET['id'];
 
         $anuncio = array (
+            "id" => $_GET["id"],
             "titulo" => $_GET["titulo"],
             "descripcion" => $_GET["descripcion"],
             "direccion" => $_GET["direccion"],
             "precio" => $_GET["precio"],
             "id_categoria" > CategoriasModel::getIdByName($_GET["categoria"])
         );
-        
+
+        $imagenesBorrar =[];
+        if(isset($_FILES['imagenes_borrar']) || isset($_FILES['imagenes_nuevas'])){
+            ImagenesModel::edit($_GET["id"],$_FILES['imagenes_nuevas'],$_FILES['imagenes_borrar']);
+        }
+           
+        $this -> redirect('index.php');
+
     }
     
     public function destroy($id) {

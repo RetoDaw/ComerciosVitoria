@@ -1,64 +1,56 @@
-body {
-  font-family: "Poppins", sans-serif;
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+body{
+  margin: 0;
+  padding: 0;
 }
-
-button {
-  cursor: pointer;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  background-color: #b97cb0;
-  color: white;
-  font-size: 1rem;
-}
-
-.overlay {
-  display: none;
-  position: fixed;
+#overlay {  
   top: 0; left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.4);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  backdrop-filter: blur(5px); 
+  z-index: 9999;
 }
-
-.popup {
-  background-color: #E8C1DC;
+.popupregistro {
+  
+  display: flex;
+  flex-direction: column;
+  width: 500px;   
+  height: 700px;  
+  background-color: #E8C1DC; 
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  overflow-y: auto; /* permite scroll si el contenido sobrepasa */
   text-align: center;
-  width: 320px;
-  position: relative;
-  animation: fadeIn 0.3s ease;
 }
 
-.popup h2 {
+.popupregistro h2 {
   margin-bottom: 1rem;
-  color: #000000;
+  color: black;
 }
 
-.popup form {
+.popupregistro form {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1.5rem;
+  height: calc(100% - 120px); /* deja espacio para título, botón y pie */
+  box-sizing: border-box;
+  margin: 0 100px 0 100px
 }
 
-.popup input {
+
+.popupregistro input {
   padding: 10px;
   border: 3px solid #BB6DA3;
   border-radius: 6px;
   outline: none;
+  width: 100%;
 }
 
-.popup .boton {
+.popupregistro .boton {
   background-color: black;
   color: white;
   border: none;
@@ -66,36 +58,36 @@ button {
   padding: 10px;
   cursor: pointer;
   transition: 0.3s;
+  width: 100%;
 }
 
-.popup .boton:hover {
-  background-color: #333;
+.popupregistro .boton:hover {
+  background-color: #e6e6e6;
+  color: black;
 }
 
-.popup p {
-  margin-top: 1rem;
-  font-size: 0.9rem;
+.popupregistro p {
+  margin-top: 55px;
 }
 
-.popup a {
+.popupregistro a {
   color: #5b2e63;
   text-decoration: none;
   font-weight: bold;
 }
 
-.popup a:hover {
+.popupregistro a:hover {
   text-decoration: underline;
 }
 
-.close {
+.cerrar {
   position: absolute;
   top: 8px;
   right: 10px;
   border: none;
   background: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  color: #4d2b4f;
 }
 
 @keyframes fadeIn {

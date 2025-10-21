@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="../css/publicarAnuncio.css">
 </head>
 <body>
+    <?php 
+    require = '../views/layout/header.php'
+    require = '../views/layout/footer.php'
+    ?>
     <div id="contenedor">
         <div id="crearAnuncio">
             <div id="crearAnuncioFormulario" name="crearAnuncio">

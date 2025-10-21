@@ -21,16 +21,16 @@
         </div>
 
         <div id="botones">
-            <button function="crearPublicacion" id="publicar">
-            <img src="img/publicar.png" alt="" width="20px" height="20px" class="img">Publicar
-            </button>
+            <form action="../views/publicarAnuncio.php" method="get"><
+                <button function="crearPublicacion" id="publicar">
+                <img src="img/publicar.png" alt="" width="20px" height="20px" class="img">Publicar</button>
+            </form>   
             <button id="openPopupInicio" class="boton">
             <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> Iniciar Sesión
             </button>
         </div>
     </div>
 
-    <!-- Popup Iniciar Sesión -->
     <div id="overlayInicio">
         <div class="popupinicio">
             <button class="cerrar" id="closePopupInicio">x</button>
@@ -44,7 +44,6 @@
         </div>
     </div>
 
-    <!-- Popup Registrarse -->
     <div id="overlayRegistro">
         <div class="popupregistro">
             <button class="cerrar" id="closePopupRegistro">×</button>
@@ -65,7 +64,6 @@
     </div>
 
     <script>
-        // Popup Inicio Sesión
         const openBtn = document.getElementById('openPopupInicio');
         const closeBtn = document.getElementById('closePopupInicio');
         const overlay = document.getElementById('overlayInicio');
@@ -76,7 +74,6 @@
                                 if (e.target === overlay) overlay.style.display = 'none';
                                });
 
-        // Popup Registrarse
         const openRegistro = document.getElementById('openPopupRegistro');
         const closeRegistro = document.getElementById('closePopupRegistro');
         const overlayRegistro = document.getElementById('overlayRegistro');
@@ -87,14 +84,12 @@
                                         if(e.target === overlayRegistro) overlayRegistro.style.display = 'none';
                                          });
 
-        // Abrir registro desde inicio
         const abrirRegistroDesdeInicio = document.getElementById('openPopupRegistro');
         abrirRegistroDesdeInicio.addEventListener('click', () => {
                                                     overlay.style.display = 'none';
                                                     overlayRegistro.style.display = 'flex';
                                                 });
 
-        // Abrir inicio desde registro
         const abrirInicioDesdeRegistro = document.getElementById('abrirInicioDesdeRegistro');
         abrirInicioDesdeRegistro.addEventListener('click', () => {
                                                      overlayRegistro.style.display = 'none';

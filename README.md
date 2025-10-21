@@ -10,6 +10,10 @@ https://trello.com/b/xGIflTgr/comercios-vitoria
 
 https://www.figma.com/design/DLUmd5HuIbwA0nVpaGWb9R/PURPOR?node-id=3-5&p=f&t=J1KcncHSzJQACrTm-0
 
+:link: CSS carousell: https://css-tricks.com/css-only-carousel/
+
+:white_flower: Implementar para que quede mas bonito.
+
 :bangbang: Pasos a seguir:
 
 :white_flower: Al entrar :arrow_right: Conexion BD :arrow_right: Mostrar anuncios(solo 1 imagen).

@@ -1,3 +1,5 @@
+
+    /*FALTA AÑADIR EL CODIGO PHP PARA QUE FUNCIONE CORRECTAMENTEA*/
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,18 +13,14 @@
     ?>
     <div id="contenedor">
         <div id="crearAnuncio">
-            <div id="crearAnuncioFormulario" name="editarAnuncio">
-//Llenar los valores con los datos del backend
-                <p>Editar anuncio</p>
-                <input type="text" name="title" id="titulo" placeholder="Título" value="">
-                <input type="number" name="precio" id="precio" placeholder="Precio" value="">   
-                <input type="text" name="descripcion" id="descripcion" placeholder="Descripción" value=" ">
-                <input type="text" name="direccion" id="direccion" placeholder="Dirección" value="">
+            <div id="crearAnuncioFormulario" name="editarPerfil">
+                <p>Editar Perfil</p>
+                <input type="text" name="nombre" id="nombre" placeholder="Nombre" value="Juan">
+                <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos" value="Pérez">
+                <input type="text" name="fecha_nac" id="fecha_nac" placeholder="DD/MM/YYYY" value="01/01/1990">
+                <input type="text" name="telefono" id="telefono" placeholder="Teléfono" value="123456789">
+                <input type="email" name="email" id="email" placeholder="Email" value="juan@example.com">
             </div>
-
-            <select name="Categoria" id="categoria">
-//Llenar con php
-            </select>
 
             <div id="añadir-imagen">
                 <label for="inputAñadirImagen" id="añadir">Añadir fotos</label>
@@ -30,13 +28,13 @@
                 <button id="boton">+</button>
             </div>
 
-            <div style="display: flex; gap: 10px;">
-                <button id="editar">Editar</button>
-                <button id="desactivar">Desactivar</button>
-                <button id="borrar">Borrar</button>
-            </div>
-
             <div id="preview"></div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button id="editar">Guardar cambios</button>
+                <button id="desactivar">Desactivar cuenta</button>
+                <button id="borrar">Borrar cuenta</button>
+            </div>
         </div>
 
         <div id="imagen">
@@ -45,15 +43,14 @@
     </div>
 
     <script>
-        
         const fileInput = document.getElementById('inputAñadirImagen');
         const preview = document.getElementById('preview');
         const addIcon = document.getElementById('boton');
-            //Llenar imagenes desde la bbdd
-        let imagenes = [
 
-        ];
+        // Imágenes iniciales del perfil
+        let imagenes = ["../img/perfil1.jpg"];
 
+        // Mostrar imágenes iniciales
         imagenes.forEach(src => {
             const img = document.createElement('img');
             img.src = src;
@@ -66,6 +63,7 @@
             preview.appendChild(img);
         });
 
+        // Subir nuevas imágenes
         addIcon.addEventListener('click', () => fileInput.click());
 
         fileInput.addEventListener('change', () => {
@@ -93,29 +91,28 @@
             fileInput.value = '';
         });
 
-        // Botones
         document.getElementById('editar').addEventListener('click', () => {
-            const anuncioEditado = {
-                titulo: document.getElementById('titulo').value,
-                precio: document.getElementById('precio').value,
-                descripcion: document.getElementById('descripcion').value,
-                direccion: document.getElementById('direccion').value,
-                categoria: document.getElementById('categoria').value,
+            const perfilEditado = {
+                nombre: document.getElementById('nombre').value,
+                apellidos: document.getElementById('apellidos').value,
+                fecha_nac: document.getElementById('fecha_nac').value,
+                telefono: document.getElementById('telefono').value,
+                email: document.getElementById('email').value,
                 imagenes: imagenes
             };
-            console.log("Anuncio editado:", anuncioEditado);
-            alert("Anuncio editado correctamente!");
-            // añadir codigo para enviar al backend
+            console.log("Perfil editado:", perfilEditado);
+            alert("Perfil actualizado correctamente!");
+            // AÑADIR codigo para guardar la edicion en la bbdd
         });
 
         document.getElementById('desactivar').addEventListener('click', () => {
-            alert("Anuncio desactivado");
-            // añadir codigo para enviar al backend
+            alert("Cuenta desactivada");
+            // AÑADIR codigo para desactivar el perfil
         });
 
         document.getElementById('borrar').addEventListener('click', () => {
-            alert("Anuncio borrado");
-            // añadir codigo para enviar al backend
+            alert("Cuenta borrada");
+            // AÑADIR codigo para borrar el perfil
         });
     </script>
 </body>

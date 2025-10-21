@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Fondo borroso cuando el popup está activo */
+#overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s ease;
+  z-index: 10;
+}
+#overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Popup */
+#popup {
+  background-color: #FAF2F7;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  width: 700px;
+  max-width: 90%;
+  padding: 2rem;
+  position: relative;
+  text-align: left;
+}
+
+/* Botón cerrar */
+#popup .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+#titulo-categoria-favorito {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#favorito {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#favorito.clicked {
+  transform: scale(1.3);
+  opacity: 0.8;
+}
+
+/* Carrusel */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+  height: 100%;
+}
+
+.carousel-item {
+  min-width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.carousel-item img {
+  width: 180px;
+  height: auto;
+  border-radius: 8px;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.7);
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  font-size: 18px;
+  z-index: 2;
+}
+
+.carousel-button.left {
+  left: 10px;
+}
+
+.carousel-button.right {
+  right: 10px;
+}
+
+/* Texto */
+#titulo-categoria {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+#titulo {
+  font-size: 28px;
+  font-weight: 600;
+}
+#categoria {
+  background-color: #E6E6E6;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-weight: 300;
+  font-size: 14px;
+}
+#precio {
+  font-size: 21px;
+  font-weight: 600;
+  margin: 10px 0;
+}
+#descripcion {
+  min-height: 120px;
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 20px;
+}
+#contacto {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.contacto-info {
+  font-size: 15px;
+  line-height: 1.5;
+}
+button.enviar {
+  margin-top: 10px;
+  padding: 10px 25px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- Botón para abrir popup -->
+<button onclick="openPopup()">Abrir Popup</button>
+
+<!-- Overlay + Popup -->
+<div id="overlay">
+  <div id="popup">
+    <button class="close-btn" onclick="closePopup()">✖</button>
+
+    <div class="carousel-container">
+      <button class="carousel-button left" onclick="moveSlide(-1)">⬅</button>
+      <div class="carousel-track" id="carouselTrack"> <!-- CORREGIDO: id correcto -->
+        <div class="carousel-item"><img src="../img/insta.png" alt=""></div>
+        <div class="carousel-item"><img src="../img/facebook.png" alt=""></div>
+        <div class="carousel-item"><img src="../img/VITORIA-GASTEIZ.jpg" alt=""></div>
+      </div>
+      <button class="carousel-button right" onclick="moveSlide(1)">⮕</button>
+    </div>
+    
+    <div id="titulo-categoria-favorito">
+      <div id="titulo-categoria">
+        <div id="titulo">Título</div>
+        <div id="categoria">Categoría</div>
+      </div>
+      <div id="icono-fav"> <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" width="30px" height="30px" id="favorito"></div>
+    </div>
+
+    <div id="precio">Precio</div>
+    <div id="descripcion">
+      Descripción larga de toda la información del servicio con fotos, ubicación, y datos de contacto del comerciante.
+    </div>
+
+    <div id="contacto">Datos de contacto</div>
+    <div class="contacto-info">
+      <p>📞 +34 666 66 66 66</p>
+      <p>✉️ ejemplo@ejemplo.com</p>
+    </div>
+
+    <button class="enviar">Enviar mensaje</button>
+  </div>
+</div>
+
+<script>
+// Variables globales
+let currentSlide = 0;
+let totalSlides = 0;
+let slideWidth = 0;
+
+function openPopup() {
+  document.getElementById('overlay').classList.add('active');
+  initializeCarousel();
+}
+
+function closePopup() {
+  document.getElementById('overlay').classList.remove('active');
+}
+
+function initializeCarousel() {
+  const track = document.getElementById('carouselTrack'); // CORREGIDO: mismo ID que en HTML
+  const container = document.querySelector('.carousel-container');
+  const items = document.querySelectorAll('.carousel-item');
+  
+  totalSlides = items.length;
+  slideWidth = container.clientWidth;
+  currentSlide = 0;
+  
+  // Asegurar que empezamos en el primer slide
+  track.style.transform = `translateX(0px)`;
+}
+
+function moveSlide(direction) {
+  const track = document.getElementById('carouselTrack'); // CORREGIDO: mismo ID que en HTML
+  const container = document.querySelector('.carousel-container');
+  
+  // Recalcular el ancho
+  slideWidth = container.clientWidth;
+  
+  currentSlide += direction;
+  
+  // Carrusel circular
+  if (currentSlide < 0) {
+    currentSlide = totalSlides - 1;
+  } else if (currentSlide >= totalSlides) {
+    currentSlide = 0;
+  }
+  
+  track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+  console.log('Slide actual:', currentSlide, 'Ancho:', slideWidth);
+}
+
+// Inicializar cuando la ventana cambia de tamaño
+window.addEventListener('resize', function() {
+  if (document.getElementById('overlay').classList.contains('active')) {
+    initializeCarousel();
+  }
+});
+
+// Función del corazón favorito
+const favorito = document.getElementById('favorito');
+let esFavorito = false;
+
+favorito.addEventListener('click', () => {
+  favorito.classList.add('clicked');
+  
+  setTimeout(() => {
+    esFavorito = !esFavorito;
+    favorito.src = esFavorito 
+      ? 'https://cdn-icons-png.flaticon.com/512/833/833472.png' 
+      : 'https://cdn-icons-png.flaticon.com/512/1077/1077035.png'; 
+    
+    favorito.classList.remove('clicked');
+  }, 150);
+});
+</script>
+</body>
+</html>

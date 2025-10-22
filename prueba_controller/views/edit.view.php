@@ -19,7 +19,7 @@
 <h2>Editar Anuncio</h2>
 
 <?php if (isset($anuncio) && $anuncio): ?>
-<form action="index.php" method="GET" enctype="multipart/form-data">
+<form action="index.php?controller=ComerciosController&accion=update" method="post" enctype="multipart/form-data">
         <input type="text" name="id" value="<?= htmlspecialchars($anuncio['id']) ?>">
 
         <label for="titulo">Título:</label>

@@ -36,13 +36,14 @@ class ComerciosController extends BaseController {
         ]);
     }
     
-    public function editar($id) {
+    public function editar() {
+        $id = $_GET['id'];
 
         $anuncio = ComerciosModel::getById($id);
         $imagenes = ImagenesModel::getByAnuncio($id);
         $categorias = CategoriasModel::getAll();
 
-        $this->render('edit.view.php', [
+        $this->render('editarAnuncio.php', [
             'anuncio' => $anuncio,
             'imagenes' => $imagenes,
             'categorias' => $categorias
@@ -69,31 +70,45 @@ class ComerciosController extends BaseController {
 
     public function update(){
         $id = $_POST['id'];
-        
-        // Array indexado correcto para ComerciosModel::edit()
         $anuncio = [
             $id,
             $_POST['titulo'],
             $_POST['descripcion'],
             $_POST['direccion'],
             $_POST['precio'],
-            $_POST['id_categoria'] ?? CategoriasModel::getIdByName($_POST['id_categoria'])
+            $_POST['categoria']
         ];
-
-        var_dump($anuncio);
 
         // Actualizar anuncio
         ComerciosModel::edit($anuncio);
 
         // Actualizar imágenes si se envían
-        $imagenesNuevas = $_FILES['imagenes_nuevas'] ?? [];
-        $imagenesBorrar = $_FILES['imagenes_borrar'] ?? [];
+        $imagenesNuevas = $_FILES['imagenes'] ?? [];
+        $imagenesBorrar = json_decode($_POST['imagenesBorradas'] ?? '[]', true);
         if (!empty($imagenesNuevas) || !empty($imagenesBorrar)) {
             ImagenesModel::edit($id, $imagenesNuevas, $imagenesBorrar);
         }
 
-        // Redirigir al listado de anuncios
-        $this->redirect('index.php');
+        // Redirigir al listado de sus anuncios
+        $this->redirect('perfilUsuario.php');
+    }
+
+    public function desactivar(){
+        header('Content-Type: application/json');
+
+        //coger el JSON y transformarlo utilizando la funcion file_get_contents()
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $id = $data['id_anuncio'] ?? null;
+        $desactivar = $data['desactivar'] ?? null;
+
+        if (!$id) {
+            echo json_encode(['error' => 'Datos incompletos']);
+            exit;
+        }
+
+        ComerciosModel::desactivar($id,$desactivar);
+        echo json_encode(['succes' => true]);
     }
 
     

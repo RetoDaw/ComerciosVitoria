@@ -16,15 +16,9 @@ class ComerciosController extends BaseController {
     public function index() {
         //coger todos los anuncios
         $anuncios = ComerciosModel::getAll();
-        //coger todas las imagenes que esten relacionadas a un anuncio
-        $imagenes = ImagenesController::getByAnuncio($anuncios);
-        //coger todos los datos de usuario que esten relacionadas a un anuncio
-        $usuarios = UsuariosController::CogerDatosUsuarioDeAnuncios($anuncios);
 
         $this->render('index.view.php', [
-            'anuncios' => $anuncios,
-            'imagenes' => $imagenes,
-            'datosUsuario' => $usuarios
+            'anuncios' => $anuncios
         ]);
     }
     

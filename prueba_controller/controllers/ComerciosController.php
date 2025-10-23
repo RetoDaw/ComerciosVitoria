@@ -17,7 +17,7 @@ class ComerciosController extends BaseController {
         //coger todos los anuncios
         $anuncios = ComerciosModel::getAll();
         //coger todas las imagenes que esten relacionadas a un anuncio
-        $imagenes = ImagenesController::CogerImagenesDeAnuncios($anuncios);
+        $imagenes = ImagenesController::getByAnuncio($anuncios);
         //coger todos los datos de usuario que esten relacionadas a un anuncio
         $usuarios = UsuariosController::CogerDatosUsuarioDeAnuncios($anuncios);
 
@@ -29,7 +29,7 @@ class ComerciosController extends BaseController {
     }
     
     public function editar() {
-        $id = $_GET['id'];
+        $id = $_POST['id'];
 
         $anuncio = ComerciosModel::getById($id);
         $imagenes = ImagenesModel::getByAnuncio($id);

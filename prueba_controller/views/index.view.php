@@ -16,23 +16,20 @@
             <p><b>Nombre Categoría:</b> <?= htmlspecialchars(CategoriasController::nombreCategoria($anuncio)) ?></p>
             <p><b>Estado:</b> <?= $anuncio['estado'] ? 'Activo' : 'Inactivo' ?></p>
         <?php
-        $ruta = "imagenes/" . $anuncio["id"] . "/";
-        echo $ruta;
-        // Buscar todas las imágenes dentro de esa carpeta
-        $imagenes = glob($ruta . "*.{jpg,jpeg,png,gif}", GLOB_BRACE);
-
-        // Mostrar las imágenes si existen
+        $imagenes = ImagenesController::getByAnuncio($anuncio);
         if ($imagenes) {
             foreach ($imagenes as $img) {
-                echo "<img src='$img'>";
+                ?>
+                    <img src="<?= $img['ruta']?>" alt="">
+                <?php
             }
         } else {
             echo "<p><b>No hay imágenes disponibles.</b></p>";
         }
         ?>
-        <form action="index.php?accion=destroy" method="post">
-            <input type="hidden" name="id" value="<?= $anuncio['id']?>">
-            <button type="submit">Borrar</button>
+        <form action="index.php?accion=editar" method="post">
+            <input type="text" name="id" id="id" hidden value="<?= htmlspecialchars($anuncio['id']) ?>" required>
+            <button type="submit">Editar</button>
         </form>
         <hr>
     <?php endforeach; ?>

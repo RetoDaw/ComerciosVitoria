@@ -13,7 +13,7 @@
             <p><b>Dirección:</b> <?= htmlspecialchars($anuncio['direccion']) ?></p>
             <p><b>Precio:</b> <?= htmlspecialchars($anuncio['precio']) ?> €</p>
             <p><b>ID Usuario:</b> <?= htmlspecialchars($anuncio['id_usuario']) ?></p>
-            <p><b>ID Categoría:</b> <?= htmlspecialchars($anuncio['id_categoria']) ?></p>
+            <p><b>Nombre Categoría:</b> <?= htmlspecialchars(CategoriasController::nombreCategoria($anuncio)) ?></p>
             <p><b>Estado:</b> <?= $anuncio['estado'] ? 'Activo' : 'Inactivo' ?></p>
         <?php
         $ruta = "imagenes/" . $anuncio["id"] . "/";
@@ -30,6 +30,10 @@
             echo "<p><b>No hay imágenes disponibles.</b></p>";
         }
         ?>
+        <form action="index.php?accion=destroy" method="post">
+            <input type="hidden" name="id" value="<?= $anuncio['id']?>">
+            <button type="submit">Borrar</button>
+        </form>
         <hr>
     <?php endforeach; ?>
 <?php else: ?>
@@ -41,6 +45,7 @@ $comerciosController = new ComerciosController;
 /*
 $comerciosController->editar(13);
 */
-require_once 'publicarAnuncio.php'
-
+//require_once 'publicarAnuncio.php'
+//editar tambien funciona
+//borrar funciona
 ?>

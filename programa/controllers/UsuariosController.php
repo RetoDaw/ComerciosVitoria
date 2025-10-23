@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../models/ComerciosModel.php';
+require_once __DIR__ . '/../models/UsuariosModel.php';
 
 class UsuariosController extends BaseController {
 
@@ -18,7 +19,7 @@ class UsuariosController extends BaseController {
     }
 
     public function editar($id){
-        session_start():
+        session_start();
         $id = $_SESSION['id'];
 
         $usuario = UsuariosModel::getById($id);

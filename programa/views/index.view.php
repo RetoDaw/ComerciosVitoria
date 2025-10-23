@@ -12,16 +12,16 @@
 
 <div class="contenedor-general">
   <div class="tarjetas-container">
-    <?php foreach ($anuncios as $index => $anuncio): ?>
+    <?php foreach ($anuncios as $anuncio): ?>
       <?php
-        // Obtener imágenes del anuncio usando el controlador
+        // Obtener imágenes del anuncio
         $imagenes = ImagenesController::getByAnuncio($anuncio);
-        $primeraImagen = 'image.png'; // Imagen por defecto
+        $primeraImagen = 'image.png';
         if ($imagenes && !empty($imagenes)) {
           $primeraImagen = $imagenes[0]['ruta'] ?? 'image.png';
         }
 
-        // Obtener la categoría del anuncio usando el controlador
+        // Obtener la categoría del anuncio
         $nombreCategoria = htmlspecialchars(CategoriasController::nombreCategoria($anuncio));
       ?>
       
@@ -93,12 +93,12 @@
   
   <?php foreach ($anuncios as $anuncio): ?>
     <?php
-      // Recuperar datos nuevamente aquí también para el popup
       $imagenes = ImagenesController::getByAnuncio($anuncio);
       $nombreCategoria = htmlspecialchars(CategoriasController::nombreCategoria($anuncio));
     ?>
     anuncios[<?= $anuncio['id'] ?>] = {
       id: <?= $anuncio['id'] ?>,
+      id_usuario: <?= $anuncio['id_usuario'] ?>,
       titulo: <?= json_encode($anuncio['titulo']) ?>,
       precio: <?= $anuncio['precio'] ?>,
       descripcion: <?= json_encode($anuncio['descripcion']) ?>,
@@ -113,11 +113,7 @@
           echo "'image.png'";
         }
         ?>
-      ],
-      contacto: {
-        telefono: <?= json_encode($datosUsuario[$anuncio['id']]['telefono'] ?? 'No disponible') ?>,
-        email: <?= json_encode($datosUsuario[$anuncio['id']]['email'] ?? 'No disponible') ?>
-      }
+      ]
     };
   <?php endforeach; ?>
 </script>

@@ -1,11 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
   <link rel="stylesheet" href="css/registrarse.css"/>
   <link rel="stylesheet" href="css/iniciarSesion.css"/>
   <link rel="stylesheet" href="css/header.css"/>
-
 </head>
 
 <body>
@@ -21,16 +20,21 @@
         </div>
 
         <div id="botones">
-            <form action="../views/publicarAnuncio.php" method="get"><
+            <form action="../views/publicarAnuncio.php" method="get">
                 <button function="crearPublicacion" id="publicar">
-                <img src="img/publicar.png" alt="" width="20px" height="20px" class="img">Publicar</button>
+                    <img src="img/publicar.png" alt="" width="20px" height="20px" class="img">
+                    Publicar
+                </button>
             </form>   
+            
             <button id="openPopupInicio" class="boton">
-            <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> Iniciar Sesión
+                <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
+                Iniciar Sesión
             </button>
         </div>
     </div>
 
+    <!-- Overlay para el popup de inicio de sesión -->
     <div id="overlayInicio">
         <div class="popupinicio">
             <button class="cerrar" id="closePopupInicio">x</button>
@@ -44,6 +48,7 @@
         </div>
     </div>
 
+    <!-- Overlay para el popup de registro -->
     <div id="overlayRegistro">
         <div class="popupregistro">
             <button class="cerrar" id="closePopupRegistro">×</button>
@@ -63,38 +68,42 @@
         </div>
     </div>
 
+    <!-- Controlar la apertura y cierre de los popups -->
     <script>
         const openBtn = document.getElementById('openPopupInicio');
         const closeBtn = document.getElementById('closePopupInicio');
         const overlay = document.getElementById('overlayInicio');
-
+        // Abrir y cerrar popup de inicip
         openBtn.addEventListener('click', () => overlay.style.display = 'flex');
         closeBtn.addEventListener('click', () => overlay.style.display = 'none');
         overlay.addEventListener('click', e => {
-                                if (e.target === overlay) overlay.style.display = 'none';
-                               });
+            if (e.target === overlay) overlay.style.display = 'none';
+        });
 
         const openRegistro = document.getElementById('openPopupRegistro');
         const closeRegistro = document.getElementById('closePopupRegistro');
         const overlayRegistro = document.getElementById('overlayRegistro');
 
+        // Abrir y cerrar popup de registro
         openRegistro.addEventListener('click', () => overlayRegistro.style.display = 'flex');
         closeRegistro.addEventListener('click', () => overlayRegistro.style.display = 'none');
         overlayRegistro.addEventListener('click', e => {
-                                        if(e.target === overlayRegistro) overlayRegistro.style.display = 'none';
-                                         });
+            if(e.target === overlayRegistro) overlayRegistro.style.display = 'none';
+        });
 
+        // Abrir registro desde el popup de inicio de sesión
         const abrirRegistroDesdeInicio = document.getElementById('openPopupRegistro');
         abrirRegistroDesdeInicio.addEventListener('click', () => {
-                                                    overlay.style.display = 'none';
-                                                    overlayRegistro.style.display = 'flex';
-                                                });
+            overlay.style.display = 'none';
+            overlayRegistro.style.display = 'flex';
+        });
 
+        // Abrir inicio desde el popup de registro
         const abrirInicioDesdeRegistro = document.getElementById('abrirInicioDesdeRegistro');
         abrirInicioDesdeRegistro.addEventListener('click', () => {
-                                                     overlayRegistro.style.display = 'none';
-                                                     overlay.style.display = 'flex';
-                                                     });
+            overlayRegistro.style.display = 'none';
+            overlay.style.display = 'flex';
+        });
     </script>
 </body>
 </html>

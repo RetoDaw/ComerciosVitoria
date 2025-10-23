@@ -12,7 +12,7 @@
     <div id="contenedor">
         <div id="crearAnuncio">
             <div id="crearAnuncioFormulario" name="editarAnuncio">
-//Llenar los valores con los datos del backend
+    <!--Llenar los valores con los datos del backend-->
                 <p>Editar anuncio</p>
                 <input type="text" name="title" id="titulo" placeholder="Título" value="">
                 <input type="number" name="precio" id="precio" placeholder="Precio" value="">   
@@ -21,7 +21,7 @@
             </div>
 
             <select name="Categoria" id="categoria">
-//Llenar con php
+    <!--Llenar con php-->
             </select>
 
             <div id="añadir-imagen">

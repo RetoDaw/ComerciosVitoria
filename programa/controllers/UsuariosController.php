@@ -22,7 +22,8 @@ class UsuariosController extends BaseController {
     }
 
     public function editar($id){
-        $id = $_GET['id'];
+        session_start():
+        $id = $_SESSION['id'];
 
         $usuario = UsuariosModel::getById($id);
 
@@ -32,15 +33,16 @@ class UsuariosController extends BaseController {
     }      
     
     public function update($id){
-        $id = $_GET['id'];
+        session_start();
+        $id = $_SESSION['id'];
 
         $usuario = array(
-            "id" => $_GET["id"],
-            "nombre" => $_GET["nombre"],
-            "apellidos" => $_GET["apellidos"],
-            "email" => $_GET["email"],
-            "fecha_nacimiento" => $_GET["fecha_nacimiento"],
-            "telefono" => $_GET["telefono"],
+            "id" => trim($_POST["id"]),
+            "nombre" => trim($_POST["nombre"]),
+            "apellidos" => trim($_POST["apellidos"]),
+            "email" => trim($_POST["email"]),
+            "fecha_nacimiento" => trim($_POST["fecha_nacimiento"]),
+            "telefono" => trim($_POST["telefono"]),
         );
 
         $this->redirect('index.php?action=usuarios');

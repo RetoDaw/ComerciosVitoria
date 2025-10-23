@@ -18,7 +18,7 @@ class ImagenesModel {
     // Devuelve todas las imágenes de un anuncio específico
     public static function getByAnuncio($id_anuncio) {
         $dbh = Database::getConnection();
-        $stmt = $dbh->prepare("SELECT * FROM imagenes WHERE id_anuncio = :id_anuncio");
+        $stmt = $dbh->prepare("SELECT id,ruta FROM imagenes WHERE id_anuncio = :id_anuncio");
         $stmt->execute(['id_anuncio' => $id_anuncio]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve array vacío si no hay imágenes
     }
@@ -99,7 +99,7 @@ class ImagenesModel {
     
     public static function deleteById($id) {
         $dbh = Database::getConnection();
-        $ruta = self::getById($id)['ruta'];
+        $ruta = self::getById($id)["ruta"]  ;
         
         self::eliminarImagenServidor($ruta);
 
@@ -130,9 +130,10 @@ class ImagenesModel {
 
     public static function edit($id,$imagenesNuevas,$imagenesBorrar) {
         $dbh = Database::getConnection();
-        self::create($dbh,$imagenesNuevas,$id);
-        foreach($imagenesBorrar as $imagen){
-            self::deleteById($imagen['id']);
+        if($imagenesNuevas["error"][0] == 0)
+            self::create($dbh,$imagenesNuevas,$id);
+        foreach($imagenesBorrar as $imagenId){
+            self::deleteById($imagenId);
         }
     }
 }

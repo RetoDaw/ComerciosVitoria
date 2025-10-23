@@ -6,7 +6,7 @@
         }
     </style>
 </head>
-<?php /*if (isset($anuncios) && !empty($anuncios)): ?>
+<?php if (isset($anuncios) && !empty($anuncios)): ?>
         <?php foreach ($anuncios as $anuncio): ?>
             <p><b>Título:</b> <?= htmlspecialchars($anuncio['titulo']) ?></p>
             <p><b>Descripción:</b> <?= htmlspecialchars($anuncio['descripcion']) ?></p>
@@ -35,11 +35,12 @@
 <?php else: ?>
     <p>No hay anuncios disponibles.</p>
 <?php endif; 
-*/
+
 require_once 'controllers/ComerciosController.php';
 $comerciosController = new ComerciosController;
 /*
 $comerciosController->editar(13);
 */
 require_once 'publicarAnuncio.php'
+
 ?>

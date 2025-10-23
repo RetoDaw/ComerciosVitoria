@@ -13,25 +13,36 @@
             <p><b>Dirección:</b> <?= htmlspecialchars($anuncio['direccion']) ?></p>
             <p><b>Precio:</b> <?= htmlspecialchars($anuncio['precio']) ?> €</p>
             <p><b>ID Usuario:</b> <?= htmlspecialchars($anuncio['id_usuario']) ?></p>
-            <p><b>ID Categoría:</b> <?= htmlspecialchars($anuncio['id_categoria']) ?></p>
+            <p><b>Nombre Categoría:</b> <?= htmlspecialchars(CategoriasController::nombreCategoria($anuncio)) ?></p>
             <p><b>Estado:</b> <?= $anuncio['estado'] ? 'Activo' : 'Inactivo' ?></p>
         <?php
-        $ruta = "imagenes/" . $anuncio["id"] . "/";
-        echo $ruta;
-        // Buscar todas las imágenes dentro de esa carpeta
-        $imagenes = glob($ruta . "*.{jpg,jpeg,png,gif}", GLOB_BRACE);
-
-        // Mostrar las imágenes si existen
+        $imagenes = ImagenesController::getByAnuncio($anuncio);
         if ($imagenes) {
             foreach ($imagenes as $img) {
-                echo "<img src='$img'>";
+                ?>
+                    <img src="<?= $img['ruta']?>" alt="">
+                <?php
             }
         } else {
             echo "<p><b>No hay imágenes disponibles.</b></p>";
         }
         ?>
+        <form action="index.php?accion=editar" method="post">
+            <input type="text" name="id" id="id" hidden value="<?= htmlspecialchars($anuncio['id']) ?>" required>
+            <button type="submit">Editar</button>
+        </form>
         <hr>
     <?php endforeach; ?>
 <?php else: ?>
     <p>No hay anuncios disponibles.</p>
-<?php endif; ?>
+<?php endif; 
+
+require_once 'controllers/ComerciosController.php';
+$comerciosController = new ComerciosController;
+/*
+$comerciosController->editar(13);
+*/
+//require_once 'publicarAnuncio.php'
+//editar tambien funciona
+//borrar funciona
+?>

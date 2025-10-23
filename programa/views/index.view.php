@@ -5,10 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anuncios</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS del header -->
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/registrarse.css">
+  <link rel="stylesheet" href="css/iniciarSesion.css">
+
+  <!-- CSS del footer -->
+  <link rel="stylesheet" href="css/footerStyle.css">
+
+  <!-- CSS de las tarjetas y popup -->
   <link rel="stylesheet" href="css/tarjetas.css">
   <link rel="stylesheet" href="css/popup.css">
 </head>
 <body>
+<?php require_once 'layout/header.php'; ?>
 
 <div class="contenedor-general">
   <div class="tarjetas-container">
@@ -86,6 +97,8 @@
     <button class="enviar">Enviar mensaje</button>
   </div>
 </div>
+
+<?php require_once 'layout/footer.php'; ?>
 
 <script>
   // Preparar datos de anuncios para JavaScript

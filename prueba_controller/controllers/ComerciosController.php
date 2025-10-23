@@ -15,29 +15,21 @@ class ComerciosController extends BaseController {
     
     public function index() {
         //coger todos los anuncios
-        echo "comercios";
         $anuncios = ComerciosModel::getAll();
-
-        echo "imagenes";
         //coger todas las imagenes que esten relacionadas a un anuncio
-        $imagenes = ImagenesController::CogerImagenesDeAnuncios($anuncios);
-        echo "categorias";
-        //coger todas las categorias que esten relacionadas a un anuncio
-        $categorias = CategoriasController::CogerCategoriasDeAnuncios($anuncios);
-        echo "usuarios";
+        $imagenes = ImagenesController::getByAnuncio($anuncios);
         //coger todos los datos de usuario que esten relacionadas a un anuncio
         $usuarios = UsuariosController::CogerDatosUsuarioDeAnuncios($anuncios);
 
         $this->render('index.view.php', [
             'anuncios' => $anuncios,
             'imagenes' => $imagenes,
-            'categorias' => $categorias,
             'datosUsuario' => $usuarios
         ]);
     }
     
     public function editar() {
-        $id = $_GET['id'];
+        $id = $_POST['id'];
 
         $anuncio = ComerciosModel::getById($id);
         $imagenes = ImagenesModel::getByAnuncio($id);
@@ -112,7 +104,7 @@ class ComerciosController extends BaseController {
     }
 
     
-    public function destroy($id) {
+    public function destroy() {
         $id = $_POST["id"];
         ImagenesModel::deleteById($id);
         ComerciosModel::deleteById($id);

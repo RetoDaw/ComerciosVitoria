@@ -47,72 +47,9 @@
             <img src="../img/VITORIA-GASTEIZ.jpg" alt="">
         </div>
     </div>
-
-   <script>
-        function addImage(){
-            const nuevosArchivos = Array.from(fileInput.files);
-            
-            nuevosArchivos.forEach(file => {
-
-                imagenes.push(file);
-
-                //API para leer archivos
-                const reader = new FileReader();
-
-                reader.onload = e => {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-
-                    //Añadir estilos a las imagenes chiquitas
-                    imgStyles(img);
-
-                    img.addEventListener('click', () => {
-                        const index = Array.from(preview.children).indexOf(img);
-                        if (index > -1) {
-                            imagenes.splice(index, 1);
-                            img.remove();
-                        }
-                    });
-
-                    preview.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            });
-
-            //Limpia el input para poder volver a seleccionar las mismas imágenes después
-            fileInput.value = '';
-        }
-
-        function imgStyles(img){
-            img.classList.add('miniatura');
-            img.title = "Haz clic para eliminar";
-            img.style.width = '120px';
-            img.style.height = '120px';
-            img.style.objectFit = 'cover';
-            img.style.borderRadius = '8px';
-            img.style.margin = '5px';
-        }
-
-        const fileInput = document.getElementById('inputAñadirImagen');
-        const preview = document.getElementById('preview');
-        const addIcon = document.getElementById('boton');
-
-        let imagenes = [];
-
-        //Hacer que el boton '+' tenga la misma funcion que el input
-        addIcon.addEventListener('click', () => fileInput.click());
-
-
-        fileInput.addEventListener('change', () => addImage());
-
-        //Reconstruir el array de imagenes antes de enviar la info
-
-        document.querySelector('form').addEventListener('submit', (e) => {
-            //Hacer que el input tenga solo los datos guardados
-            const dataTransfer = new DataTransfer();
-            imagenes.forEach(file => dataTransfer.items.add(file));
-            fileInput.files = dataTransfer.files;
-        });
+    <script>
+        const IMAGENES = [];
     </script>
+   <script src="assets/imagenes.js"></script>
 </body>
 </html>

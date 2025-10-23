@@ -82,4 +82,17 @@ class ComerciosModel {
         );
         if(!$stmt->execute($data)) throw new Exception("No se pudo editar el anuncio");
     }
+
+    public static function desactivar($id,$desactivar) {
+        $dbh = Database::getConnection();
+        $stmt= $dbh->prepare("UPDATE anuncios
+                            SET estado = :desactivar
+                            WHERE id = :id"
+        );
+        $data = array(
+            "id" => $id,
+            "desactivar" => $desactivar
+        );
+        if(!$stmt->execute($data)) throw new Exception("No se pudo editar el estado del anuncio");
+    }
 }

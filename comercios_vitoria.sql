@@ -27,31 +27,33 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   `direccion` varchar(255) NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `id_usuario` int NOT NULL,
-  `id_categoria` int NOT NULL,
+  `id_categoria` int DEFAULT NULL,
   `estado` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `titulo` (`titulo`),
   KEY `id_usuario` (`id_usuario`),
-  KEY `id_categoria` (`id_categoria`),
+  KEY `anuncios_ibfk_2` (`id_categoria`),
   CONSTRAINT `anuncios_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `anuncios_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `anuncios_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.anuncios: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.anuncios: ~6 rows (aproximadamente)
 DELETE FROM `anuncios`;
 INSERT INTO `anuncios` (`id`, `titulo`, `descripcion`, `direccion`, `precio`, `id_usuario`, `id_categoria`, `estado`) VALUES
 	(1, 'iPhone 14 Pro 256GB', 'Vendo iPhone 14 Pro en perfecto estado, sin rayaduras y con caja original.', 'Calle Mayor 12, Madrid', 1050.00, 4, 1, 1),
 	(2, 'Coche Seat Ibiza 2018', 'Seat Ibiza gasolina, 80.000 km, único dueño, revisiones al día.', 'Avenida Andalucía 45, Sevilla', 8500.00, 5, 2, 1),
-	(3, 'Sofá de 3 plazas gris', 'Sofá cómodo de tela gris, 3 plazas, casi nuevo.', 'Calle Gran Vía 5, Valencia', 220.00, 6, 3, 1);
+	(3, 'Sofá de 3 plazas gris', 'Sofá cómodo de tela gris, 3 plazas, casi nuevo.', 'Calle Gran Vía 5, Valencia', 220.00, 6, 3, 1),
+	(13, 'Iphone 14 nuevo', 'Iphone 14 nuevo, ni un solo rasguño', 'C\\ nvbhsgdiu ba ', 950.00, 4, 1, 1),
+	(28, 'Gnomos de ceramica', 'Gnomos sin valor real, pero bonitos', 'C\\Portal de Foronda 28', 15.22, 4, 3, 0);
 
 -- Volcando estructura para tabla comercios_vitoria.categorias
 CREATE TABLE IF NOT EXISTS `categorias` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.categorias: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.categorias: ~4 rows (aproximadamente)
 DELETE FROM `categorias`;
 INSERT INTO `categorias` (`id`, `nombre`) VALUES
 	(1, 'Tecnología'),
@@ -79,10 +81,17 @@ CREATE TABLE IF NOT EXISTS `imagenes` (
   PRIMARY KEY (`id`),
   KEY `id_anuncio` (`id_anuncio`),
   CONSTRAINT `imagenes_ibfk_1` FOREIGN KEY (`id_anuncio`) REFERENCES `anuncios` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.imagenes: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.imagenes: ~6 rows (aproximadamente)
 DELETE FROM `imagenes`;
+INSERT INTO `imagenes` (`id`, `id_anuncio`, `ruta`) VALUES
+	(19, 1, 'media/anuncios/1/224663.jpg'),
+	(20, 1, 'media/anuncios/1/359101.jpg'),
+	(21, 1, 'media/anuncios/1/zoro-one-piece.jpg'),
+	(23, 28, 'media/anuncios/28/Ichigo Y Rukia.jpeg'),
+	(27, 28, 'media/anuncios/28/image.png'),
+	(29, 2, 'media/anuncios/2/Captura de pantalla 2024-07-24 130915.png');
 
 -- Volcando estructura para tabla comercios_vitoria.mensaje
 CREATE TABLE IF NOT EXISTS `mensaje` (
@@ -96,10 +105,28 @@ CREATE TABLE IF NOT EXISTS `mensaje` (
   KEY `id_receptor` (`id_receptor`),
   CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`id_emisor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   CONSTRAINT `mensaje_ibfk_2` FOREIGN KEY (`id_receptor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.mensaje: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.mensaje: ~16 rows (aproximadamente)
 DELETE FROM `mensaje`;
+INSERT INTO `mensaje` (`id`, `id_emisor`, `id_receptor`, `mensaje`, `fecha_envio`) VALUES
+	(1, 4, 5, 'Hola bro, que taL?', '2025-10-20 08:50:08'),
+	(2, 5, 4, 'Todo bien, que quieres?', '2025-10-20 08:50:28'),
+	(3, 4, 5, 'Sigue en venta el producto?', '2025-10-20 08:50:44'),
+	(4, 5, 4, 'SI, estabas interesado?', '2025-10-20 08:50:57'),
+	(13, 4, 5, 'Sii, mucho la verdad', '2025-10-20 11:43:28'),
+	(14, 5, 4, 'Cuanto pagarias?', '2025-10-20 11:44:04'),
+	(15, 6, 4, 'Hola, que tal?', '2025-10-20 11:44:33'),
+	(16, 4, 6, 'Hola jorge, yo bien', '2025-10-20 12:07:06'),
+	(17, 4, 6, 'Que querias?', '2025-10-20 12:07:09'),
+	(18, 6, 5, 'Me interesa lo que vendes', '2025-10-20 12:07:13'),
+	(19, 6, 4, 'Me interesa lo que vendes', '2025-10-20 12:07:35'),
+	(20, 4, 5, '78', '2025-10-20 12:08:46'),
+	(21, 5, 4, 'Acepto', '2025-10-20 12:08:58'),
+	(22, 4, 5, 'Jajja', '2025-10-20 12:30:31'),
+	(23, 5, 4, 'Hola', '2025-10-20 12:30:42'),
+	(24, 4, 5, 'Porno de enanitos', '2025-10-20 12:31:13'),
+	(25, 5, 4, 'me gusta mucho', '2025-10-20 12:31:21');
 
 -- Volcando estructura para tabla comercios_vitoria.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
@@ -114,9 +141,9 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `telefono` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_name` (`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.usuarios: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.usuarios: ~7 rows (aproximadamente)
 DELETE FROM `usuarios`;
 INSERT INTO `usuarios` (`id`, `user_name`, `password`, `nombre`, `apellidos`, `email`, `fecha_nacimiento`, `tipo_usuario`, `telefono`) VALUES
 	(1, 'aaron', '$2y$10$318KFkjgRDVDWthPbPXiIO6tJ4MNwnjNkqnhKRCsSh8qm5Zc9LPlu', 'aaron', 'jimenez', 'a@gmail.com', '2006-08-11', 'admin', '676676767'),

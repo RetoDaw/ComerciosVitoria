@@ -3,17 +3,6 @@ require_once __DIR__ . '/Database.php';
 require_once __DIR__ . '/../config/config.php';
 
 class ImagenesModel {
-    
-    public static function getAll($id_anuncio) {
-        $dbh = Database::getConnection();
-        $stmt = $dbh->prepare("SELECT id,ruta
-                                FROM imagenes
-                                WHERE id_anuncio = :id_anuncio");
-        $stmt->execute([
-            'id_anuncio' => $id_anuncio
-        ]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
     // Devuelve todas las imágenes de un anuncio específico
     public static function getByAnuncio($id_anuncio) {
@@ -115,7 +104,7 @@ class ImagenesModel {
     
     public static function deleteAll($id_anuncio) {
         $dbh = Database::getConnection();
-        foreach (self::getAll($id_anuncio) as $imagen){
+        foreach (self::getByAnuncio($id_anuncio) as $imagen){
             self::eliminarImagenServidor($imagen['ruta']);
         }
 

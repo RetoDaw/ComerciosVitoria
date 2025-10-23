@@ -13,6 +13,12 @@ class CategoriasController extends BaseController {
         return $categorias;
     }
 
+    public static function nombreCategoria($anuncio) {
+        //Por cada anuncio que me ha llegado, cojo la categoria que esté relacionada
+        $categoria = CategoriasModel::getById($anuncio['id_categoria']);
+        return $categoria['nombre'];
+    }
+
     public function cogerCategorias() {
         return CategoriasModel::getAll();
     }

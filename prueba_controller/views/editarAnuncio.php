@@ -7,13 +7,9 @@
 </head>
 
 <body>
-    <?php
-        session_start();
-        $_SESSION['id'] = 4;
-    ?>
     <div id="contenedor">
         <div id="crearAnuncio">
-            <form action="index.php?controller=ComerciosController&accion=update" method="post" enctype="multipart/form-data">
+            <form action="index.php?accion=update" method="post" enctype="multipart/form-data">
                 <div id="crearAnuncioFormulario" name="editarAnuncio">
                     <p>Editar anuncio</p>
                     <input type="text" name="id" id="id" hidden value="<?= htmlspecialchars($anuncio['id']) ?>" required>
@@ -47,6 +43,10 @@
             <?php else: ?>
                 <button id="desactivar" type="button" value="reactivar">Reactivar</button>
             <?php endif; ?>
+            <form action="index.php?accion=destroy" method="post" enctype="multipart/form-data">
+                <input type="text" name="id" id="id" hidden value="<?= htmlspecialchars($anuncio['id']) ?>" required>
+                <button id="editar" type="submit">Borrar</button>
+            </form>
         </div>
     </div>
 

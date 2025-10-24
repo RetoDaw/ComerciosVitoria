@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../models/ComerciosModel.php';
+require_once __DIR__ . '/../models/UsuariosModel.php';
 
 class UsuariosController extends BaseController {
 
@@ -17,8 +18,9 @@ class UsuariosController extends BaseController {
         echo json_encode(UsuariosModel::getDatosContacto($id));
     }
 
-    public function editar($id){
-        $id = $_GET['id'];
+    public function editar(){
+        session_start();
+        $id = $_SESSION['id'];
 
         $usuario = UsuariosModel::getById($id);
 
@@ -27,19 +29,21 @@ class UsuariosController extends BaseController {
         ]);
     }      
     
-    public function update($id){
-        $id = $_GET['id'];
+    public function update(){
+        session_start();
+        $id = $_SESSION['id'];
 
         $usuario = array(
-            "id" => $_GET["id"],
-            "nombre" => $_GET["nombre"],
-            "apellidos" => $_GET["apellidos"],
-            "email" => $_GET["email"],
-            "fecha_nacimiento" => $_GET["fecha_nacimiento"],
-            "telefono" => $_GET["telefono"],
+            "id" => $id,
+            "nombre" => $_POST["nombre"],
+            "apellidos" => $_POST["apellidos"],
+            "email" => $_POST["email"],
+            "fecha_nacimiento" => $_POST["fecha_nacimiento"],
+            "telefono" => $_POST["telefono"],
         );
+        UsuariosModel::edit($usuario);
 
-        $this->redirect('index.php?action=usuarios');
+        $this->redirect('index.php?controller=UsuariosController');
     }
 
     public function store($datos) {

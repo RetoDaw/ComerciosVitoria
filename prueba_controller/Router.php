@@ -16,7 +16,7 @@ class Router {
     
     private static function loadController($controllerName, $action) {
         // Construir ruta del archivo del controlador
-        $controllerFile = __DIR__ . "/{$controllerName}.php";
+        $controllerFile = __DIR__ . "/controllers/{$controllerName}.php";
         require_once $controllerFile;
         
         // Instanciar controlador

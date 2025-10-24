@@ -92,13 +92,16 @@ class UsuariosModel {
                             WHERE id = :id"
         );
         $data = array(
-            "id" => $datos[0],
-            "nombre" => $datos[1],
-            "apellidos" => $datos[2],
-            "email" => $datos[3],
-            "fecha_nacimiento" => $datos[4],
-            "telefono" => $datos[5]
+            "id" => $datos["id"],
+            "nombre" => $datos["nombre"],
+            "apellidos" => $datos["apellidos"],
+            "email" => $datos["email"],
+            "fecha_nacimiento" => $datos["fecha_nacimiento"],
+            "telefono" => $datos["telefono"]
         );
-        if(!$stmt->execute($data)) throw new Exception("No se pudo editar el perfil del usuario");
+        if(!$stmt->execute($data)){ throw new Exception("No se pudo editar el perfil del usuario");}
+        else{
+            echo "hola";
+        }
     }
 }

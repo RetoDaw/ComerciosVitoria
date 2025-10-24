@@ -1,52 +1,96 @@
-*{
-    margin: 0px;
-    padding: 0px;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
-#footer{
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     background-color: #F0D5E7;
+
+#footer {
+    background-color: #F0D5E7;
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
 }
-#titulo{
+
+.seccion-footer {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Estilo PURPOR */
+#titulo {
     color: #714262;
     font-weight: bolder;
-    font-size: 2em;
-    margin-top:15px;
+    font-size: 35.9px;
 }
-#titulo-logo{
-    margin: 20px 0px 0px 20px;
+
+/* Títulos de secciones */
+.titulo-seccion {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Textos generales */
+p, a, li {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Logo section */
+#logo-titulo {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
 }
-#parrafos{
+
+.copyright p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Sección Sobre Nosotros */
+#seccion-nosotros ul {
+    list-style: none;
+}
+
+#seccion-nosotros ul li {
+    margin-bottom: 15px;
+}
+
+#seccion-nosotros ul li a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#seccion-nosotros ul li a:hover {
+    color: #92557F;
+}
+
+/* Sección Redes Sociales */
+.iconos-redes {
     display: flex;
-    align-items: center;  
-    flex-direction: column;  
- 
-    margin: 20px 0px 20px 45px;
+    gap: 20px;
 }
-.titulosNegrita{
-    font-weight: bolder;
- 
+
+.icono-red {
+    transition: transform 0.3s ease;
+    display: inline-block;
 }
-#maps{
-    margin: 10px 10px 10px 10px;
+
+.icono-red:hover {
+    transform: scale(1.1);
 }
-#quienesSomos{
-    margin-top: 10px;
-}
-#logos-redes{
-    margin-top: 10px;
-}
-#ubicacion{
-    margin-top: 20px;
-}
-h4{font-size:28.4px;}
-h5{
-    font-size:18px;
-    font-weight: lighter;
+
+/* Sección Ubicación */
+#seccion-ubicacion iframe {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 300px;
 }

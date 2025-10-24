@@ -47,7 +47,8 @@
   height: auto;
 }
 
-button {
+/* Botones específicos del perfil */
+.btn-perfil {
   display: grid;
   place-items: center;
   gap: 8px;
@@ -62,7 +63,7 @@ button {
   font-weight: bold;
 }
 
-button:hover {
+.btn-perfil:hover {
   background-color: #CE78B3;
 }
 
@@ -70,10 +71,15 @@ button:hover {
 #editar-boton {
   width: fit-content;
   margin-left: 40px;
+  margin-bottom: 100px;
 }
 
-/* --- Modales --- */
-.modal {
+#editar-boton a {
+  text-decoration: none;
+}
+
+/* --- Modales del perfil --- */
+.modal-categoria {
   display: none;
   position: fixed;
   inset: 0;
@@ -83,7 +89,7 @@ button:hover {
   align-items: center;
 }
 
-.modal-contenido {
+.modal-categoria__contenido {
   background-color: #E8C1DC;
   padding: 28px;
   border-radius: 20px;
@@ -104,7 +110,7 @@ button:hover {
   to { transform: scale(1); opacity: 1; }
 }
 
-.cerrar {
+.cerrar-modal {
   position: absolute;
   top: 10px;
   right: 12px;
@@ -117,9 +123,12 @@ button:hover {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  border: none;
+  background: none;
 }
 
-input, select {
+.modal-categoria__contenido input,
+.modal-categoria__contenido select {
   padding: 10px;
   border-radius: 8px;
   border: 2px solid #BB6DA3;
@@ -128,7 +137,7 @@ input, select {
   font-size: 14px;
 }
 
-#popups {
+.btn-modal {
   background-color: black;
   color: white;
   border: none;
@@ -139,6 +148,6 @@ input, select {
   font-weight: bold;
 }
 
-#popups:hover {
+.btn-modal:hover {
   background-color: rgb(38, 38, 38);
 }

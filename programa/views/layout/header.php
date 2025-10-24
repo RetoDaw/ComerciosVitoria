@@ -3,7 +3,7 @@
 <div id="header">
     <div id="logo-titulo">
         <img src="img/logo.png" id="logo" height="60" width="100">
-        <p id="titulo">PURPOR</p>
+        <h4 id="titulo">PURPOR</h4>
     </div>
 
     <div class="buscador-contenedor">

@@ -12,12 +12,12 @@
     </div>
 
     <div id="botones">
-        <form action="../views/publicarAnuncio.php" method="get">
-            <button function="crearPublicacion" id="publicar">
+        <a href="index.php?controller=ComerciosController&accion=crear">
+            <button id="publicar">
                 <img src="img/publicar.png" alt="" width="20px" height="20px" class="img">
                 Publicar
             </button>
-        </form>   
+        </a>   
         
         <button id="openPopupInicio" class="boton">
             <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 

@@ -36,6 +36,9 @@ class ComerciosController extends BaseController {
         ]);
     }
 
+    public function crear(){
+        $this->render('publicarAnuncio.php');
+    }
     
     public function store() {
         session_start();

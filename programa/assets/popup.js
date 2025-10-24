@@ -8,7 +8,9 @@ document.querySelectorAll('.leer-mas').forEach(btn => {
       console.error('Anuncio no encontrado con ID:', id);
       return;
     }
-    
+
+    // Función async: realiza una petición al backend para obtener los datos de contacto
+    // del usuario identificado por `id`. Devuelve la respuesta parseada como JSON.
     async function datosContacto(id){
       const res = await fetch('http://localhost/proyecto/ComerciosVitoria-Imanol/programa/?id=' + id + '&controller=UsuariosController&accion=datosContacto');
       return await res.json();
@@ -19,9 +21,12 @@ document.querySelectorAll('.leer-mas').forEach(btn => {
     document.getElementById('popup-categoria').textContent = anuncio.categoria;
     document.getElementById('popup-precio').textContent = numberFormat(anuncio.precio) + ' €';
     document.getElementById('popup-descripcion').textContent = anuncio.descripcion;
-    let datosC = datosContacto(anuncio.id_usuario);
-    document.getElementById('popup-telefono').innerHTML = '📞 ' + datosC.telefono;
-    document.getElementById('popup-email').innerHTML = '✉️ ' + datosC.email;
+    // Llamada a datosContacto: obtiene email y teléfono y los inserta en los campos del popup.
+    // Se usa el operador nullish para mostrar "No disponible" si el backend no devuelve esos campos.
+    datosContacto(anuncio.id_usuario).then(datosC => {
+      document.getElementById('popup-telefono').innerHTML = '📞 ' + (datosC.telefono ?? 'No disponible');
+      document.getElementById('popup-email').innerHTML = '✉️ ' + (datosC.email ?? 'No disponible');
+    });
     
     // Crear carrusel
     const track = document.getElementById('carouselTrack');

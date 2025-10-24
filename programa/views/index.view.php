@@ -5,23 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anuncios</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS del header -->
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/registrarse.css">
+  <link rel="stylesheet" href="css/iniciarSesion.css">
+
+  <!-- CSS del footer -->
+  <link rel="stylesheet" href="css/footerStyle.css">
+
+  <!-- CSS de las tarjetas y popup -->
   <link rel="stylesheet" href="css/tarjetas.css">
   <link rel="stylesheet" href="css/popup.css">
 </head>
 <body>
+<?php require_once 'layout/header.php'; ?>
 
 <div class="contenedor-general">
   <div class="tarjetas-container">
-    <?php foreach ($anuncios as $index => $anuncio): ?>
+    <?php foreach ($anuncios as $anuncio): ?>
       <?php
-        // Obtener imágenes del anuncio usando el controlador
+        // Obtener imágenes del anuncio
         $imagenes = ImagenesController::getByAnuncio($anuncio);
-        $primeraImagen = 'image.png'; // Imagen por defecto
+        $primeraImagen = 'image.png';
         if ($imagenes && !empty($imagenes)) {
           $primeraImagen = $imagenes[0]['ruta'] ?? 'image.png';
         }
 
-        // Obtener la categoría del anuncio usando el controlador
+        // Obtener la categoría del anuncio
         $nombreCategoria = htmlspecialchars(CategoriasController::nombreCategoria($anuncio));
       ?>
       
@@ -87,18 +98,20 @@
   </div>
 </div>
 
+<?php require_once 'layout/footer.php'; ?>
+
 <script>
   // Preparar datos de anuncios para JavaScript
   const anuncios = {};
   
   <?php foreach ($anuncios as $anuncio): ?>
     <?php
-      // Recuperar datos nuevamente aquí también para el popup
       $imagenes = ImagenesController::getByAnuncio($anuncio);
       $nombreCategoria = htmlspecialchars(CategoriasController::nombreCategoria($anuncio));
     ?>
     anuncios[<?= $anuncio['id'] ?>] = {
       id: <?= $anuncio['id'] ?>,
+      id_usuario: <?= $anuncio['id_usuario'] ?>,
       titulo: <?= json_encode($anuncio['titulo']) ?>,
       precio: <?= $anuncio['precio'] ?>,
       descripcion: <?= json_encode($anuncio['descripcion']) ?>,
@@ -113,11 +126,7 @@
           echo "'image.png'";
         }
         ?>
-      ],
-      contacto: {
-        telefono: <?= json_encode($datosUsuario[$anuncio['id']]['telefono'] ?? 'No disponible') ?>,
-        email: <?= json_encode($datosUsuario[$anuncio['id']]['email'] ?? 'No disponible') ?>
-      }
+      ]
     };
   <?php endforeach; ?>
 </script>

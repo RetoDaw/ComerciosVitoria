@@ -10,11 +10,10 @@ body{
   z-index: 9999;
 }
 .popupregistro {
-  
   display: flex;
   flex-direction: column;
   width: 500px;   
-  height: 700px;  
+  height: 760px;  
   background-color: #E8C1DC; 
   position: fixed; 
   top: 50%;

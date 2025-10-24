@@ -9,7 +9,6 @@
 <body>
     <div id="contenedor">
         <div id="crearAnuncio">
-<<<<<<< HEAD
             <form action="index.php?accion=update" method="post" enctype="multipart/form-data">
                 <div id="crearAnuncioFormulario" name="editarAnuncio">
                     <p>Editar anuncio</p>
@@ -28,20 +27,6 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
-=======
-            <div id="crearAnuncioFormulario" name="editarAnuncio">
-    <!--Llenar los valores con los datos del backend-->
-                <p>Editar anuncio</p>
-                <input type="text" name="title" id="titulo" placeholder="Título" value="">
-                <input type="number" name="precio" id="precio" placeholder="Precio" value="">   
-                <input type="text" name="descripcion" id="descripcion" placeholder="Descripción" value=" ">
-                <input type="text" name="direccion" id="direccion" placeholder="Dirección" value="">
-            </div>
-
-            <select name="Categoria" id="categoria">
-    <!--Llenar con php-->
-            </select>
->>>>>>> dbedf1662bc54d5a748357fea93b2a973c6c9478
 
                 <div id="añadir-imagen">
                     <label for="inputAñadirImagen" id="añadir">Añadir fotos</label>

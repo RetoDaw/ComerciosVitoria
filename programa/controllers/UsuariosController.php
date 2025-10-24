@@ -8,7 +8,7 @@ class UsuariosController extends BaseController {
     public function index() {
         $usuarios = UsuariosModel::getDatosMostrar();
 
-        $this-> render('usuarios.view.php' ,[
+        $this-> render('index.view.php' ,[
             'usuarios' => $usuarios
         ]);
     }
@@ -24,7 +24,7 @@ class UsuariosController extends BaseController {
 
         $usuario = UsuariosModel::getById($id);
 
-        $this-> render('usuarios_edit_view.php',[
+        $this-> render('editarPerfil.php',[
             'usuario' => $usuario
         ]);
     }      

@@ -1,5 +1,3 @@
-
-    /*FALTA AÑADIR EL CODIGO PHP */
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,16 +5,11 @@
     <link rel="stylesheet" href="../css/publicarAnuncio.css">
 </head>
 <body>
-    <?php 
-    require '../views/layout/header.php';
-    require '../views/layout/footer.php';
-    session_start();
-    ?>
     <div id="contenedor">
         <div id="crearAnuncio">
             <div id="crearAnuncioFormulario" name="editarPerfil">
                 <p>Editar Perfil</p>
-                <form id="formEditar" action="index.php?controller=UsuariosController&action=update" method="post"></form>
+                <form id="formEditar" action="index.php?controller=UsuariosController&accion=update" method="post">
                     <input type="text" name="nombre" id="nombre" placeholder="Nombre" value ="<?= $usuario['nombre']?>"> 
                     <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos" value="<?= $usuario['apellidos']?>">
                     <input type="text" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="DD/MM/YYYY" value="<?= $usuario['fecha_nacimiento']?>">
@@ -24,7 +17,7 @@
                     <input type="email" name="email" id="email" placeholder="Email" value="<?=$usuario['email']?>">
 
                     <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button id="editar">Editar</button>
+                        <button type="submit" id="editar">Editar</button>
                     </div>
                 </form>
             </div>

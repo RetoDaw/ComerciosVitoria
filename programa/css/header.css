@@ -1,88 +1,106 @@
- body {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-         }
-         #busqueda{
-            background-color: #FAF2F7;
-            margin: 10px;
-            border-radius: 10px;
-            width: 945px;
-            color: #FAF2F7;
-            
-        }
-         #buscador{
-            border-style: none;
-            padding: 6px;
-            margin-bottom: 10px;
-            background-color: #FAF2F7;
-            width: 700px;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
 
-         }
-         #lupa{
-            margin-top: 10px;
-            margin-left: 5px;
-         }
-        #header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background: #F0D5E7;
-            position: relative;
-            z-index: 1;
-        }
+.buscador-contenedor {
+    display: flex;
+    align-items: center;
+    background-color: #FAF2F7;
+    border-radius: 50px;
+    padding: 8px 16px;
+    width: 700px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
 
-        #logo-titulo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width:269px;
-        }
+.buscador-contenedor:focus-within {
+    border-color: #92557F;
+    box-shadow: 0 0 10px rgba(146, 85, 127, 0.1);
+}
 
-   
-        #botones button {
-            margin-left: 10px;
-            cursor: pointer;
-            
-        }
+.icono-buscar {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    opacity: 0.8;
+}
 
-        #overlayInicio, #overlayRegistro {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(5px); 
-            z-index: 9999;
-        }
+.input-buscar {
+    border: none;
+    background: none;
+    outline: none;
+    width: 100%;
+    font-size: 15px;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
 
-        #botones {
-            display: flex;
-            gap: 10px;
-        }
-      
-        #botones #publicar, #openPopupInicio {
-            display: flex;              
-            align-items: center;        
-            justify-content: center;   
-            gap: 8px;                   
-            border: none;
-            width: 138px;
-            height: 53px;
-            background-color: #92557F;
-            color: #fff;
-            font-weight: bolder;
-            border-radius: 1em;
-            cursor: pointer;
-            margin-right: 20px
-        }
-        #publicar:hover,#openPopupInicio:hover{
-            background-color: #7b486b;
-        }
+.input-buscar::placeholder {
+    color: #999;
+    opacity: 0.8;
+}
 
-        @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
-        }
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #F0D5E7;
+    position: relative;
+    z-index: 1;
+}
+
+#logo-titulo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width:269px;
+}
+
+#botones button {
+    margin-left: 10px;
+    cursor: pointer;
+    
+}
+
+#overlayInicio, #overlayRegistro {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px); 
+    z-index: 9999;
+}
+
+#botones {
+    display: flex;
+    gap: 10px;
+}
+
+#botones #publicar, #openPopupInicio {
+    display: flex;              
+    align-items: center;        
+    justify-content: center;   
+    gap: 8px;                   
+    border: none;
+    width: 138px;
+    height: 53px;
+    background-color: #92557F;
+    color: #fff;
+    font-weight: bolder;
+    border-radius: 1em;
+    cursor: pointer;
+    margin-right: 20px
+}
+#publicar:hover,#openPopupInicio:hover{
+    background-color: #7b486b;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: scale(0.95); }
+to { opacity: 1; transform: scale(1); }
+}

@@ -6,9 +6,9 @@
         <p id="titulo">PURPOR</p>
     </div>
 
-    <div id="busqueda">
-        <img src="img/lupa2.png" alt="" id="lupa" height="30" width="30">
-        <input type="text" name="buscador" id="buscador" placeholder="Buscar anuncios" >
+    <div class="buscador-contenedor">
+        <img src="img/lupa2.png" alt="Buscar" class="icono-buscar">
+        <input type="text" class="input-buscar" placeholder="Buscar anuncios...">
     </div>
 
     <div id="botones">

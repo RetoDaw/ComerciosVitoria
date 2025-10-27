@@ -40,7 +40,7 @@
                 cerrar.addEventListener('click', cerrarSesion);
                 console.log(btn)
                 async function cerrarSesion(){       
-                    const res = await fetch('http://programa.test/?controller=UsuariosController&accion=cerrarSesion');
+                    const res = await fetch('index.php?controller=UsuariosController&accion=cerrarSesion');
 
                     const data = await res.json();
 

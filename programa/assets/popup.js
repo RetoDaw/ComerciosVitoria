@@ -12,7 +12,7 @@ document.querySelectorAll('.leer-mas').forEach(btn => {
     // Función async: realiza una petición al backend para obtener los datos de contacto
     // del usuario identificado por `id`. Devuelve la respuesta parseada como JSON.
     async function datosContacto(id){
-      const res = await fetch('http://programa.test?id=' + id + '&controller=UsuariosController&accion=datosContacto');
+      const res = await fetch('index.php?id=' + id + '&controller=UsuariosController&accion=datosContacto');
       return await res.json();
     }
     

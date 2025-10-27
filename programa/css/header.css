@@ -54,17 +54,18 @@ body {
     z-index: 1;
 }
 
-#header-logo-titulo {
+#header-logo-titulo a {
+    text-decoration: none;
     display: flex;
     align-items: center;
     gap: 15px;
-    width: 269px;
 }
 
 #header-titulo {
     color: #714262;
     font-weight: bolder;
     font-size: 35.9px;
+    margin: 0;
 }
 
 /* --- Botones del header --- */

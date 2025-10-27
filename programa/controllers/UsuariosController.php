@@ -38,7 +38,23 @@ class UsuariosController extends BaseController {
         );
         UsuariosModel::edit($usuario);
 
-        $this->redirect('index.php?controller=UsuariosController');
+        $this->redirect('index.php?controller=UsuariosController&accion=perfil');
+    }
+
+    public function perfil() {
+        session_start();
+        if(!isset($_SESSION['id'])){
+            $this->redirect('index.php?controller=UsuariosController&accion=login');
+            return;
+        }
+
+        $usuario = UsuariosModel::getById($_SESSION['id']);
+        if(!$usuario){
+            $this->redirect('index.php');
+            return;
+        }
+
+        $this->render('perfilUsuario.php', ['usuario' => $usuario]);
     }
 
     public function verificarUsuario() {

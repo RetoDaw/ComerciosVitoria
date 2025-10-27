@@ -14,7 +14,16 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../css/perfilUsuario.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/perfilUsuario.css">
+        <!-- CSS del header -->
+        <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="css/registrarse.css">
+        <link rel="stylesheet" href="css/iniciarSesion.css">
+
+        <!-- CSS del footer -->
+        <link rel="stylesheet" href="css/footerStyle.css">
     </head>
     <body>
   <div id="contenedor-principal">
@@ -36,17 +45,17 @@
       </div>  
     </div>
             <!--Depende del tipo de usuario enseña unos botones u otros-->
-    <div id="imagen-botones">
-      <img src="../img/VITORIA-GASTEIZ.jpg" alt="">
-      <?php if($_SESSION['tipo_usuario'] !== 'admin'): ?>
-        <button id="favoritos">Mis favoritos</button>
-        <button id="anuncios">Mis anuncios</button>
-      <?php else: ?>
-        <button id="abrirCrear">Crear categoría</button>
-        <button id="abrirBorrar">Borrar categoría</button>
-      <?php endif; ?>
-    </div>
-  </div>
+          <div id="imagen-botones">
+            <img src="img/iniciarSesion.png" alt="">
+            <?php if($usuario['tipo_usuario'] !== 'admin'): ?>
+              <button class="btn-perfil" id="favoritos">Mis favoritos</button>
+              <button class="btn-perfil" id="anuncios">Mis anuncios</button>
+            <?php else: ?>
+              <button class="btn-perfil" id="abrirCrear">Crear categoría</button>
+              <button class="btn-perfil" id="abrirBorrar">Borrar categoría</button>
+            <?php endif; ?>
+          </div>
+        </div>
 
   <div id="editar-boton">
     <a href="../views/editarPerfil.php" style="text-decoration: none;"><button id="editar" onclick>Editar Perfil</button></a>

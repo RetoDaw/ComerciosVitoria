@@ -74,6 +74,39 @@ class UsuariosController extends BaseController {
         ]);
     }
 
+    public function verificarUsuario() {
+        header('Content-Type: application/json');
+
+        $data = json_decode(file_get_contents('php://input'), true);
+        $user_name = $data['user_name'];
+        $password = $data['password'];
+
+        try{
+            UsuariosModel::verificarUsuario($user_name,$password);
+        }catch(Exception $e){
+                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            exit;
+        }
+
+        $redireccionar = $_SESSION['redireccionar'];
+        unset($_SESSION['redireccionar']); //limpiar después de usarla
+        echo json_encode(['success' => true,
+                            'redirect' => $redireccionar
+        ]);
+    }
+
+    public function cerrarSesion() {
+        session_start();
+        $redireccionar = $_SESSION['redireccionar'];
+        
+        session_unset();
+        session_destroy();
+
+        echo json_encode(['success' => true,
+                            'redirect' => $redireccionar
+        ]);
+    }
+
     public function store($datos) {
 
     }

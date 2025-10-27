@@ -1,9 +1,11 @@
 <!-- layout/header.php -->
 
 <div id="header">
-    <div id="logo-titulo">
+    <div id="header-logo-titulo">
+    <a href="index.php"> 
         <img src="img/logo.png" id="logo" height="60" width="100">
-        <p id="titulo">PURPOR</p>
+            <h4 id="header-titulo">PURPOR</h4>
+    </a>   
     </div>
 
     <div class="buscador-contenedor">
@@ -11,17 +13,17 @@
         <input type="text" class="input-buscar" placeholder="Buscar anuncios...">
     </div>
 
-    <div id="botones">
+    <div id="header-botones">
         <?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])):?>
             <a href="index.php?controller=ComerciosController&accion=crear">
-                <button id="publicar">
+                <button class="btn-header">
                     <img src="img/publicar.png" alt="" width="20px" height="20px" class="img">
                     Publicar
                 </button>
             </a>   
             
-            <a href="index.php?controller=UsuariosController">
-                <button id="perfil">
+            <a href="index.php?controller=UsuariosController&accion=perfil">
+                <button class="btn-header">
                     <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
                     Perfil
                 </button>
@@ -64,7 +66,7 @@
         <form>
             <input type="text" id="usuario" name="user_name" placeholder="Usuario" required />
             <input type="password" id="password" name="password" placeholder="Contraseña" required />
-            <button type="button" class="botoninicio" id="continuar">Continuar</button>
+            <button type="button" id="continuar-login" class="boton-login">Continuar</button>
         </form>
         <p>¿No tienes cuenta? <a id="openPopupRegistro">Regístrate</a></p>
         <script>
@@ -98,6 +100,36 @@
             }
         </script>
     </div>
+    <script>
+    let btn = document.getElementById('continuar-login');
+    btn.addEventListener('click', enviar);
+    console.log(btn)
+    async function enviar(){
+        const user_name =  document.querySelector('input[name="user_name"]').value.trim();
+        const password =  document.querySelector('input[name="password"]').value.trim();
+        
+        const res = await fetch('index.php?controller=UsuariosController&accion=verificarUsuario', {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user_name: user_name,
+                password: password
+            })
+        });
+
+        const data = await res.json();
+        if (!data.success) {
+            alert(data.message);
+            let usuario = document.getElementById('usuario');
+            usuario.value = '';
+            let password = document.getElementById('password');
+            password.value = '';
+            return;
+        }
+
+        window.location.href = data.redirect ?? 'index.php';
+    }
+</script>
 </div>
 
 <!-- Overlay para el popup de registro -->

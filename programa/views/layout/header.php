@@ -12,17 +12,47 @@
     </div>
 
     <div id="botones">
-        <a href="index.php?controller=ComerciosController&accion=crear">
-            <button id="publicar">
-                <img src="img/publicar.png" alt="" width="20px" height="20px" class="img">
-                Publicar
+        <?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])):?>
+            <a href="index.php?controller=ComerciosController&accion=crear">
+                <button id="publicar">
+                    <img src="img/publicar.png" alt="" width="20px" height="20px" class="img">
+                    Publicar
+                </button>
+            </a>   
+            
+            <a href="index.php?controller=UsuariosController">
+                <button id="perfil">
+                    <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
+                    Perfil
+                </button>
+            </a>  
+
+            <?php /*
+            <button id="openPopupCerrar" class="boton">
+                <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
+                Cerrar Sesión
             </button>
-        </a>   
-        
-        <button id="openPopupInicio" class="boton">
-            <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
-            Iniciar Sesión
-        </button>
+
+            <script>
+                let cerrar = document.getElementById('openPopupCerrar');
+                cerrar.addEventListener('click', cerrarSesion);
+                console.log(btn)
+                async function cerrarSesion(){       
+                    const res = await fetch('http://programa.test/?controller=UsuariosController&accion=cerrarSesion');
+
+                    const data = await res.json();
+
+                    window.location.href = data.redirect ?? 'index.php';
+                }
+            </script>
+            */?>
+
+        <?php else:?>
+            <button id="openPopupInicio" class="boton">
+                <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
+                Iniciar Sesión
+            </button>
+        <?php endif;?>
     </div>
 </div>
 
@@ -32,11 +62,41 @@
         <button class="cerrar" id="closePopupInicio">x</button>
         <h2>Iniciar Sesión</h2>
         <form>
-            <input type="text" placeholder="Usuario" required />
-            <input type="password" placeholder="Contraseña" required />
-            <button type="submit" class="botoninicio" id="continuar">Continuar</button>
+            <input type="text" id="usuario" name="user_name" placeholder="Usuario" required />
+            <input type="password" id="password" name="password" placeholder="Contraseña" required />
+            <button type="button" class="botoninicio" id="continuar">Continuar</button>
         </form>
         <p>¿No tienes cuenta? <a id="openPopupRegistro">Regístrate</a></p>
+        <script>
+            let btn = document.getElementById('continuar');
+            btn.addEventListener('click', enviar);
+            console.log(btn)
+            async function enviar(){
+                const user_name =  document.querySelector('input[name="user_name"]').value.trim();
+                const password =  document.querySelector('input[name="password"]').value.trim();
+                
+                const res = await fetch('http://programa.test/?controller=UsuariosController&accion=verificarUsuario', {
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_name: user_name,
+                        password: password
+                    })
+                });
+
+                const data = await res.json();
+                if (!data.success) {
+                    alert(data.message);
+                    let usuario = document.getElementById('usuario');
+                    usuario.value = '';
+                    let password = document.getElementById('password');
+                    password.value = '';
+                    return;
+                }
+
+                window.location.href = data.redirect ?? 'index.php';
+            }
+        </script>
     </div>
 </div>
 

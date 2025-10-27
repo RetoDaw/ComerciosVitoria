@@ -28,6 +28,29 @@ class UsuariosModel {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function verificarUsuario($user_name,$password){
+        session_start();
+
+        $usuarioId = self::getIdByUsername($user_name);
+
+        if(!$usuarioId)
+            throw new Exception("Login incorrecto");
+
+        $usuario = self::getById($usuarioId['id']);
+
+        //password_verify hashea la contraseña y la compara con el hash que le llega
+        if ($usuario && password_verify($password, $usuario['password'])) {
+            // Login correcto
+
+            $_SESSION['id'] = $usuario['id'];
+            $_SESSION['user_name'] = $usuario['user_name'];
+            $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
+
+        } else {
+            throw new Exception("Login incorrecto");
+        }
+    }
+
 
     public static function getById($id) {
         $dbh = Database::getConnection();

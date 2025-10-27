@@ -19,7 +19,11 @@
   <link rel="stylesheet" href="css/popup.css">
 </head>
 <body>
-<?php require_once 'layout/header.php'; ?>
+<?php 
+session_start();
+$_SESSION['redireccionar'] = $_SERVER['REQUEST_URI'];
+require_once 'layout/header.php'; 
+?>
 
 <div class="contenedor-general">
   <div class="tarjetas-container">

@@ -6,11 +6,6 @@ require_once __DIR__ . '/../models/UsuariosModel.php';
 class UsuariosController extends BaseController {
 
     public function index() {
-        $usuarios = UsuariosModel::getDatosMostrar();
-
-        $this-> render('index.view.php' ,[
-            'usuarios' => $usuarios
-        ]);
     }
 
     public function datosContacto() {
@@ -44,6 +39,39 @@ class UsuariosController extends BaseController {
         UsuariosModel::edit($usuario);
 
         $this->redirect('index.php?controller=UsuariosController');
+    }
+
+    public function verificarUsuario() {
+        header('Content-Type: application/json');
+
+        $data = json_decode(file_get_contents('php://input'), true);
+        $user_name = $data['user_name'];
+        $password = $data['password'];
+
+        try{
+            UsuariosModel::verificarUsuario($user_name,$password);
+        }catch(Exception $e){
+                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            exit;
+        }
+
+        $redireccionar = $_SESSION['redireccionar'];
+        unset($_SESSION['redireccionar']); //limpiar después de usarla
+        echo json_encode(['success' => true,
+                            'redirect' => $redireccionar
+        ]);
+    }
+
+    public function cerrarSesion() {
+        session_start();
+        $redireccionar = $_SESSION['redireccionar'];
+        
+        session_unset();
+        session_destroy();
+
+        echo json_encode(['success' => true,
+                            'redirect' => $redireccionar
+        ]);
     }
 
     public function store($datos) {

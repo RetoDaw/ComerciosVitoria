@@ -48,8 +48,8 @@
           </div>
             <!--Depende del tipo de usuario enseña unos botones u otros-->
           <div id="imagen-botones">
-            <img src="../img/VITORIA-GASTEIZ.jpg" alt="">
-            <?php if($_SESSION['tipo_usuario'] !== 'admin'): ?>
+            <img src="img/iniciarSesion.png" alt="">
+            <?php if($usuario['tipo_usuario'] !== 'admin'): ?>
               <button class="btn-perfil" id="favoritos">Mis favoritos</button>
               <button class="btn-perfil" id="anuncios">Mis anuncios</button>
             <?php else: ?>

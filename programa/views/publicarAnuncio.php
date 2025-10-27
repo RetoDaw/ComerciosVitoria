@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/publicarAnuncio.css">
+    <link rel="stylesheet" href="css/publicarAnuncio.css">
 </head>
 <body>
     <div id="contenedor">

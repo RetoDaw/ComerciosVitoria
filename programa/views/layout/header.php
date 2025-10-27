@@ -2,8 +2,10 @@
 
 <div id="header">
     <div id="header-logo-titulo">
+    <a href="index.php"> 
         <img src="img/logo.png" id="logo" height="60" width="100">
-        <h4 id="header-titulo">PURPOR</h4>
+            <h4 id="header-titulo">PURPOR</h4>
+    </a>   
     </div>
 
     <div class="header-buscador">
@@ -11,24 +13,24 @@
         <input type="text" class="header-input-buscar" placeholder="Buscar anuncios...">
     </div>
 
-    <div id="botones">
+    <div id="header-botones">
         <?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])):?>
             <a href="index.php?controller=ComerciosController&accion=crear">
-                <button id="publicar">
+                <button class="btn-header">
                     <img src="img/publicar.png" alt="" width="20px" height="20px" class="img">
                     Publicar
                 </button>
             </a>   
             
-            <a href="index.php?controller=UsuariosController">
-                <button id="perfil">
+            <a href="index.php?controller=UsuariosController&accion=perfil">
+                <button class="btn-header">
                     <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
                     Perfil
                 </button>
             </a>  
 
             <?php /*
-            <button id="openPopupCerrar" class="boton">
+            <button id="openPopupCerrar" class="btn-header">
                 <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
                 Cerrar Sesión
             </button>
@@ -48,7 +50,7 @@
             */?>
 
         <?php else:?>
-            <button id="openPopupInicio" class="boton">
+            <button id="openPopupInicio" class="btn-header">
                 <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
                 Iniciar Sesión
             </button>

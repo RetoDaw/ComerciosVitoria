@@ -27,6 +27,28 @@ document.querySelectorAll('.leer-mas').forEach(btn => {
       document.getElementById('popup-telefono').innerHTML = '📞 ' + (datosC.telefono ?? 'No disponible');
       document.getElementById('popup-email').innerHTML = '✉️ ' + (datosC.email ?? 'No disponible');
     });
+
+    //funcion para enviar mensaje
+    const btnMensaje = document.getElementById('enviarMensaje');
+    btnMensaje.onclick = enviarMensaje;
+    async function enviarMensaje(){
+      if (!window.usuarioLogueado) {
+        alert('Debes iniciar sesión para enviar mensajes.');
+        return;
+      }
+      
+      const res = await fetch('http://programa.test/?controller=MensajesController&accion=index', {
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id_usuario: anuncio.id_usuario
+        })
+      });
+
+      const data = await res.json();
+      window.location.href = data.redirect;
+    }
+
     
     // Crear carrusel
     const track = document.getElementById('carouselTrack');

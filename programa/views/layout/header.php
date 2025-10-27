@@ -126,7 +126,9 @@
     const closeBtn = document.getElementById('closePopupInicio');
     const overlay = document.getElementById('overlayInicio');
     // Abrir y cerrar popup de inicip
-    openBtn.addEventListener('click', () => overlay.style.display = 'flex');
+    if(openBtn){
+        openBtn.addEventListener('click', () => overlay.style.display = 'flex');
+    }
     closeBtn.addEventListener('click', () => overlay.style.display = 'none');
     overlay.addEventListener('click', e => {
         if (e.target === overlay) overlay.style.display = 'none';

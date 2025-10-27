@@ -47,8 +47,7 @@
   height: auto;
 }
 
-/* Botones específicos del perfil */
-.btn-perfil {
+button {
   display: grid;
   place-items: center;
   gap: 8px;
@@ -63,7 +62,7 @@
   font-weight: bold;
 }
 
-.btn-perfil:hover {
+button:hover {
   background-color: #CE78B3;
 }
 
@@ -74,12 +73,8 @@
   margin-bottom: 83px;
 }
 
-#editar-boton a {
-  text-decoration: none;
-}
-
-/* --- Modales del perfil --- */
-.modal-categoria {
+/* --- Modales --- */
+.modal {
   display: none;
   position: fixed;
   inset: 0;
@@ -89,7 +84,7 @@
   align-items: center;
 }
 
-.modal-categoria__contenido {
+.modal-contenido {
   background-color: #E8C1DC;
   padding: 28px;
   border-radius: 20px;
@@ -110,7 +105,7 @@
   to { transform: scale(1); opacity: 1; }
 }
 
-.cerrar-modal {
+.cerrar {
   position: absolute;
   top: 10px;
   right: 12px;
@@ -123,12 +118,9 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: none;
-  background: none;
 }
 
-.modal-categoria__contenido input,
-.modal-categoria__contenido select {
+input, select {
   padding: 10px;
   border-radius: 8px;
   border: 2px solid #BB6DA3;
@@ -137,7 +129,7 @@
   font-size: 14px;
 }
 
-.btn-modal {
+#popups {
   background-color: black;
   color: white;
   border: none;
@@ -148,6 +140,6 @@
   font-weight: bold;
 }
 
-.btn-modal:hover {
+#popups:hover {
   background-color: rgb(38, 38, 38);
 }

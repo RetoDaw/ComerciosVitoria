@@ -38,23 +38,40 @@ class UsuariosController extends BaseController {
         );
         UsuariosModel::edit($usuario);
 
-        $this->redirect('index.php?controller=UsuariosController&accion=perfil');
+        $this->redirect('index.php?controller=UsuariosController');
     }
 
-    public function perfil() {
+    public function verificarUsuario() {
+        header('Content-Type: application/json');
+
+        $data = json_decode(file_get_contents('php://input'), true);
+        $user_name = $data['user_name'];
+        $password = $data['password'];
+
+        try{
+            UsuariosModel::verificarUsuario($user_name,$password);
+        }catch(Exception $e){
+                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            exit;
+        }
+
+        $redireccionar = $_SESSION['redireccionar'];
+        unset($_SESSION['redireccionar']); //limpiar después de usarla
+        echo json_encode(['success' => true,
+                            'redirect' => $redireccionar
+        ]);
+    }
+
+    public function cerrarSesion() {
         session_start();
-        if(!isset($_SESSION['id'])){
-            $this->redirect('index.php?controller=UsuariosController&accion=login');
-            return;
-        }
+        $redireccionar = $_SESSION['redireccionar'];
+        
+        session_unset();
+        session_destroy();
 
-        $usuario = UsuariosModel::getById($_SESSION['id']);
-        if(!$usuario){
-            $this->redirect('index.php');
-            return;
-        }
-
-        $this->render('perfilUsuario.php', ['usuario' => $usuario]);
+        echo json_encode(['success' => true,
+                            'redirect' => $redireccionar
+        ]);
     }
 
     public function verificarUsuario() {

@@ -6,7 +6,7 @@ const enviarBtn = document.getElementById('enviar-btn');
 let receptorId = null;
 
 async function cargarUsuarios() {
-    const res = await fetch('http://prueba.test/?id_emisor=' + USER_ID + '&controller=MensajesController&accion=getConversaciones');
+    const res = await fetch('http://programa.test/?controller=MensajesController&accion=getConversaciones');
     const usuarios = await res.json();
     usuariosDiv.innerHTML = '';
     usuarios.forEach(u => {
@@ -21,7 +21,7 @@ async function cargarUsuarios() {
 
 async function cargarMensajes() {
     if (!receptorId) return;
-    const res = await fetch('http://prueba.test/?id_emisor=' + USER_ID +'&id_receptor=' + receptorId + '&controller=MensajesController&accion=getMensajes');
+    const res = await fetch('http://programa.test/?id_receptor=' + receptorId + '&controller=MensajesController&accion=getMensajes');
     const mensajes = await res.json();
     mensajesDiv.innerHTML = '';
 
@@ -41,11 +41,10 @@ async function enviarMensaje() {
     
     if (!mensaje || !receptorId) return;
     console.log("todo bien");
-    await fetch('http://prueba.test/?controller=MensajesController&accion=sendMensajes', {
+    await fetch('http://programa.test/?controller=MensajesController&accion=sendMensajes', {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            id_emisor: USER_ID,
             id_receptor: receptorId,
             mensaje: mensaje
         })

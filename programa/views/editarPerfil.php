@@ -37,6 +37,5 @@
             <img src="../img/VITORIA-GASTEIZ.jpg" alt="">
         </div>
     </div>
-    <?php require_once 'layout/footer.php'; ?>
 </body>
 </html>

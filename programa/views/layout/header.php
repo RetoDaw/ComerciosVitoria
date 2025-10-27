@@ -8,9 +8,9 @@
     </a>   
     </div>
 
-    <div class="header-buscador">
-        <img src="img/lupa2.png" alt="Buscar" class="header-icono-buscar">
-        <input type="text" class="header-input-buscar" placeholder="Buscar anuncios...">
+    <div class="buscador-contenedor">
+        <img src="img/lupa2.png" alt="Buscar" class="icono-buscar">
+        <input type="text" class="input-buscar" placeholder="Buscar anuncios...">
     </div>
 
     <div id="header-botones">
@@ -30,7 +30,7 @@
             </a>  
 
             <?php /*
-            <button id="openPopupCerrar" class="btn-header">
+            <button id="openPopupCerrar" class="boton">
                 <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
                 Cerrar Sesión
             </button>
@@ -40,7 +40,7 @@
                 cerrar.addEventListener('click', cerrarSesion);
                 console.log(btn)
                 async function cerrarSesion(){       
-                    const res = await fetch('index.php?controller=UsuariosController&accion=cerrarSesion');
+                    const res = await fetch('http://programa.test/?controller=UsuariosController&accion=cerrarSesion');
 
                     const data = await res.json();
 
@@ -50,7 +50,7 @@
             */?>
 
         <?php else:?>
-            <button id="openPopupInicio" class="btn-header">
+            <button id="openPopupInicio" class="boton">
                 <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
                 Iniciar Sesión
             </button>
@@ -59,9 +59,9 @@
 </div>
 
 <!-- Overlay para el popup de inicio de sesión -->
-<div id="overlay-login">
-    <div class="popup-login">
-        <button class="cerrar-login" id="closePopupInicio">✖</button>
+<div id="overlayInicio">
+    <div class="popupinicio">
+        <button class="cerrar" id="closePopupInicio">x</button>
         <h2>Iniciar Sesión</h2>
         <form>
             <input type="text" id="usuario" name="user_name" placeholder="Usuario" required />
@@ -69,6 +69,36 @@
             <button type="button" id="continuar-login" class="boton-login">Continuar</button>
         </form>
         <p>¿No tienes cuenta? <a id="openPopupRegistro">Regístrate</a></p>
+        <script>
+            let btn = document.getElementById('continuar');
+            btn.addEventListener('click', enviar);
+            console.log(btn)
+            async function enviar(){
+                const user_name =  document.querySelector('input[name="user_name"]').value.trim();
+                const password =  document.querySelector('input[name="password"]').value.trim();
+                
+                const res = await fetch('http://programa.test/?controller=UsuariosController&accion=verificarUsuario', {
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_name: user_name,
+                        password: password
+                    })
+                });
+
+                const data = await res.json();
+                if (!data.success) {
+                    alert(data.message);
+                    let usuario = document.getElementById('usuario');
+                    usuario.value = '';
+                    let password = document.getElementById('password');
+                    password.value = '';
+                    return;
+                }
+
+                window.location.href = data.redirect ?? 'index.php';
+            }
+        </script>
     </div>
     <script>
     let btn = document.getElementById('continuar-login');
@@ -103,9 +133,9 @@
 </div>
 
 <!-- Overlay para el popup de registro -->
-<div id="overlay-registro">
-    <div class="popup-registro">
-        <button class="cerrar-registro" id="closePopupRegistro">✖</button>
+<div id="overlayRegistro">
+    <div class="popupregistro">
+        <button class="cerrar" id="closePopupRegistro">×</button>
         <h2>Registrarme</h2>
         <form>
             <input type="text" placeholder="Nombre" required />
@@ -116,7 +146,7 @@
             <input type="text" placeholder="Usuario" required />
             <input type="password" placeholder="Contraseña" required />
             <input type="password" placeholder="Repite la contraseña" required />
-            <button type="submit" class="boton-registro">Registrarme</button>
+            <button type="submit" class="boton">Registrarme</button>
         </form>
         <p>¿Ya tienes cuenta? <a id="abrirInicioDesdeRegistro">Inicia Sesión</a></p>
     </div>
@@ -126,18 +156,19 @@
 <script>
     const openBtn = document.getElementById('openPopupInicio');
     const closeBtn = document.getElementById('closePopupInicio');
-    const overlayLogin = document.getElementById('overlay-login');
-    
-    // Abrir y cerrar popup de inicio
-    openBtn.addEventListener('click', () => overlayLogin.style.display = 'flex');
-    closeBtn.addEventListener('click', () => overlayLogin.style.display = 'none');
-    overlayLogin.addEventListener('click', e => {
-        if (e.target === overlayLogin) overlayLogin.style.display = 'none';
+    const overlay = document.getElementById('overlayInicio');
+    // Abrir y cerrar popup de inicip
+    if(openBtn){
+        openBtn.addEventListener('click', () => overlay.style.display = 'flex');
+    }
+    closeBtn.addEventListener('click', () => overlay.style.display = 'none');
+    overlay.addEventListener('click', e => {
+        if (e.target === overlay) overlay.style.display = 'none';
     });
 
     const openRegistro = document.getElementById('openPopupRegistro');
     const closeRegistro = document.getElementById('closePopupRegistro');
-    const overlayRegistro = document.getElementById('overlay-registro');
+    const overlayRegistro = document.getElementById('overlayRegistro');
 
     // Abrir y cerrar popup de registro
     openRegistro.addEventListener('click', () => overlayRegistro.style.display = 'flex');
@@ -149,7 +180,7 @@
     // Abrir registro desde el popup de inicio de sesión
     const abrirRegistroDesdeInicio = document.getElementById('openPopupRegistro');
     abrirRegistroDesdeInicio.addEventListener('click', () => {
-        overlayLogin.style.display = 'none';
+        overlay.style.display = 'none';
         overlayRegistro.style.display = 'flex';
     });
 
@@ -157,6 +188,6 @@
     const abrirInicioDesdeRegistro = document.getElementById('abrirInicioDesdeRegistro');
     abrirInicioDesdeRegistro.addEventListener('click', () => {
         overlayRegistro.style.display = 'none';
-        overlayLogin.style.display = 'flex';
+        overlay.style.display = 'flex';
     });
 </script>

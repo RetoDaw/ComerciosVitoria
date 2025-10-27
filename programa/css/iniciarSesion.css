@@ -3,7 +3,8 @@ body{
   padding: 0;
   font-family: 'Poppins', sans-serif;
 }
-#overlay {
+
+#overlay-login {
   display: none; 
   position: fixed;
   top: 0; left: 0;
@@ -13,7 +14,7 @@ body{
   z-index: 9999;
 }
 
-.popupinicio {
+.popup-login {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,8 +30,9 @@ body{
   text-align: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
-#continuar{
- background-color: black;
+
+#continuar-login {
+  background-color: black;
   color: white;
   border: none;
   border-radius: 6px;
@@ -39,23 +41,25 @@ body{
   transition: 0.3s;
   width: 300px;
 }
-#continuar:hover{
+
+#continuar-login:hover {
   color: black;
   background-color: white;
   border-color: white;
 }
-.popupinicio h2 {
+
+.popup-login h2 {
   margin-bottom: 1rem;
   color: black;
 }
 
-.popupinicio form {
+.popup-login form {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 }
 
-.popupinicio input {
+.popup-login input {
   padding: 10px;
   border: 3px solid #BB6DA3;
   border-radius: 6px;
@@ -63,22 +67,22 @@ body{
   width: 100%;
 }
 
-.popupinicio p {
+.popup-login p {
   margin-top: 1rem;
   font-size: 0.9rem;
 }
 
-.popupinicio a {
+.popup-login a {
   color: #5b2e63;
   text-decoration: none;
   font-weight: bold;
 }
 
-.popupinicio a:hover {
+.popup-login a:hover {
   text-decoration: underline;
 }
 
-.cerrar {
+.cerrar-login {
   position: absolute;
   top: 8px;
   right: 10px;
@@ -87,6 +91,7 @@ body{
   font-size: 1.2rem;
   cursor: pointer;
 }
+
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }

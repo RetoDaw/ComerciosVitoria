@@ -2,9 +2,18 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/publicarAnuncio.css">
+    <!-- CSS del header -->
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/registrarse.css">
+    <link rel="stylesheet" href="css/iniciarSesion.css">
+
+    <!-- CSS del footer -->
+    <link rel="stylesheet" href="css/footerStyle.css">
+
+    <link rel="stylesheet" href="css/publicarAnuncio.css">
 </head>
 <body>
+    <?php require_once 'layout/header.php'; ?>
     <div id="contenedor">
         <div id="crearAnuncio">
             <div id="crearAnuncioFormulario" name="editarPerfil">
@@ -27,5 +36,6 @@
             <img src="../img/VITORIA-GASTEIZ.jpg" alt="">
         </div>
     </div>
+    <?php require_once 'layout/footer.php'; ?>
 </body>
 </html>

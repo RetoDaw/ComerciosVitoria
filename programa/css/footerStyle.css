@@ -13,82 +13,83 @@
     gap: 30px;
 }
 
-.seccion-footer {
+.footer-seccion {
     flex: 1;
     min-width: 250px;
 }
 
-/* Estilo PURPOR */
-#titulo {
-    color: #714262;
-    font-weight: bolder;
-    font-size: 35.9px;
-}
-
-/* Títulos de secciones */
-.titulo-seccion {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Textos generales */
-p, a, li {
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    color: #333;
-    line-height: 1.5;
-}
-
-/* Logo section */
-#logo-titulo {
+/* Logo section del footer */
+#footer-logo-titulo {
     display: flex;
     align-items: center;
     gap: 15px;
     margin-bottom: 20px;
 }
 
-.copyright p {
+#footer-titulo {
+    color: #714262;
+    font-weight: bolder;
+    font-size: 35.9px;
+}
+
+.footer-copyright p {
     font-size: 16px;
     color: #666;
 }
 
+/* Títulos de secciones del footer */
+.footer-titulo-seccion {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Textos generales del footer */
+#footer p, 
+#footer a, 
+#footer li {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: #333;
+    line-height: 1.5;
+}
+
 /* Sección Sobre Nosotros */
-#seccion-nosotros ul {
+.footer-lista {
     list-style: none;
 }
 
-#seccion-nosotros ul li {
+.footer-lista li {
     margin-bottom: 15px;
 }
 
-#seccion-nosotros ul li a {
+.footer-lista li a {
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-#seccion-nosotros ul li a:hover {
+.footer-lista li a:hover {
     color: #92557F;
 }
 
 /* Sección Redes Sociales */
-.iconos-redes {
+.footer-iconos-redes {
     display: flex;
     gap: 20px;
 }
 
-.icono-red {
+.footer-icono-red {
     transition: transform 0.3s ease;
     display: inline-block;
 }
 
-.icono-red:hover {
+.footer-icono-red:hover {
     transform: scale(1.1);
 }
 
 /* Sección Ubicación */
-#seccion-ubicacion iframe {
+.footer-mapa {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     width: 100%;

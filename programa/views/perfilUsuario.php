@@ -54,7 +54,7 @@
             <?php if($usuario['tipo_usuario'] !== 'admin'): ?>
               <button class="btn-perfil" id="favoritos">Mis favoritos</button>
               <button class="btn-perfil" id="anuncios">Mis anuncios</button>
-              <button class="btn-perfil" id="anuncios">Mis mensajes</button>
+              <a href="index.php?controller=MensajesController&accion=mostrar"><button class="btn-perfil" id="anuncios">Mis mensajes</button></a>
             <?php else: ?>
               <button class="btn-perfil" id="abrirCrear">Crear categoría</button>
               <button class="btn-perfil" id="abrirBorrar">Borrar categoría</button>

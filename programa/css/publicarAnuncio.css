@@ -116,13 +116,14 @@ select {
 
 /* Image section */
 #imagen {
-    flex: 0.6;  /* Reduced from 0.8 to 0.6 */
+    flex: 0.6;
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 1rem;
-    background-color: white;  /* Changed from fafafa to white */
+    background-color: white;
+    align-content: center;
 }
 
 #imagen img {

@@ -47,6 +47,10 @@
   height: auto;
 }
 
+#imagen-botones a{
+  text-decoration: none;
+}
+
 /* Botones específicos del perfil */
 .btn-perfil {
   display: grid;

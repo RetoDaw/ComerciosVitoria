@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Mensajería</title>
-    <script src="/assets/mensajes.js" defer></script>
+    <script src="assets/mensajes.js" defer></script>
     <link rel="stylesheet" href="css/vistaMensaje.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/registrarse.css">

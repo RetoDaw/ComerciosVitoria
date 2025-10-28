@@ -37,7 +37,7 @@ document.querySelectorAll('.leer-mas').forEach(btn => {
         return;
       }
       
-      const res = await fetch('http://programa.test/?controller=MensajesController&accion=index', {
+      const res = await fetch('index.php?controller=MensajesController&accion=index', {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -93,7 +93,7 @@ function antesDeEnviar(e) {
         hiddenInput = document.createElement('input');
         hiddenInput.type = 'hidden';
         hiddenInput.name = 'imagenesBorradas';
-        document.querySelector('form').appendChild(hiddenInput);
+        form.appendChild(hiddenInput);
     }
     hiddenInput.value = JSON.stringify(imagenesBorradas);
     console.log(imagenesNuevas);
@@ -121,5 +121,5 @@ addIcon.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', () => addImage());
 
 //Reconstruir el array de imagenes antes de enviar la info
-
-document.querySelector('form').addEventListener('submit', (e) => antesDeEnviar(e));
+const form = document.getElementById('formAnuncio');
+form.addEventListener('submit', (e) => antesDeEnviar(e));

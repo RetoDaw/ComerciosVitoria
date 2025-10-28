@@ -1,120 +1,136 @@
-// ========== FAVORITOS EN TARJETAS ==========
-document.querySelectorAll('.tarjeta .favorito').forEach(favorito => {
-  // Obtener el ID del anuncio desde el botón "Leer más" de la misma tarjeta
-  const tarjeta = favorito.closest('.tarjeta');
-  const botonLeerMas = tarjeta.querySelector('.leer-mas');
-  const anuncioId = botonLeerMas.dataset.id;
-  
-  // Verificar si este anuncio ya está en favoritos (desde localStorage)
-  let esFavorito = isFavorito(anuncioId);
-  
-  // Establecer el icono inicial según el estado
-  favorito.src = esFavorito
-    ? 'https://cdn-icons-png.flaticon.com/512/833/833472.png'
-    : 'https://cdn-icons-png.flaticon.com/512/1077/1077035.png';
-  
-  favorito.addEventListener('click', () => {
-    favorito.classList.add('clicked');
-    setTimeout(() => {
-      esFavorito = !esFavorito;
-      
-      // Guardar o eliminar de favoritos
-      if (esFavorito) {
-        addFavorito(anuncioId);
-      } else {
-        removeFavorito(anuncioId);
-      }
-      
-      favorito.src = esFavorito
-        ? 'https://cdn-icons-png.flaticon.com/512/833/833472.png'
-        : 'https://cdn-icons-png.flaticon.com/512/1077/1077035.png';
-      favorito.classList.remove('clicked');
-    }, 150);
-  });
+// assets/favorito.js
+document.addEventListener('DOMContentLoaded', () => {
+  initFavoritos().catch(err => console.error('initFavoritos error:', err));
 });
 
-// ========== FAVORITO EN POPUP ==========
-const popupFavorito = document.getElementById('popup-favorito');
-let esFavoritoPopup = false;
-let currentAnuncioId = null;
+async function initFavoritos() {
+  console.log('[favorito.js] Iniciando favoritos...');
+  // Obtener favoritos del servidor (usa sesión en backend)
+  const favs = await getAll(); // devuelve array de anuncios favoritos
+  // Normalizar a ids
+  const favIds = (favs || []).map(f => String(f.id));
 
-// Actualizar el estado del favorito del popup cuando se abre
-document.querySelectorAll('.leer-mas').forEach(btn => {
-  btn.addEventListener('click', () => {
-    currentAnuncioId = btn.dataset.id;
-    esFavoritoPopup = isFavorito(currentAnuncioId);
-    
-    popupFavorito.src = esFavoritoPopup
-      ? 'https://cdn-icons-png.flaticon.com/512/833/833472.png'
-      : 'https://cdn-icons-png.flaticon.com/512/1077/1077035.png';
-  });
-});
-
-popupFavorito.addEventListener('click', () => {
-  if (!currentAnuncioId) return;
-  
-  popupFavorito.classList.add('clicked');
-  setTimeout(() => {
-    esFavoritoPopup = !esFavoritoPopup;
-    
-    // Guardar o eliminar de favoritos
-    if (esFavoritoPopup) {
-      addFavorito(currentAnuncioId);
+  // Marcar iconos en las tarjetas
+  document.querySelectorAll('.tarjeta').forEach(tarjeta => {
+    const leerMas = tarjeta.querySelector('.leer-mas');
+    const img = tarjeta.querySelector('img.favorito');
+    if (!leerMas || !img) return;
+    const id = String(leerMas.dataset.id);
+    if (favIds.includes(id)) {
+      img.src = 'https://cdn-icons-png.flaticon.com/512/833/833472.png';
+      img.dataset.favorito = 'true';
     } else {
-      removeFavorito(currentAnuncioId);
+      img.src = 'https://cdn-icons-png.flaticon.com/512/1077/1077035.png';
+      img.dataset.favorito = 'false';
     }
-    
-    popupFavorito.src = esFavoritoPopup
-      ? 'https://cdn-icons-png.flaticon.com/512/833/833472.png'
-      : 'https://cdn-icons-png.flaticon.com/512/1077/1077035.png';
-    
-    // Sincronizar con el icono de la tarjeta correspondiente
-    sincronizarFavoritoTarjeta(currentAnuncioId, esFavoritoPopup);
-    
-    popupFavorito.classList.remove('clicked');
-  }, 150);
-});
+  });
 
-// ========== FUNCIONES DE GESTIÓN DE FAVORITOS ==========
+  // Delegación: un listener para los clicks en cualquier img.favorito
+  document.addEventListener('click', async (e) => {
+    const img = e.target.closest && e.target.closest('img.favorito');
+    if (!img) return;
 
-// Obtener favoritos del localStorage
-function getFavoritos() {
-  const favoritos = localStorage.getItem('favoritos');
-  return favoritos ? JSON.parse(favoritos) : [];
+    // seguridad: obtener id del anuncio
+    const tarjeta = img.closest('.tarjeta');
+    const leerMas = tarjeta ? tarjeta.querySelector('.leer-mas') : null;
+    if (!leerMas) {
+      console.warn('No se encontró .leer-mas para este favorito.');
+      return;
+    }
+    const idAnuncio = leerMas.dataset.id;
+    if (!idAnuncio) {
+      console.warn('leer-mas no tiene data-id.');
+      return;
+    }
+
+    console.log('[favorito] Click en anuncio', idAnuncio, 'estado previo:', img.dataset.favorito);
+
+    try {
+      if (img.dataset.favorito === 'true') {
+        // pedir eliminación
+        const res = await eliminarFavoritos(idAnuncio);
+        console.log('eliminarFavoritos response:', res);
+        // El backend devuelve { success: true, removed: true } según tu controller
+        if (res && (res.success || res.removed)) {
+          img.src = 'https://cdn-icons-png.flaticon.com/512/1077/1077035.png';
+          img.dataset.favorito = 'false';
+        } else {
+          console.warn('No se pudo eliminar favorito, respuesta:', res);
+        }
+      } else {
+        // pedir añadir
+        const res = await añadirFavoritos(idAnuncio);
+        console.log('añadirFavoritos response:', res);
+        if (res && (res.success || res.added)) {
+          img.src = 'https://cdn-icons-png.flaticon.com/512/833/833472.png';
+          img.dataset.favorito = 'true';
+        } else {
+          console.warn('No se pudo añadir favorito, respuesta:', res);
+        }
+      }
+
+      // Si existe popup con el mismo id, sincronizar su icono (si usas popup)
+      const popupFav = document.getElementById('popup-favorito');
+      if (popupFav && popupFav.dataset && String(popupFav.dataset.id) === String(idAnuncio)) {
+        popupFav.src = img.src;
+        popupFav.dataset.favorito = img.dataset.favorito;
+      }
+    } catch (err) {
+      console.error('Error al cambiar favorito:', err);
+    }
+  });
 }
 
-// Verificar si un anuncio está en favoritos
-function isFavorito(anuncioId) {
-  const favoritos = getFavoritos();
-  return favoritos.includes(anuncioId.toString());
-}
+/* ==== funciones de comunicación con backend ==== */
+/* NOTA: uso rutas relativas ?controller=... para evitar CORS. Ajusta si necesitas otra ruta. */
 
-// Añadir a favoritos
-function addFavorito(anuncioId) {
-  const favoritos = getFavoritos();
-  if (!favoritos.includes(anuncioId.toString())) {
-    favoritos.push(anuncioId.toString());
-    localStorage.setItem('favoritos', JSON.stringify(favoritos));
+async function añadirFavoritos(id_anuncio) {
+  try {
+    const res = await fetch('?controller=FavoritosController&accion=añadir', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        id_anuncio: id_anuncio,
+        // No enviar id_usuario - el backend lo obtendrá de la sesión
+      })
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error('Error en añadirFavoritos:', err);
+    return { success: false, error: err.message || 'network' };
   }
 }
 
-// Eliminar de favoritos
-function removeFavorito(anuncioId) {
-  let favoritos = getFavoritos();
-  favoritos = favoritos.filter(id => id !== anuncioId.toString());
-  localStorage.setItem('favoritos', JSON.stringify(favoritos));
+async function eliminarFavoritos(id_anuncio) {
+  try {
+    const res = await fetch('?controller=FavoritosController&accion=eliminar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        id_anuncio: id_anuncio
+      })
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error('Error en eliminarFavoritos:', err);
+    return { success: false, error: err.message || 'network' };
+  }
 }
 
-// Sincronizar el estado del favorito entre popup y tarjeta
-function sincronizarFavoritoTarjeta(anuncioId, esFavorito) {
-  document.querySelectorAll('.tarjeta .leer-mas').forEach(btn => {
-    if (btn.dataset.id === anuncioId) {
-      const tarjeta = btn.closest('.tarjeta');
-      const iconoFavorito = tarjeta.querySelector('.favorito');
-      
-      iconoFavorito.src = esFavorito
-        ? 'https://cdn-icons-png.flaticon.com/512/833/833472.png'
-        : 'https://cdn-icons-png.flaticon.com/512/1077/1077035.png';
-    }
-  });
+async function getAll() {
+  try {
+    const res = await fetch('?controller=FavoritosController&accion=getAll', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({})
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    return json.favoritos ?? [];
+  } catch (err) {
+    console.error('Error en getAll favoritos:', err);
+    return [];
+  }
 }

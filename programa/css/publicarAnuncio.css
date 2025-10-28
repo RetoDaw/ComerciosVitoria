@@ -4,16 +4,16 @@
     font-family: 'Poppins', sans-serif;
 }
 
-#pubAnun-contenedor {
+#contenedor {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    height: 700px;
+    height: 100vh;
 }
 
-#pubAnun-crear {
+#crearAnuncio {
     flex: 1;
     padding: 40px;
     display: flex;
@@ -21,34 +21,32 @@
     gap: 20px;
 }
 
-#pubAnun-imagen {
+#imagen {
     flex: 1;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#pubAnun-imagen img {
+#imagen img {
     width: 100%;
     height: auto;
     object-fit: cover;
 }
 
-#pubAnun-formulario {
+#crearAnuncioFormulario {
     display: flex;
     flex-direction: column;
     text-align: left;
     gap: 20px;
 }
 
-#pubAnun-formulario p {
+p {
     font-size: 27.9px;
     font-weight: bolder;
 }
 
-#pubAnun-formulario input, 
-#pubAnun-categoria {
+input, select {
     width: 80%;
     font-weight: bold;
     border-radius: 5px;
@@ -57,18 +55,16 @@
     background-color: #FAF2F7;
 }
 
-#pubAnun-categoria {
+select {
     background-color: #F0D5E7;
     font-weight: bolder;
 }
 
-#pubAnun-categoria:hover {
+select:hover {
     background-color: #FAF2F7;
 }
 
-#pubAnun-botonCrear, 
-#pubAnun-labelAñadir, 
-#pubAnun-botonPlus {
+#crear, #añadir, #boton, #editar, #desactivar {
     border-radius: 10px;
     background-color: black;
     font-weight: bold;
@@ -76,20 +72,26 @@
     padding: 10px 20px;
     cursor: pointer;
 }
-
-#pubAnun-botonCrear:hover, 
-#pubAnun-labelAñadir:hover, 
-#pubAnun-botonPlus:hover {
-    background-color: rgb(57, 56, 56);
+#borrar{
+    border-radius: 10px;
+    border-style: none;
+    background-color: rgb(255, 0, 0);
+    font-weight: bold;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 
-#pubAnun-añadirImagen {
+#crear:hover, #añadir:hover, #boton:hover, #editar:hover, #desactivar:hover {
+    background-color: rgb(57, 56, 56);
+}
+#borrar:hover{background-color: rgb(255, 115, 115);}
+#añadir-imagen {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-
-#pubAnun-preview {
+#preview {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;

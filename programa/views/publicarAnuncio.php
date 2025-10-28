@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
     <!-- CSS del header -->
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/registrarse.css">
@@ -15,23 +17,22 @@
 </head>
 <body>
     <?php 
+        session_start();
         require_once 'layout/header.php'; 
     ?>
-    <div id="pubAnun-contenedor">
-        <div id="pubAnun-crear">
-            <form action="index.php?controller=ComerciosController&accion=store" method="post" enctype="multipart/form-data">
-            <div id="pubAnun-formulario" name="crearAnuncio">
+    <div id="contenedor">
+        <div id="crearAnuncio">
+            <form id="formAnuncio" action="index.php?controller=ComerciosController&accion=store" method="post" enctype="multipart/form-data">
+            <div id="crearAnuncioFormulario" name="crearAnuncio">
                 <p>Crear anuncio</p>
-                <input type="text" name="titulo" id="pubAnun-titulo" placeholder="Título" required>
-                <input type="number" name="precio" id="pubAnun-precio" placeholder="Precio" required>   
-                <input type="text" name="descripcion" id="pubAnun-descripcion" placeholder="Descripción" required>
-                <input type="text" name="direccion" id="pubAnun-direccion" placeholder="Dirección" required>
+                <input type="text" name="titulo" id="titulo" placeholder="Título" required>
+                <input type="number" name="precio" id="precio" placeholder="Precio" required>   
+                <input type="text" name="descripcion" id="descripcion" placeholder="Descripción" required>
+                <input type="text" name="direccion" id="direccion" placeholder="Dirección" required>
             </div>
 
-           <select id="pubAnun-categoria" name="id_categoria">
+           <select id="id_categoria" name="id_categoria" id="categoria">
             <?php
-                session_start();
-                $_SESSION['id'] = 4;
                 require_once 'controllers/CategoriasController.php';
                 $categoriasController = new CategoriasController;
                 $categorias = $categoriasController->cogerCategorias();
@@ -43,25 +44,22 @@
             <?php endforeach; ?>
         </select>
 
-            <div id="pubAnun-añadirImagen">
-                <label for="pubAnun-inputImg" id="pubAnun-labelAñadir">Añadir fotos</label>
-                <input type="file" id="pubAnun-inputImg" name="imagenes[]" accept="image/*" multiple hidden>
-                <button id="pubAnun-botonPlus" type="button">+</button>
+            <div id="añadir-imagen">
+                <label for="inputAñadirImagen" id="añadir">Añadir fotos</label>
+                <input type="file" id="inputAñadirImagen" name="imagenes[]" accept="image/*" multiple hidden>
+                <button id="boton" type="button">+</button>
             </div>
 
-            <button id="pubAnun-botonCrear" type="submit">Crear</button>
+            <button id="crear" type="submit">Crear</button>
 
-            <div id="pubAnun-preview"></div>
+            <div id="preview"></div>
             </form>
         </div>
 
-        <div id="pubAnun-imagen">
-            <img src="img/VITORIA-GASTEIZ.jpg" alt="">
+        <div id="imagen">
+            <img src="../img/VITORIA-GASTEIZ.jpg" alt="">
         </div>
     </div>
-    <?php 
-        require_once 'layout/footer.php'; 
-    ?>
     <script>
         const IMAGENES = [];
     </script>

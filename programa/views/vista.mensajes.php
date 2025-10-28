@@ -1,9 +1,5 @@
 <?php
 session_start();
-
-// Simulación: usuario logueado (ejemplo)
-$_SESSION['id_usuario'] = 5;
-$_SESSION['user_name'] = 'daniel';
 ?>
 
 <!DOCTYPE html>
@@ -11,11 +7,16 @@ $_SESSION['user_name'] = 'daniel';
 <head>
     <meta charset="UTF-8">
     <title>Mensajería</title>
-    <script src="assets/mensajes.js" defer></script>
+    <script src="/assets/mensajes.js" defer></script>
     <link rel="stylesheet" href="css/vistaMensaje.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/registrarse.css">
+    <link rel="stylesheet" href="css/iniciarSesion.css">
 </head>
 <body>
-    <?php require_once 'layout/header.php'?>
+    <?php 
+        require_once 'layout/header.php'
+    ?>
     <div id="contenedor-chat">
         <div id="usuarios"></div>
 
@@ -29,7 +30,7 @@ $_SESSION['user_name'] = 'daniel';
     </div>
 
     <script>
-        const USER_ID = <?= $_SESSION['id_usuario'] ?>;
+        const USER_ID = <?= $_SESSION['id'] ?>;
     </script>
 </body>
 </html>

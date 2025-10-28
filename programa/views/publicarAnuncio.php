@@ -18,7 +18,7 @@
 <body>
     <?php 
         session_start();
-        require_once 'layout/header.php'; 
+        require_once 'layout/header.php';
     ?>
     <div id="contenedor">
         <div id="crearAnuncio">
@@ -57,12 +57,15 @@
         </div>
 
         <div id="imagen">
-            <img src="../img/VITORIA-GASTEIZ.jpg" alt="">
+            <img src="img/VITORIA-GASTEIZ.jpg" alt="">
         </div>
     </div>
     <script>
         const IMAGENES = [];
     </script>
    <script src="assets/imagenes.js"></script>
+    <?php 
+        require_once 'layout/footer.php';
+    ?>
 </body>
 </html>

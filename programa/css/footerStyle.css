@@ -1,97 +1,52 @@
-* {
-    margin: 0;
-    padding: 0;
+*{
+    margin: 0px;
+    padding: 0px;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
-
-#footer {
-    background-color: #F0D5E7;
-    padding: 40px 60px;
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
+#footer{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     background-color: #F0D5E7;
 }
-
-.footer-seccion {
-    flex: 1;
-    min-width: 250px;
-}
-
-/* Logo section del footer */
-#footer-logo-titulo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-#footer-titulo {
+#titulo{
     color: #714262;
     font-weight: bolder;
-    font-size: 35.9px;
+    font-size: 2em;
+    margin-top:15px;
 }
-
-.footer-copyright p {
-    font-size: 16px;
-    color: #666;
-}
-
-/* Títulos de secciones del footer */
-.footer-titulo-seccion {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Textos generales del footer */
-#footer p, 
-#footer a, 
-#footer li {
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    color: #333;
-    line-height: 1.5;
-}
-
-/* Sección Sobre Nosotros */
-.footer-lista {
-    list-style: none;
-}
-
-.footer-lista li {
-    margin-bottom: 15px;
-}
-
-.footer-lista li a {
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-lista li a:hover {
-    color: #92557F;
-}
-
-/* Sección Redes Sociales */
-.footer-iconos-redes {
+#titulo-logo{
+    margin: 20px 0px 0px 20px;
     display: flex;
-    gap: 20px;
+    flex-direction: row;
 }
-
-.footer-icono-red {
-    transition: transform 0.3s ease;
-    display: inline-block;
+#parrafos{
+    display: flex;
+    align-items: center;  
+    flex-direction: column;  
+ 
+    margin: 20px 0px 20px 45px;
 }
-
-.footer-icono-red:hover {
-    transform: scale(1.1);
+.titulosNegrita{
+    font-weight: bolder;
+ 
 }
-
-/* Sección Ubicación */
-.footer-mapa {
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 300px;
+#maps{
+    margin: 10px 10px 10px 10px;
+}
+#quienesSomos{
+    margin-top: 10px;
+}
+#logos-redes{
+    margin-top: 10px;
+}
+#ubicacion{
+    margin-top: 20px;
+}
+h4{font-size:28.4px;}
+h5{
+    font-size:18px;
+    font-weight: lighter;
 }

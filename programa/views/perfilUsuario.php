@@ -1,22 +1,15 @@
 <?php
-    if (session_status() === PHP_SESSION_NONE) {
-      session_start();
-    }
-    if(!isset($_SESSION['id'])){
-      header('Location: index.php?controller=UsuariosController&accion=login');
-      exit;
-    }
-
-    require_once __DIR__ . '/../models/UsuariosModel.php';
-
-    //Obtener datos de usuario
-    $usuario = UsuariosModel::getById($_SESSION['id']);
-
-    //si no existe usuario te redirige a index.php
-    if(!$usuario){
-      header('Location: index.php');
-    }
+    session_start();
 ?>
+<!--
+    IMPORTANTE
+
+        FALTA POR AÑADIR LA FOTO DE PERFIL DEPENDIENDO DEL USUARIO
+        +
+        MOSTRAR MIS FAVORITOS Y MIS ANUNCIOS
+        +
+        AÑADIR INSERT DELETE Y SELECT DE LAS CATEGORIAS
+-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -33,21 +26,24 @@
         <link rel="stylesheet" href="css/footerStyle.css">
     </head>
     <body>
-      <?php require_once 'layout/header.php'; ?>
-        <div id="contenedor-principal">
-          <div id="info">
-              <div id="div-saludo">
-                  <p id="saludo">¡Hola <?php echo htmlspecialchars($usuario['nombre']); ?>!</p>
-              </div>   
-              <div id="datos">
-                  <p id="tus-datos">Estos son tus datos:</p>
-                  <p id="nombre-apellidos">
-                      <?php echo htmlspecialchars($usuario['nombre'] . ' ' . $usuario['apellidos']); ?>
-                  </p>        
-                  <p id="email"><?php echo htmlspecialchars($usuario['email']); ?></p>
-                  <p id="usuario"><?php echo htmlspecialchars($usuario['user_name']); ?></p>
-              </div>  
-          </div>
+  <div id="contenedor-principal">
+    <div id="info">
+      <div id="div-saludo">
+        <p id="saludo">¡Hola <?php echo $_SESSION['nombre'];?>!</p>
+      </div>   
+      <div id="datos">
+        <p id="tus-datos">Estos son tus datos:</p>
+        <p id="nombre-apellidos">
+            <!--Enseña los diferentes datos del usuario-->
+          <?php 
+            $usuario = UsuariosModel::getById($_SESSION['id']);
+            echo $usuario['nombre'] . ' ' . $usuario['apellidos'];
+          ?>
+        </p>        
+        <p id="email"><?php echo $usuario['email']; ?></p>
+        <p id="usuario"><?php echo '@' . $usuario['user_name']; ?></p>
+      </div>  
+    </div>
             <!--Depende del tipo de usuario enseña unos botones u otros-->
           <div id="imagen-botones">
             <img src="img/iniciarSesion.png" alt="">
@@ -62,30 +58,28 @@
         </div>
 
   <div id="editar-boton">
-    <a href="index.php?controller=UsuariosController&accion=editar" class="btn-editar">
-      <button class="btn-perfil" id="editar">Editar perfil</button>
-    </a>
+    <a href="../views/editarPerfil.php" style="text-decoration: none;"><button id="editar" onclick>Editar Perfil</button></a>
   </div>
 
   <!-- POPUP CREAR -->
-  <div id="modalCrear" class="modal-categoria">
-    <div class="modal-categoria__contenido">
-      <span class="cerrar-modal" id="cerrarCrear">&times;</span>
+  <div id="modalCrear" class="modal">
+    <div class="modal-contenido">
+      <span class="cerrar" id="cerrarCrear">&times;</span>
       <h2>Crear categoría</h2>
       <input type="text" placeholder="Nombre">
-      <button class="btn-modal">Crear</button>
+      <button id="popups">Crear</button>
     </div>
   </div>
 
   <!-- POPUP BORRAR -->
-  <div id="modalBorrar" class="modal-categoria">
-    <div class="modal-categoria__contenido">
-      <span class="cerrar-modal" id="cerrarBorrar">&times;</span>
+  <div id="modalBorrar" class="modal">
+    <div class="modal-contenido">
+      <span class="cerrar" id="cerrarBorrar">&times;</span>
       <h2>Borrar categoría</h2>
       <select>
         <option>Selecciona</option>
       </select>
-      <button class="btn-modal">Borrar</button>
+      <button id="popups">Borrar</button>
     </div>
   </div>
 
@@ -112,7 +106,6 @@
         if (e.target === modalBorrar) modalBorrar.style.display = 'none';
         });
 </script>
-<?php require_once 'layout/footer.php'; ?>
 </body>
 
 </html>

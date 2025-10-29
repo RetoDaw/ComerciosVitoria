@@ -14,26 +14,80 @@
   align-items: start;
 }
 
+/* --- Saludo --- */
+#saludo {
+  font-weight: bold;
+  font-size: 36px;
+  color: #000; /* negro */
+  margin-bottom: 10px;
+  position: relative;
+  animation: slideFade 0.6s ease-out;
+}
+
+/* Barra rosa debajo del saludo */
+#saludo::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 50px;
+    height: 3px;
+    background-color: #BB6DA3;
+}
+
+/* Animación general */
+@keyframes slideFade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Info --- */
 #info {
   display: grid;
   row-gap: 40px;
+  margin-left: 60px;
+  margin-top: 20px;
 }
 
-#saludo {
-  font-weight: bold;
-  font-size: 30px;
-}
-
+/* Datos estilo tarjeta moderna */
 #datos {
   display: grid;
-  row-gap: 30px;
+  row-gap: 15px;
+  background-color: #fff; /* fondo blanco */
+  padding: 25px 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border: 1px solid #E0D0E8; /* borde sutil */
+  transition: all 0.3s ease;
 }
+.datos{
+  font-weight: bold;
+  font-style:italic
+}
+#datos div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #F0E0F0; /* separador sutil */
+  font-size: 16px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+#datos div:last-child {
+  border-bottom: none;
+}
+
+
 
 #tus-datos {
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #222;
 }
 
+/* --- Imagen y botones --- */
 #imagen-botones {
   display: grid;
   row-gap: 20px;
@@ -45,6 +99,14 @@
   border-radius: 20px;
   max-width: 100%;
   height: auto;
+  margin-right: 35px;
+  animation: slideFade 0.6s ease-out;
+  transition: all 0.3s ease;
+}
+
+#imagen-botones img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 #imagen-botones a{
@@ -59,22 +121,25 @@
   border: none;
   width: 138px;
   height: 53px;
-  background-color: #BB6DA3;
+  background-color: black;
   color: #fff;
   padding: 15px;
   border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 .btn-perfil:hover {
-  background-color: #CE78B3;
+  background-color: #474747;
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
 /* --- Botón editar --- */
 #editar-boton {
   width: fit-content;
-  margin-left: 40px;
+  margin-left: 100px;
   margin-bottom: 83px;
 }
 
@@ -154,11 +219,9 @@
 
 .btn-modal:hover {
   background-color: rgb(38, 38, 38);
-}/* === ESTILOS PARA FAVORITOS - RESPETANDO TU CSS EXISTENTE === */
+}
 
-/* Los estilos del modal ya están definidos en tu CSS principal */
-/* Solo añadimos estos pequeños ajustes específicos para favoritos */
-
+/* === Estilos para favoritos === */
 .cargando {
   padding: 40px;
   text-align: center;
@@ -181,7 +244,6 @@
   font-size: 1.1em;
 }
 
-/* Aseguramos que el contenido de favoritos se vea bien dentro del modal */
 #contenido-favoritos .tarjetas-container {
   max-height: 70vh;
   overflow-y: auto;

@@ -49,18 +49,17 @@ if(!$usuario){
                   <p id="saludo">¡Hola <?php echo htmlspecialchars($usuario['nombre']); ?>!</p>
               </div>   
               <div id="datos">
-                  <p id="tus-datos">Estos son tus datos:</p>
                   <p id="nombre-apellidos">
-                      <?php echo htmlspecialchars($usuario['nombre'] . ' ' . $usuario['apellidos']); ?>
+                      <p class="datos">Nombre Completo</p> <?php echo htmlspecialchars($usuario['nombre'] . ' ' . $usuario['apellidos']); ?>
                   </p>        
-                  <p id="email"><?php echo htmlspecialchars($usuario['email']); ?></p>
-                  <p id="usuario"><?php echo htmlspecialchars($usuario['user_name']); ?></p>
+                  <p id="email"><p class="datos">Correo Electrónico</p> <?php echo htmlspecialchars($usuario['email']); ?></p>
+                  <p id="usuario"><p class="datos">Usuario</p>   <?php echo htmlspecialchars($usuario['user_name']); ?></p>
               </div>  
           </div>
           
           <!--Depende del tipo de usuario enseña unos botones u otros-->
           <div id="imagen-botones">
-            <img src="img/iniciarSesion.png" alt="">
+            <img src="img/perfil.png" alt="">
             <?php if($usuario['tipo_usuario'] !== 'admin'): ?>
               <button class="btn-perfil" id="btn-favoritos">Mis favoritos</button>
               <button class="btn-perfil" id="btn-anuncios">Mis anuncios</button>

@@ -142,3 +142,10 @@ body {
   border-radius: 0;
   object-fit: contain;
 }
+
+#eliminar{
+  background-color: #ff3333;
+}
+#eliminar:hover{
+    background-color: #ff5555;
+}

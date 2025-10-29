@@ -30,6 +30,17 @@ document.querySelectorAll('.leer-mas').forEach(btn => {
       document.getElementById('popup-email').innerHTML = '✉️ ' + (datosC.email ?? 'No disponible');
     });
 
+    try{
+      const formEliminar = document.getElementById('eliminar');
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'id';
+      hiddenInput.value = anuncio.id;
+      formEliminar.appendChild(hiddenInput);
+    }catch{
+      
+    }
+
     //funcion para enviar mensaje
     const btnMensaje = document.getElementById('enviarMensaje');
     btnMensaje.onclick = enviarMensaje;

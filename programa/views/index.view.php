@@ -111,12 +111,6 @@
           <div id="popup-titulo"></div>
           <div id="popup-categoria"></div>
         </div>
-        <div class="icono-fav">
-          <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
-            width="30px"
-            height="30px"
-            id="popup-favorito">
-        </div>
       </div>
 
       <!-- PRECIO -->
@@ -134,6 +128,12 @@
       </div>
 
       <button id="enviarMensaje" class="enviar">Enviar mensaje</button>
+
+      <?php if(isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] == 'admin'):?>
+      <form id="formEliminar" action="index.php?accion=destroy" method="post">
+        <button id="eliminar" class="enviar">Eliminar anuncio</button>
+      </form>
+      <?php endif;?>
     </div>
   </div>
 

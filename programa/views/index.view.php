@@ -50,7 +50,14 @@
       </form>
     </div>
     <div class="tarjetas-container">
-      <?php foreach ($anuncios as $anuncio): ?>
+      <?php 
+      if(!$anuncios):
+      ?>
+        <h3>No se han encontrado anuncios</h3>
+      <?php
+      else:
+      foreach ($anuncios as $anuncio): 
+      ?>
         <?php
         // Obtener imágenes del anuncio
         $imagenes = ImagenesController::getByAnuncio($anuncio);
@@ -78,7 +85,10 @@
             </div>
           </div>
         </div>
-      <?php endforeach; ?>
+      <?php 
+      endforeach;
+      endif; 
+      ?>
     </div>
   </div>
 

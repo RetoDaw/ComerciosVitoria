@@ -8,10 +8,12 @@
     </a>   
     </div>
 
-    <div class="header-buscador">
-        <img src="img/lupa2.png" alt="Buscar" class="header-icono-buscar">
-        <input type="text" class="header-input-buscar" placeholder="Buscar anuncios...">
-    </div>
+    <form action="index.php?accion=buscar" method="post">
+        <div class="header-buscador">
+            <img src="img/lupa2.png" alt="Buscar" class="header-icono-buscar">
+                <input type="text" name="nombre" class="header-input-buscar" placeholder="Buscar anuncios...">
+        </div>
+    </form>
 
     <div id="header-botones">
         <?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])):?>

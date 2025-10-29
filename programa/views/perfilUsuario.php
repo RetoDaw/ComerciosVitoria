@@ -36,6 +36,8 @@ if(!$usuario){
         <!-- CSS de las tarjetas y popup -->
         <link rel="stylesheet" href="css/tarjetas.css">
         <link rel="stylesheet" href="css/popup.css">
+
+        <link rel="stylesheet" href="css/editarAnuncio.css">
     </head>
     <body>
       <?php require_once 'layout/header.php'; ?>
@@ -88,6 +90,21 @@ if(!$usuario){
             </div>
           </div>
         </div>
+
+        <!-- SECCIÓN DE MIS ANUNCIOS -->
+        <div id="modalAnuncios" class="modal-categoria">
+          <div class="modal-categoria__contenido" style="width: 90%; max-width: 1200px; height: auto; max-height: 90vh;">
+            <span class="cerrar-modal" id="cerrarAnuncios">&times;</span>
+            <h2 style="margin-bottom: 20px;">Mis Anuncios</h2>
+
+            <div id="contenido-anuncios" style="width: 100%;">
+              <div class="cargando">
+                <p>Cargando tus anuncios...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <!-- POPUP CREAR -->
         <div id="modalCrear" class="modal-categoria">
@@ -145,7 +162,9 @@ if(!$usuario){
             <button id="enviarMensaje" class="enviar">Enviar mensaje</button>
           </div>
         </div>
-
+        
+        <?php require_once 'layout/footer.php'; ?>
+        
         <script>
           // Control de la sección de favoritos
           const btnFavoritos = document.getElementById('btn-favoritos');
@@ -258,6 +277,77 @@ if(!$usuario){
             if (e.target === modalCrear) modalCrear.style.display = 'none';
             if (e.target === modalBorrar) modalBorrar.style.display = 'none';
           });
+        </script>
+
+        <script>
+          // MIS ANUNCIOS
+            const btnAnuncios = document.getElementById('btn-anuncios');
+            const modalAnuncios = document.getElementById('modalAnuncios');
+            const cerrarAnuncios = document.getElementById('cerrarAnuncios');
+            const contenidoAnuncios = document.getElementById('contenido-anuncios');
+
+            async function cargarMisAnuncios() {
+              try {
+                contenidoAnuncios.innerHTML = '<div class="cargando"><p>Cargando tus anuncios...</p></div>';
+
+                const response = await fetch('?controller=ComerciosController&accion=getByUser', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({})
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.anuncios && data.anuncios.length > 0) {
+                  contenidoAnuncios.innerHTML = `
+                    <div class="tarjetas-container"
+                        style="padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-height: 70vh; overflow-y: auto;">
+                      ${data.anuncios.map(a => `
+                        <div class="tarjeta">
+                          <img src="${a.imagen || 'image.png'}" alt="${a.titulo}">
+                          <h3>${a.titulo}</h3>
+                          <p class="precio">${parseFloat(a.precio).toFixed(2)} €</p>
+                          <p class="descripcion">
+                            ${a.descripcion.substring(0, 45)}${a.descripcion.length > 45 ? '...' : ''}
+                          </p>
+                          <p class="categoria"><b>Categoría:</b> ${a.categoria || 'Sin categoría'}</p>
+
+                          <div class="botones">
+                            <button class="leer-mas" data-id="${a.id}">Leer más</button>
+                            <a href="?controller=ComerciosController&accion=editar&id=${a.id}">
+                              <button class="editar-anuncio">Editar</button>
+                            </a>
+                          </div>
+                        </div>
+                      `).join('')}
+                    </div>
+                  `;
+                } else {
+                  contenidoAnuncios.innerHTML = `
+                    <div class="sin-contenido" style="padding: 40px; text-align: center; color: #666;">
+                      <p>No has publicado ningún anuncio todavía.</p>
+                    </div>
+                  `;
+                }
+
+              } catch (e) {
+                console.error(e);
+                contenidoAnuncios.innerHTML = `
+                  <p style="text-align:center;color:red;">Error cargando tus anuncios.</p>
+                `;
+              }
+            }
+
+            // Eventos modal anuncios
+            btnAnuncios.addEventListener('click', () => {
+              cargarMisAnuncios();
+              modalAnuncios.style.display = 'flex';
+            });
+            cerrarAnuncios.addEventListener('click', () => modalAnuncios.style.display = 'none');
+            modalAnuncios.addEventListener('click', (e) => {
+              if (e.target === modalAnuncios) modalAnuncios.style.display = 'none';
+            });
+
         </script>
 
         <script src="assets/favorito.js"></script>

@@ -123,4 +123,17 @@ class ComerciosModel {
         );
         if(!$stmt->execute($data)) throw new Exception("No se pudo editar el estado del anuncio");
     }
+
+    public static function getByUser($userId) {
+    $dbh = Database::getConnection();
+    $stmt = $dbh->prepare("SELECT * 
+                           FROM anuncios 
+                           WHERE id_usuario = :idUsuario AND estado = 1");
+
+    $stmt->bindParam(':idUsuario', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }

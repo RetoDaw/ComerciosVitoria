@@ -39,7 +39,7 @@ class ComerciosController extends BaseController {
     }
     
     public function editar() {
-        $id = $_POST['id'];
+        $id = $_GET['id'];
 
         $anuncio = ComerciosModel::getById($id);
         $imagenes = ImagenesModel::getByAnuncio($id);
@@ -95,7 +95,7 @@ class ComerciosController extends BaseController {
         }
 
         // Redirigir al listado de sus anuncios
-        $this->redirect('perfilUsuario.php');
+        $this->redirect('index.php?controller=UsuariosController&accion=perfil');
     }
 
     public function desactivar(){
@@ -123,6 +123,38 @@ class ComerciosController extends BaseController {
         ComerciosModel::deleteById($id);
         $this->redirect('index.php');
     }
+
+    public static function getByUser() {
+    header('Content-Type: application/json; charset=utf-8');
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if (!isset($_SESSION['id'])) {
+        echo json_encode([
+            "success" => false,
+            "msg" => "Usuario no autenticado"
+        ]);
+        exit;
+    }
+
+    try {
+        $anuncios = ComerciosModel::getByUser($_SESSION['id']);
+
+        echo json_encode([
+            "success" => true,
+            "anuncios" => $anuncios
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            "success" => false,
+            "msg" => $e->getMessage()
+        ]);
+    }
+    exit;
+}
+
     
     /*public function destroyAll() {
         ComerciosModel::deleteAll();

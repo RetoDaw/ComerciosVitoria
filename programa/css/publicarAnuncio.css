@@ -1,4 +1,4 @@
-/* Base styles */
+/* Estilos generales */
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +6,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Main container */
+/* Contenedor principal */
 #contenedor {
     display: flex;
     justify-content: space-between;
@@ -15,7 +15,7 @@
     background-color: white; 
 }
 
-/* Form section */
+/* Seccion formulario */
 #crearAnuncio {
     flex: 2.5;  
     padding: 3rem 4rem;
@@ -48,7 +48,7 @@
     background-color: #BB6DA3;
 }
 
-/* Form inputs */
+/* Inputs del formulario */
 input, select {
     width: 100%;
     padding: 12px 15px;
@@ -79,7 +79,7 @@ select {
     padding-right: 2.5rem;
 }
 
-/* Buttons */
+/* Botones */
 #crear, #añadir, #boton, #editar, #desactivar {
     border: none;
     border-radius: 8px;
@@ -114,7 +114,7 @@ select {
     box-shadow: 0 5px 15px rgba(255, 51, 51, 0.3);
 }
 
-/* Image section */
+/* Seccion imagen */
 #imagen {
     flex: 0.6;
     position: relative;
@@ -134,12 +134,11 @@ select {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Remove hover effect */
 #imagen:hover img {
     transform: none;
 }
 
-/* Image upload section */
+/* Seccion de añadir imagen */
 #añadir-imagen {
     display: flex;
     align-items: center;
@@ -169,7 +168,6 @@ select {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Add space between address and category */
 #direccion {
-    margin-bottom: 2rem;  /* Adds space after address field */
+    margin-bottom: 2rem;  
 }

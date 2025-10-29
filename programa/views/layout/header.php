@@ -109,16 +109,16 @@
     <div class="popup-registro">
         <button class="cerrar-registro" id="closePopupRegistro">✖</button>
         <h2>Registrarme</h2>
-        <form>
-            <input type="text" placeholder="Nombre" required />
-            <input type="text" placeholder="Apellidos" required />
-            <input type="date" placeholder="Fecha de nacimiento" required />
-            <input type="email" placeholder="Email" required />
-            <input type="tel" placeholder="Teléfono (opcional)" />
-            <input type="text" placeholder="Usuario" required />
-            <input type="password" placeholder="Contraseña" required />
-            <input type="password" placeholder="Repite la contraseña" required />
-            <button type="submit" class="boton-registro">Registrarme</button>
+        <form id="form-registro">
+            <input type="text" name="nombre" placeholder="Nombre" required />
+            <input type="text" name="apellidos" placeholder="Apellidos" required />
+            <input type="date" name="fecha_nacimiento" placeholder="Fecha de nacimiento" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="tel" name="telefono" placeholder="Teléfono (opcional)" />
+            <input type="text" name="user_name" placeholder="Usuario" required />
+            <input type="password" name="password" placeholder="Contraseña (mínimo 6 caracteres)" required />
+            <input type="password" name="password_confirm" placeholder="Repite la contraseña" required />
+            <button type="button" id="continuar-registro" class="boton-registro">Registrarme</button>
         </form>
         <p>¿Ya tienes cuenta? <a id="abrirInicioDesdeRegistro">Inicia Sesión</a></p>
     </div>
@@ -161,4 +161,109 @@
         overlayRegistro.style.display = 'none';
         overlayLogin.style.display = 'flex';
     });
+
+    // Funcionalidad de registro
+    let btnRegistro = document.getElementById('continuar-registro');
+    btnRegistro.addEventListener('click', registrarUsuario);
+
+    async function registrarUsuario() {
+        // Obtener valores del formulario específicamente del popup de registro
+        const formRegistro = document.getElementById('overlay-registro');
+        const nombre = formRegistro.querySelector('input[name="nombre"]').value.trim();
+        const apellidos = formRegistro.querySelector('input[name="apellidos"]').value.trim();
+        const fecha_nacimiento = formRegistro.querySelector('input[name="fecha_nacimiento"]').value;
+        const email = formRegistro.querySelector('input[name="email"]').value.trim();
+        const telefono = formRegistro.querySelector('input[name="telefono"]').value.trim();
+        const user_name = formRegistro.querySelector('input[name="user_name"]').value.trim();
+        const password = formRegistro.querySelector('input[name="password"]').value;
+        const password_confirm = formRegistro.querySelector('input[name="password_confirm"]').value;
+
+        // Debug: mostrar los valores en consola
+        console.log('Datos del formulario:', {
+            nombre, apellidos, fecha_nacimiento, email, telefono, user_name,
+            password: password ? '***' : '', 
+            password_confirm: password_confirm ? '***' : ''
+        });
+
+        // Validaciones en frontend
+        if (!nombre || !apellidos || !fecha_nacimiento || !email || !user_name || !password || !password_confirm) {
+            alert('Por favor, completa todos los campos obligatorios');
+            return;
+        }
+
+        // Validar formato de email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Por favor, introduce un email válido');
+            return;
+        }
+
+        // Validar longitud de contraseña
+        if (password.length < 6) {
+            alert('La contraseña debe tener al menos 6 caracteres');
+            return;
+        }
+
+        // Validar que las contraseñas coincidan
+        if (password !== password_confirm) {
+            alert('Las contraseñas no coinciden');
+            return;
+        }
+
+        // Validar fecha de nacimiento (debe ser mayor de 18 años)
+        const fechaNacimiento = new Date(fecha_nacimiento);
+        const hoy = new Date();
+        const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+        const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+        
+        if (edad < 18 || (edad === 18 && mes < 0)) {
+            alert('Debes ser mayor de 18 años para registrarte');
+            return;
+        }
+
+        // Validar teléfono si se proporciona
+        if (telefono && telefono.length > 0) {
+            const telefonoRegex = /^[0-9]{9,20}$/;
+            if (!telefonoRegex.test(telefono.replace(/\s/g, ''))) {
+                alert('Por favor, introduce un teléfono válido (solo números, 9-20 dígitos)');
+                return;
+            }
+        }
+
+        try {
+            const res = await fetch('index.php?controller=UsuariosController&accion=registrarUsuario', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    apellidos: apellidos,
+                    fecha_nacimiento: fecha_nacimiento,
+                    email: email,
+                    telefono: telefono || null,
+                    user_name: user_name,
+                    password: password
+                })
+            });
+
+            const data = await res.json();
+            
+            if (!data.success) {
+                alert(data.message);
+                return;
+            }
+
+            alert('¡Registro exitoso! Ahora puedes iniciar sesión');
+            
+            // Limpiar formulario
+            document.getElementById('form-registro').reset();
+            
+            // Cerrar popup de registro y abrir el de login
+            document.getElementById('overlay-registro').style.display = 'none';
+            document.getElementById('overlay-login').style.display = 'flex';
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Ocurrió un error al registrarse. Por favor, inténtalo de nuevo.');
+        }
+    }
 </script>

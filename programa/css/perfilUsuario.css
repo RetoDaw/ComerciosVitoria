@@ -153,7 +153,7 @@
   position: fixed;
   inset: 0;
   background-color: rgba(0,0,0,0.45);
-  z-index: 1000;
+  z-index: 2;
   justify-content: center;
   align-items: center;
 }
@@ -172,6 +172,7 @@
   position: relative;
   box-shadow: 0 6px 20px rgba(0,0,0,0.2);
   animation: scaleIn .18s ease-out;
+  z-index: 4;
 }
 
 @keyframes scaleIn {

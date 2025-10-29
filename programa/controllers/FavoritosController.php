@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../models/FavoritosModel.php';
+require_once __DIR__ . '/../models/ImagenesModel.php';
+require_once __DIR__ . '/../models/CategoriasModel.php';
 
 class FavoritosController extends BaseController {
 
@@ -74,20 +76,28 @@ class FavoritosController extends BaseController {
         }
     }
 
-    public function getAll(){
-        header('Content-Type: application/json');
-        
-        $id_usuario = $this->checkAuthentication();
-        
-        try {
-            $favoritos = FavoritosModel::getAll($id_usuario);
-            echo json_encode([
-                'success' => true,
-                'favoritos' => $favoritos
-            ]);
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['error' => 'Error del servidor: ' . $e->getMessage()]);
+public function getAll(){
+    header('Content-Type: application/json');
+
+    $id_usuario = $this->checkAuthentication();
+
+    try {
+        $favoritos = FavoritosModel::getAll($id_usuario);
+
+        // Añadir imágenes y categoría
+        foreach($favoritos as &$anuncio){
+            $imagenes = ImagenesModel::getByAnuncio($anuncio['id']);
+            $anuncio['imagenes'] = array_map(fn($i)=> $i['ruta'], $imagenes);
+            $anuncio['categoria'] = CategoriasModel::getById($anuncio['id_categoria'])['nombre'] ?? 'Sin categoría';
         }
+
+        echo json_encode([
+            'success' => true,
+            'favoritos' => $favoritos
+        ]);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Error del servidor: ' . $e->getMessage()]);
     }
+}
 }

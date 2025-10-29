@@ -142,6 +142,13 @@ class ComerciosController extends BaseController {
     try {
         $anuncios = ComerciosModel::getByUser($_SESSION['id']);
 
+        // Añadir imágenes y categoría
+        foreach($anuncios as &$anuncio){
+            $imagenes = ImagenesModel::getByAnuncio($anuncio['id']);
+            $anuncio['imagenes'] = array_map(fn($i)=> $i['ruta'], $imagenes);
+            $anuncio['categoria'] = CategoriasModel::getById($anuncio['id_categoria'])['nombre'] ?? 'Sin categoría';
+        }
+
         echo json_encode([
             "success" => true,
             "anuncios" => $anuncios
@@ -154,6 +161,7 @@ class ComerciosController extends BaseController {
     }
     exit;
 }
+
 
     
     /*public function destroyAll() {

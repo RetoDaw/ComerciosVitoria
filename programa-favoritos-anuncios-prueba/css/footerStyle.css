@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+#footer {
+    background-color: #F0D5E7;
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.footer-seccion {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Logo section del footer */
+#footer-logo-titulo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#footer-titulo {
+    color: #714262;
+    font-weight: bolder;
+    font-size: 35.9px;
+}
+
+.footer-copyright p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Títulos de secciones del footer */
+.footer-titulo-seccion {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Textos generales del footer */
+#footer p, 
+#footer a, 
+#footer li {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Sección Sobre Nosotros */
+.footer-lista {
+    list-style: none;
+}
+
+.footer-lista li {
+    margin-bottom: 15px;
+}
+
+.footer-lista li a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-lista li a:hover {
+    color: #92557F;
+}
+
+/* Sección Redes Sociales */
+.footer-iconos-redes {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-icono-red {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.footer-icono-red:hover {
+    transform: scale(1.1);
+}
+
+/* Sección Ubicación */
+.footer-mapa {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 300px;
+}

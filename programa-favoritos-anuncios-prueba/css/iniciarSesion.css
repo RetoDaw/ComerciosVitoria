@@ -1,0 +1,98 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+#overlay-login {
+  display: none; 
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px); 
+  z-index: 9999;
+}
+
+.popup-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #E8C1DC;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 500px;
+  height: 330px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#continuar-login {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 300px;
+}
+
+#continuar-login:hover {
+  color: black;
+  background-color: white;
+  border-color: white;
+}
+
+.popup-login h2 {
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.popup-login form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.popup-login input {
+  padding: 10px;
+  border: 3px solid #BB6DA3;
+  border-radius: 6px;
+  outline: none;
+  width: 100%;
+}
+
+.popup-login p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.popup-login a {
+  color: #5b2e63;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.popup-login a:hover {
+  text-decoration: underline;
+}
+
+.cerrar-login {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}

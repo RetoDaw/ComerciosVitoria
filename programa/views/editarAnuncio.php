@@ -26,7 +26,7 @@
     ?>
     <div id="contenedor">
         <div id="crearAnuncio">
-            <form action="index.php?accion=update" method="post" enctype="multipart/form-data">
+            <form id="formAnuncio" action="index.php?accion=update" method="post" enctype="multipart/form-data">
                 <div id="crearAnuncioFormulario" name="editarAnuncio">
                     <p>Editar anuncio</p>
 
@@ -88,8 +88,8 @@
                 <button id="desactivar" type="button" value="reactivar">Reactivar</button>
             <?php endif; ?>
             <form action="index.php?accion=destroy" method="post" enctype="multipart/form-data">
-                <input type="text" name="id" id="id" hidden value="<?= htmlspecialchars($anuncio['id']) ?>" required>
-                <button id="editar" type="submit">Borrar</button>
+                <input type="text" name="id" hidden value="<?= htmlspecialchars($anuncio['id']) ?>" required>
+                <button id="borrar" type="submit">Borrar</button>
             </form>
         </div>
     </div>

@@ -30,7 +30,9 @@ class ComerciosController extends BaseController {
     }
 
     public function buscar() {
-        $nombre = $_POST['nombre'];
+        $nombre = '';
+        if (isset($_POST['nombre']))
+            $nombre = $_POST['nombre'];
         $anuncios = ComerciosModel::getByName($nombre);
 
         $this->render('index.view.php', [

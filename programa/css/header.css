@@ -96,6 +96,10 @@ body {
     text-decoration: none;
 }
 
+#cerrar{
+    width: 60px;
+}
+
 #header-botones a {
     text-decoration: none;
 }

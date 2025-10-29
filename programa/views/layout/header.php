@@ -16,13 +16,16 @@
     </form>
 
     <div id="header-botones">
-        <?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])):?>
+        <?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])):
+                if($_SESSION['tipo_usuario'] !== 'admin'):
+        ?>
             <a href="index.php?controller=ComerciosController&accion=crear">
                 <button class="btn-header">
                     <img src="img/publicar.png" alt="" width="20px" height="20px" class="img">
                     Publicar
                 </button>
             </a>   
+        <?php endif;?>
             
             <a href="index.php?controller=UsuariosController&accion=perfil">
                 <button class="btn-header">
@@ -31,14 +34,12 @@
                 </button>
             </a>  
 
-            <?php /*
-            <button id="openPopupCerrar" class="btn-header">
-                <img src="img/iniciarSesion.png" alt="" width="20px" height="20px" class="img"> 
-                Cerrar Sesión
+            <button id="cerrar" class="btn-header">
+                <img src="img/cerrarSesion.png" alt="" width="20px" height="20px" class="img"> 
             </button>
 
             <script>
-                let cerrar = document.getElementById('openPopupCerrar');
+                let cerrar = document.getElementById('cerrar');
                 cerrar.addEventListener('click', cerrarSesion);
                 console.log(btn)
                 async function cerrarSesion(){       
@@ -49,7 +50,6 @@
                     window.location.href = data.redirect ?? 'index.php';
                 }
             </script>
-            */?>
 
         <?php else:?>
             <button id="openPopupInicio" class="btn-header">

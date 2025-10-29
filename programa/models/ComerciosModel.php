@@ -128,7 +128,7 @@ class ComerciosModel {
     $dbh = Database::getConnection();
     $stmt = $dbh->prepare("SELECT * 
                            FROM anuncios 
-                           WHERE id_usuario = :idUsuario AND estado = 1");
+                           WHERE id_usuario = :idUsuario");
 
     $stmt->bindParam(':idUsuario', $userId, PDO::PARAM_INT);
     $stmt->execute();

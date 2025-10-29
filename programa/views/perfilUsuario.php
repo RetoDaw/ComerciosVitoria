@@ -114,12 +114,6 @@ if(!$usuario){
         <div id="popup-titulo"></div>
         <div id="popup-categoria"></div>
       </div>
-      <div class="icono-fav">
-        <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
-          width="30px"
-          height="30px"
-          id="popup-favorito">
-      </div>
     </div>
 
     <div id="popup-precio"></div>

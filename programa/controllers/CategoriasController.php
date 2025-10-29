@@ -27,12 +27,12 @@ class CategoriasController extends BaseController {
 
     }
     
-    public function store($datos) {
-        
+    public function store($nombre) {
+        CategoriasModel::create($nombre);
     }
     
     public function destroy($id) {
-        
+        CategoriasModel::deleteById($id);
     }
     
     public function destroyAll() {

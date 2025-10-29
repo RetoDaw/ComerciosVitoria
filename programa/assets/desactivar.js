@@ -5,7 +5,7 @@ console.log(desactivar.value == 'desactivar');
 async function cambiarEstado() {
     let seDesactiva = desactivar.value === 'desactivar' ? 0 : 1;
 
-    await fetch('http://prueba_controller.test/?controller=ComerciosController&accion=desactivar', {
+    await fetch('index.php?controller=ComerciosController&accion=desactivar', {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

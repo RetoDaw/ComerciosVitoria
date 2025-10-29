@@ -12,6 +12,18 @@ class ComerciosModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getByCategoria($categoria) {
+        $dbh = Database::getConnection();
+        $stmt = $dbh->prepare("SELECT *
+                                FROM anuncios
+                                WHERE estado = 1
+                                AND id_categoria = :categoria");
+        $stmt->execute([
+            'categoria' => $categoria
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function getById($id) {
         $dbh = Database::getConnection();
         $stmt = $dbh->prepare("SELECT *

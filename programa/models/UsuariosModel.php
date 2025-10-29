@@ -73,6 +73,17 @@ class UsuariosModel {
         ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public static function getByEmail($email) {
+        $dbh = Database::getConnection();
+        $stmt = $dbh->prepare("SELECT id
+                                FROM usuarios
+                                WHERE email = :email");
+        $stmt->execute([
+            'email' => $email
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     
     public static function create($datos) {
         $dbh = Database::getConnection();

@@ -7,6 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Mensajería</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="assets/mensajes.js" defer></script>
     <link rel="stylesheet" href="css/vistaMensaje.css">
     <link rel="stylesheet" href="css/header.css">

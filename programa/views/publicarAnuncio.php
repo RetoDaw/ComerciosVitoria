@@ -26,10 +26,28 @@
             <form id="formAnuncio" action="index.php?controller=ComerciosController&accion=store" method="post" enctype="multipart/form-data">
             <div id="crearAnuncioFormulario" name="crearAnuncio">
                 <p>Crear anuncio</p>
-                <input type="text" name="titulo" id="titulo" placeholder="Título" required>
-                <input type="number" name="precio" id="precio" placeholder="Precio" required>   
-                <input type="text" name="descripcion" id="descripcion" placeholder="Descripción" required>
-                <input type="text" name="direccion" id="direccion" placeholder="Dirección" required>
+                    <!-- Título -->
+                    <input type="text" name="titulo" id="titulo" placeholder="Título"
+                        required maxlength="255"
+                        pattern=".{2,255}"
+                        title="El título debe tener entre 2 y 255 caracteres">
+
+                    <!-- Precio -->
+                    <input type="number" name="precio" id="precio" placeholder="Precio"
+                        required min="0.01" step="0.01"
+                        title="El precio debe ser mayor que 0">
+
+                    <!-- Descripción -->
+                    <input type="text" name="descripcion" id="descripcion" placeholder="Descripción"
+                        required maxlength="500"
+                        pattern=".{5,500}"
+                        title="La descripción debe tener entre 5 y 500 caracteres">
+
+                    <!-- Dirección -->
+                    <input type="text" name="direccion" id="direccion" placeholder="Dirección"
+                        required maxlength="255"
+                        pattern=".{5,255}"
+                        title="La dirección debe tener entre 5 y 255 caracteres">
             </div>
 
            <select id="id_categoria" name="id_categoria" id="categoria">
@@ -68,5 +86,38 @@
     <?php 
         require_once 'layout/footer.php';
     ?>
+<script>
+    document.getElementById("formAnuncio").addEventListener("submit", function(event) {
+        const titulo = document.getElementById("titulo").value.trim();
+        const descripcion = document.getElementById("descripcion").value.trim();
+        const direccion = document.getElementById("direccion").value.trim();
+        const precio = parseFloat(document.getElementById("precio").value);
+
+        if(titulo.length < 2 || titulo.length > 255){
+            alert("El título debe tener entre 2 y 255 caracteres.");
+            event.preventDefault();
+            return;
+        }
+
+        if(descripcion.length < 5 || descripcion.length > 500){
+            alert("La descripción debe tener entre 5 y 500 caracteres.");
+            event.preventDefault();
+            return;
+        }
+
+        if(direccion.length < 5 || direccion.length > 255){
+            alert("La dirección debe tener entre 5 y 255 caracteres.");
+            event.preventDefault();
+            return;
+        }
+
+        if(isNaN(precio) || precio <= 0){
+            alert("El precio debe ser un número mayor que 0.");
+            event.preventDefault();
+            return;
+        }
+    });
+</script>
+
 </body>
 </html>

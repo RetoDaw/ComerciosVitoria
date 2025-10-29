@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/registrarse.css">
     <link rel="stylesheet" href="css/iniciarSesion.css">
+      <link rel="icon" href="../img/logo.png" type="image/x-icon">
 
     <!-- CSS del footer -->
     <link rel="stylesheet" href="css/footerStyle.css">

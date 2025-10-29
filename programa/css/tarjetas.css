@@ -14,9 +14,32 @@ body {
   background-color: white;
   padding: 40px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
+.filtrar-categoria{
+   display: flex;
+   margin-bottom:10px ;
+   margin-right: 1000px;
+   space-between: 20px;
+   align-items: left;
+}
+#id_categoria{
+  border-radius: 10px;
+  border-style: none;
+  background-color: #FAF2F7;
+  padding: 10px;
+  border: solid, 2px, #F0D5E7;
+}
+#btn-filtrar{
+  background-color: #7a486c ;
+  color: white;
+  padding: 10px;
+  border-style: none;
+  border-radius: 10px;
+  justify-content: left;
 
+}
 /* ======== CONTENEDOR DE TARJETAS ======== */
 .tarjetas-container {
   display: grid;

@@ -21,6 +21,8 @@ document.querySelectorAll('.leer-mas').forEach(btn => {
     document.getElementById('popup-categoria').textContent = anuncio.categoria;
     document.getElementById('popup-precio').textContent = numberFormat(anuncio.precio) + ' €';
     document.getElementById('popup-descripcion').textContent = anuncio.descripcion;
+    console.log(anuncio)
+    document.getElementById('popup-direccion').textContent = '📍 ' + anuncio.direccion;
     // Llamada a datosContacto: obtiene email y teléfono y los inserta en los campos del popup.
     // Se usa el operador nullish para mostrar "No disponible" si el backend no devuelve esos campos.
     datosContacto(anuncio.id_usuario).then(datosC => {

@@ -31,6 +31,24 @@
   </script>
 
   <div class="contenedor-general">
+    <div class="filtrar-categoria">
+      <form action="index.php" method="post">
+        <button id="btn-filtrar">Filtrar</button>
+        <select id="id_categoria" name="id_categoria" id="categoria">
+          <option value="">No filtrar</option>
+          <?php
+            require_once 'controllers/CategoriasController.php';
+            $categoriasController = new CategoriasController;
+            $categorias = $categoriasController->cogerCategorias();
+            foreach ($categorias as $categoria):
+          ?>
+            <option value="<?= $categoria['id'] ?>">
+              <?= htmlspecialchars($categoria['nombre']) ?>
+            </option>
+          <?php endforeach; ?>
+        </select> 
+      </form>
+    </div>
     <div class="tarjetas-container">
       <?php foreach ($anuncios as $anuncio): ?>
         <?php
@@ -99,6 +117,7 @@
       <!-- CONTACTO -->
       <div id="popup-contacto-titulo">Datos de contacto</div>
       <div class="contacto-info">
+        <p id="popup-direccion"></p>
         <p id="popup-telefono"></p>
         <p id="popup-email"></p>
       </div>
@@ -123,6 +142,7 @@
         titulo: <?= json_encode($anuncio['titulo']) ?>,
         precio: <?= $anuncio['precio'] ?>,
         descripcion: <?= json_encode($anuncio['descripcion']) ?>,
+        direccion: <?= json_encode($anuncio['direccion']) ?>,
         categoria: <?= json_encode($nombreCategoria) ?>,
         imagenes: [
           <?php
@@ -138,8 +158,8 @@
       };
     <?php endforeach; ?>
   </script>
-<script src="assets/favorito.js"></script>
-<script src="assets/popup.js"></script>
+  <script src="assets/favorito.js"></script>
+  <script src="assets/popup.js"></script>
 
 </body>
 

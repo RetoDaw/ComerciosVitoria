@@ -14,8 +14,15 @@ require_once __DIR__ . '/../models/UsuariosModel.php';
 class ComerciosController extends BaseController {
     
     public function index() {
+        $categoria = '';
+        if(isset($_POST))
+            $categoria = $_POST['id_categoria'];
         //coger todos los anuncios
-        $anuncios = ComerciosModel::getAll();
+        if($categoria == ''):
+            $anuncios = ComerciosModel::getAll();
+        else:
+            $anuncios = ComerciosModel::getByCategoria($categoria);
+        endif;
 
         $this->render('index.view.php', [
             'anuncios' => $anuncios

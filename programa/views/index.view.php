@@ -110,7 +110,6 @@
   <?php require_once 'layout/footer.php'; ?>
 
   <script>
-    // Preparar datos de anuncios para JavaScript
     const anuncios = {};
 
     <?php foreach ($anuncios as $anuncio): ?>
@@ -139,8 +138,8 @@
       };
     <?php endforeach; ?>
   </script>
-  <script src="assets/favorito.js"></script>
-  <script src="assets/popup.js"></script>
+<script src="assets/favorito.js"></script>
+<script src="assets/popup.js"></script>
 
 </body>
 

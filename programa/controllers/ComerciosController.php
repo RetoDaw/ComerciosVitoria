@@ -15,7 +15,7 @@ class ComerciosController extends BaseController {
     
     public function index() {
         $categoria = '';
-        if(isset($_POST))
+        if(isset($_POST['id_categoria']))
             $categoria = $_POST['id_categoria'];
         //coger todos los anuncios
         if($categoria == ''):
@@ -23,6 +23,15 @@ class ComerciosController extends BaseController {
         else:
             $anuncios = ComerciosModel::getByCategoria($categoria);
         endif;
+
+        $this->render('index.view.php', [
+            'anuncios' => $anuncios
+        ]);
+    }
+
+    public function buscar() {
+        $nombre = $_POST['nombre'];
+        $anuncios = ComerciosModel::getByName($nombre);
 
         $this->render('index.view.php', [
             'anuncios' => $anuncios

@@ -24,6 +24,21 @@ class ComerciosModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getByName($nombre) {
+        $dbh = Database::getConnection();
+        $stmt = $dbh->prepare("SELECT *
+                                FROM anuncios
+                                WHERE estado = 1
+                                AND lower(titulo) LIKE lower(:nombre)");
+        //hay que poner aqui el como queremos que aparezca en el like
+        //porque sino busca la cadena %:nombre% literalmente en vez
+        //de sustituir
+        $stmt->execute([
+            'nombre' => '%' . $nombre . '%'
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function getById($id) {
         $dbh = Database::getConnection();
         $stmt = $dbh->prepare("SELECT *

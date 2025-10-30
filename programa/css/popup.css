@@ -85,7 +85,7 @@ body {
 }
 
 .carousel-item img {
-  width: 180px;
+  width: auto;
   height: auto;
   border-radius: 8px;
   max-height: 100%;

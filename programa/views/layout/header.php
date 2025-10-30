@@ -184,33 +184,34 @@
             password: password ? '***' : '', 
             password_confirm: password_confirm ? '***' : ''
         });
-
-        // Validaciones en frontend
+        
+        // 1. Validar campos obligatorios
         if (!nombre || !apellidos || !fecha_nacimiento || !email || !user_name || !password || !password_confirm) {
             alert('Por favor, completa todos los campos obligatorios');
             return;
         }
 
-        // Validar formato de email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Por favor, introduce un email válido');
+        // 2. Validar nombre (mínimo 3 caracteres, máximo 50)
+        if (nombre.length < 3) {
+            alert('El nombre debe tener al menos 3 caracteres');
+            return;
+        }
+        if (nombre.length > 50) {
+            alert('El nombre no puede tener más de 50 caracteres');
             return;
         }
 
-        // Validar longitud de contraseña
-        if (password.length < 6) {
-            alert('La contraseña debe tener al menos 6 caracteres');
+        // 3. Validar apellidos (mínimo 3 caracteres, máximo 100)
+        if (apellidos.length < 3) {
+            alert('Los apellidos deben tener al menos 3 caracteres');
+            return;
+        }
+        if (apellidos.length > 100) {
+            alert('Los apellidos no pueden tener más de 100 caracteres');
             return;
         }
 
-        // Validar que las contraseñas coincidan
-        if (password !== password_confirm) {
-            alert('Las contraseñas no coinciden');
-            return;
-        }
-
-        // Validar fecha de nacimiento (debe ser mayor de 18 años)
+        // 4. Validar fecha de nacimiento (debe ser mayor de 18 años)
         const fechaNacimiento = new Date(fecha_nacimiento);
         const hoy = new Date();
         const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
@@ -221,13 +222,42 @@
             return;
         }
 
-        // Validar teléfono si se proporciona
+        // 5. Validar formato de email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Por favor, introduce un email válido');
+            return;
+        }
+
+        // 6. Validar teléfono si se proporciona
         if (telefono && telefono.length > 0) {
             const telefonoRegex = /^[0-9]{9,20}$/;
             if (!telefonoRegex.test(telefono.replace(/\s/g, ''))) {
                 alert('Por favor, introduce un teléfono válido (solo números, 9-20 dígitos)');
                 return;
             }
+        }
+
+        // 7. Validar usuario (mínimo 3 caracteres, máximo 30)
+        if (user_name.length < 3) {
+            alert('El nombre de usuario debe tener al menos 3 caracteres');
+            return;
+        }
+        if (user_name.length > 30) {
+            alert('El nombre de usuario no puede tener más de 30 caracteres');
+            return;
+        }
+
+        // 8. Validar longitud de contraseña
+        if (password.length < 6) {
+            alert('La contraseña debe tener al menos 6 caracteres');
+            return;
+        }
+
+        // 9. Validar que las contraseñas coincidan
+        if (password !== password_confirm) {
+            alert('Las contraseñas no coinciden');
+            return;
         }
 
         try {

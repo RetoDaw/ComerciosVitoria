@@ -68,7 +68,8 @@
         }
 
         // Obtener la categoría del anuncio
-        $nombreCategoria = htmlspecialchars(CategoriasController::nombreCategoria($anuncio));
+        $nombreCategoria = '';
+        $nombreCategoria = CategoriasController::nombreCategoria($anuncio) ?? 'Sin categoria';
         ?>
 
         <div class="tarjeta">
@@ -145,7 +146,7 @@
     <?php foreach ($anuncios as $anuncio): ?>
       <?php
       $imagenes = ImagenesController::getByAnuncio($anuncio);
-      $nombreCategoria = htmlspecialchars(CategoriasController::nombreCategoria($anuncio));
+      $nombreCategoria = CategoriasController::nombreCategoria($anuncio) ?? 'Sin categoria';
       ?>
       anuncios[<?= $anuncio['id'] ?>] = {
         id: <?= $anuncio['id'] ?>,

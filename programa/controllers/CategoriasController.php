@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../models/ComerciosModel.php';
+require_once __DIR__ . '/../models/CategoriasModel.php';
 
 class CategoriasController extends BaseController {
     
@@ -27,14 +28,21 @@ class CategoriasController extends BaseController {
 
     }
     
-    public function store($nombre) {
-        CategoriasModel::create($nombre);
+    public function store() {
+        $nombre = $_POST['nombre'] ?? null;
+        if($nombre != null){
+            CategoriasModel::create($nombre);
+        }
+        $this->redirect('index.php?controller=UsuariosController&accion=perfil');
     }
     
-    public function destroy($id) {
-        CategoriasModel::deleteById($id);
-    }
-    
+    public function destroy() {
+        $id = $_POST['id'] ?? null;
+        if($id != null){
+           CategoriasModel::deleteById($id);
+        }
+        $this->redirect('index.php?controller=UsuariosController&accion=perfil');
+    }  
     public function destroyAll() {
         
     }

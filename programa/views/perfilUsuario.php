@@ -86,7 +86,7 @@ if(!$usuario){
 
 <!-- SECCIÓN DE MIS ANUNCIOS -->
 <div id="modalAnuncios" class="modal-categoria">
-  <div class="modal-categoria__contenido" style="width: 90%; max-width: 1200px; height: auto; max-height: 90vh;">
+  <div class="modal-categoria__contenido" style="overflow-y: scroll; width: 90%; max-width: 1200px; height: auto; max-height: 90vh;">
     <span class="cerrar-modal" id="cerrarAnuncios">&times;</span>
     <h2 style="margin-bottom: 20px;">Mis Anuncios</h2>
 
@@ -95,6 +95,41 @@ if(!$usuario){
         <p>Cargando tus anuncios...</p>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- POPUP CREAR CATEGORÍA -->
+<div id="modalCrearCategoria" class="modal-categoria">
+  <div class="modal-categoria__contenido" style="width:400px;">
+    <span class="cerrar-modal" id="cerrarCrearCategoria">&times;</span>
+    <h2 style="color:black; margin-bottom:15px;">Crear categoría</h2>
+    <form action="index.php?controller=CategoriasController&accion=store" method="post">
+      <input type="text" name="nombre" id="nombreCategoria" placeholder="Nombre de la categoría" style="width:100%;padding:10px;margin-bottom:15px;border-radius:8px;border:1px solid #BB6DA3; " >
+      <button  id="btnCrearCategoria" class="btn-perfil" style="width:100%;">Crear</button>
+    </form>
+  </div>
+</div>
+
+<!-- POPUP BORRAR CATEGORÍA -->
+<div id="modalBorrarCategoria" class="modal-categoria">
+  <div class="modal-categoria__contenido" style="width:400px;">
+    <span class="cerrar-modal" id="cerrarBorrarCategoria">&times;</span>
+    <h2 style="color:black; margin-bottom:15px;">Borrar categoría</h2>
+    <form action="index.php?controller=CategoriasController&accion=destroy" method="post">
+      <select id="listaCategorias" name="id" style="width:100%;padding:10px;margin-bottom:15px;border-radius:8px;border:1px solid #BB6DA3;">
+        <?php
+              require_once 'controllers/CategoriasController.php';
+              $categoriasController = new CategoriasController;
+              $categorias = $categoriasController->cogerCategorias();
+              foreach ($categorias as $categoria):
+            ?>
+              <option value="<?= $categoria['id'] ?>">
+                <?= htmlspecialchars($categoria['nombre']) ?>
+              </option>
+            <?php endforeach; ?>
+      </select>
+      <button  class="btn-perfil" style="width:100%;">Borrar</button>
+    </form>
   </div>
 </div>
 
@@ -303,7 +338,7 @@ async function cargarFavoritos() {
         <div class="botones">
           <button class="leer-mas" data-id="${anuncio.id}">Leer más</button>
           <div class="icono-fav">
-            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" class="favorito" width="30" data-id="${anuncio.id}">
+            <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" class="favorito" width="30" data-id="${anuncio.id}">
           </div>
         </div>`;
       cont.appendChild(div);
@@ -350,7 +385,7 @@ async function cargarMisAnuncios() {
         <div class="botones">
           <button class="leer-mas" data-id="${anuncio.id}">Leer más</button>
           <a href="?controller=ComerciosController&accion=editar&id=${anuncio.id}">
-            <button class="editar-anuncio">Editar</button>
+            <button id="editar-anuncio">Editar</button>
           </a>
         </div>`;
       cont.appendChild(div);
@@ -367,5 +402,50 @@ btnAnuncios.addEventListener('click', ()=>{
 cerrarAnuncios.addEventListener('click',()=>modalAnuncios.style.display='none');
 modalAnuncios.addEventListener('click',e=>{if(e.target===modalAnuncios) modalAnuncios.style.display='none';});
 </script>
+<script>
+// ==================== POPUP CREAR CATEGORÍA ====================
+const btnAbrirCrear = document.getElementById('abrirCrear');
+const modalCrear = document.getElementById('modalCrearCategoria');
+const cerrarCrear = document.getElementById('cerrarCrearCategoria');
+const btnCrearCategoria = document.getElementById('btnCrearCategoria');
+
+btnAbrirCrear.addEventListener('click', () => modalCrear.style.display = 'flex');
+cerrarCrear.addEventListener('click', () => modalCrear.style.display = 'none');
+modalCrear.addEventListener('click', e => { if (e.target === modalCrear) modalCrear.style.display = 'none'; });
+
+btnCrearCategoria.addEventListener('click', async () => {
+  const nombre = document.getElementById('nombreCategoria').value.trim();
+  if (!nombre) return alert('Introduce un nombre de categoría.');
+
+    const res = await fetch('index.php?controller=CategoriasController&accion=store', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre })
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      alert(' Categoría creada correctamente.');
+      document.getElementById('nombreCategoria').value = '';
+      modalCrear.style.display = 'none';
+    }
+});
+
+// ==================== POPUP BORRAR CATEGORÍA ====================
+const btnAbrirBorrar = document.getElementById('abrirBorrar');
+const modalBorrar = document.getElementById('modalBorrarCategoria');
+const cerrarBorrar = document.getElementById('cerrarBorrarCategoria');
+const btnBorrarCategoria = document.getElementById('btnBorrarCategoria');
+
+btnAbrirBorrar.addEventListener('click', () => {
+  modalBorrar.style.display = 'flex';
+});
+cerrarBorrar.addEventListener('click', () => modalBorrar.style.display = 'none');
+modalBorrar.addEventListener('click', e => { if (e.target === modalBorrar) modalBorrar.style.display = 'none'; });
+
+// Cargar opciones en el select
+
+</script>
+
 </body>
 </html>

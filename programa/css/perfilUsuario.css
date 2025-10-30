@@ -115,9 +115,7 @@
 
 /* Botones específicos del perfil */
 .btn-perfil {
-  display: grid;
   place-items: center;
-  gap: 8px;
   border: none;
   width: 138px;
   height: 53px;
@@ -128,8 +126,8 @@
   cursor: pointer;
   font-weight: bold;
   transition: all 0.3s ease;
+  white-space: nowrap; /* 🔥 evita el salto de línea */
 }
-
 .btn-perfil:hover {
   background-color: #474747;
   transform: scale(1.05);
@@ -258,7 +256,7 @@
     max-width: 95% !important;
     margin: 10px;
   }
-  
+
   #contenido-favoritos .tarjetas-container {
     grid-template-columns: 1fr !important;
     gap: 15px !important;

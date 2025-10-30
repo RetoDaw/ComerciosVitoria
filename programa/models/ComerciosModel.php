@@ -64,8 +64,7 @@ class ComerciosModel {
             "id_categoria" => $datos["id_categoria"]
         );
         if($stmt->execute($data)){
-            echo "correcto";
-            if ($imagenes && isset($imagenes['tmp_name'])) 
+            if ($imagenes['error'][0] == 0 && isset($imagenes['tmp_name']))
                 ImagenesModel::create($dbh,$imagenes);
         }else{
             throw new Exception("No se pudo añadir el anuncio a la base de datos");

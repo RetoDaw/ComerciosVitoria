@@ -82,9 +82,11 @@
           <p class="categoria"><b>Categoría:</b> <?= $nombreCategoria ?></p>
           <div class="botones">
             <button class="leer-mas" data-id="<?= $anuncio['id'] ?>">Leer más</button>
+            <?php if(isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] != 'admin'):?>
             <div class="icono-fav">
               <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" class="favorito" width="30">
             </div>
+            <?php endif;?>
           </div>
         </div>
       <?php 

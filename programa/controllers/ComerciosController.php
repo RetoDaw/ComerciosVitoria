@@ -68,10 +68,8 @@ class ComerciosController extends BaseController {
             "id_usuario" => $_SESSION['id'],
             "id_categoria" => $_POST["id_categoria"]
         );
-        var_dump($_FILES['imagenes']);
         $imagenes = $_FILES['imagenes'] ?? null;
-        if (!empty($imagenes))
-            ComerciosModel::create($anuncio,$imagenes);
+        ComerciosModel::create($anuncio,$imagenes);
         $this->redirect('index.php');
     }
 

@@ -35,6 +35,9 @@ if(!$usuario){
 </head>
 <body>
 <?php require_once 'layout/header.php'; ?>
+<script>
+  window.usuarioLogueado = <?= isset($_SESSION['id']) ? 'true' : 'false' ?>;
+</script>
 
 <div id="contenedor-principal">
   <div id="info">

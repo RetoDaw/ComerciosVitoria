@@ -35,30 +35,37 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   KEY `anuncios_ibfk_2` (`id_categoria`),
   CONSTRAINT `anuncios_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   CONSTRAINT `anuncios_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.anuncios: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.anuncios: ~9 rows (aproximadamente)
 DELETE FROM `anuncios`;
 INSERT INTO `anuncios` (`id`, `titulo`, `descripcion`, `direccion`, `precio`, `id_usuario`, `id_categoria`, `estado`) VALUES
-	(1, 'iPhone 14 Pro 256GB', 'Vendo iPhone 14 Pro en perfecto estado, sin rayaduras y con caja original.', 'Calle Mayor 12, Madrid', 1050.00, 4, 1, 1),
-	(2, 'Coche Seat Ibiza 2018', 'Seat Ibiza gasolina, 80.000 km, único dueño, revisiones al día.', 'Avenida Andalucía 45, Sevilla', 8500.00, 5, 2, 1),
-	(3, 'Sofá de 3 plazas gris', 'Sofá cómodo de tela gris, 3 plazas, casi nuevo.', 'Calle Gran Vía 5, Valencia', 220.00, 6, 3, 1),
-	(13, 'Iphone 14 nuevo', 'Iphone 14 nuevo, ni un solo rasguño', 'C\\ nvbhsgdiu ba ', 950.00, 4, 1, 1),
-	(28, 'Gnomos de ceramica', 'Gnomos sin valor real, pero bonitos', 'C\\Portal de Foronda 28', 15.22, 4, 3, 0);
+	(48, 'iPhone 14 Azul', 'Teléfono móvil iPhone 14 en color azul.  - Pantalla de 6.1 pulgadas. - Capacidad de 128 GB. - Cámara dual de 12 MP.', 'C\\Portal de Foronda 28', 350.00, 4, 1, 1),
+	(49, 'Escritorio con cajones', 'Escritorio funcional con cajones, ideal para tu espacio de trabajo o estudio. Su diseño sencillo se adapta a cualquier decoración.  - Cajón principal con cerradura. - Juego de tres cajones laterales. - Compartimento abierto superior.', 'C\\  Portal de Foronda 28', 50.00, 4, 3, 1),
+	(50, 'Cinta de correr plegable', 'Cinta de correr para entrenar en casa. Su diseño permite guardarla fácilmente.  - Superficie de carrera gris. - Pantalla superior negra. - Sistema de seguridad con pinza roja.', 'C\\ Dato 4', 75.00, 6, 19, 1),
+	(51, 'Estufa de leña negra', 'Negociable', 'C\\ Dato 4', 100.00, 6, 1, 1),
+	(52, 'Máquina de pesas multifunción', 'Equipo de gimnasio para entrenar en casa.  - Estructura de acero resistente. - Incluye poleas y cables. - Torre de pesas integrada. - Banco acolchado.', 'C\\ Gorbeia 18', 300.00, 5, 19, 1),
+	(53, 'Lote Ropa Niña 13/14 Años', 'Lote de ropa para niña de 13 a 14 años.  - Camiseta gris con estampado de The Rolling Stones. - Camiseta gris con estampado floral y texto. - chaqueta deportiva verde con cremallera. -sudadera negra - Vaqueros azules talla s Ropa de tienda de niñas, tallaje para 13/14 años', 'C\\ Gorbeia 18', 12.00, 5, 18, 1),
+	(54, 'CD musica en castellano', 'CDs en perfecto estado, se venden todos juntos.', 'C\\ Gorbeia 18', 20.00, 5, 17, 1),
+	(55, 'Honda CBR600F - Moto Deportiva', 'Venta urgente, sino entrego en compraventa en breve  Vendo honda cbr600 f de 2005 con 59.000km Ruedas y kit de arrastre nuevos. Indicador de marchas, válvulas acodadas, protectores de motor y baúl Manillar y escape homologado, tengo las piezas de origen también. Valoro cambio por trail de asfalto tipo tracer', 'Avenida Gasteiz 13', 2500.00, 9, 2, 1),
+	(56, 'Guitarra Eléctrica Jackson', 'Jackson edición limitada Phill Demmell de Machine Head. Muy ligera. Muy rápida. Acción baja. Pastillas EMG pasivas Muy muy cañera. Incluyo funda rígida a medida y correa Gibson. Ni una sola marca. Como nueva. Está pefecta', 'Avenida Gasteiz 13', 750.00, 9, 17, 1);
 
 -- Volcando estructura para tabla comercios_vitoria.categorias
 CREATE TABLE IF NOT EXISTS `categorias` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.categorias: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.categorias: ~5 rows (aproximadamente)
 DELETE FROM `categorias`;
 INSERT INTO `categorias` (`id`, `nombre`) VALUES
 	(1, 'Tecnología'),
 	(2, 'Vehículos'),
-	(3, 'Hogar');
+	(3, 'Hogar'),
+	(17, 'Musica'),
+	(18, 'Ropa'),
+	(19, 'Deporte');
 
 -- Volcando estructura para tabla comercios_vitoria.favoritos
 CREATE TABLE IF NOT EXISTS `favoritos` (
@@ -70,8 +77,16 @@ CREATE TABLE IF NOT EXISTS `favoritos` (
   CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`id_anuncio`) REFERENCES `anuncios` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.favoritos: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.favoritos: ~6 rows (aproximadamente)
 DELETE FROM `favoritos`;
+INSERT INTO `favoritos` (`id_usuario`, `id_anuncio`) VALUES
+	(5, 48),
+	(6, 49),
+	(9, 50),
+	(5, 51),
+	(9, 51),
+	(9, 53),
+	(9, 54);
 
 -- Volcando estructura para tabla comercios_vitoria.imagenes
 CREATE TABLE IF NOT EXISTS `imagenes` (
@@ -81,17 +96,40 @@ CREATE TABLE IF NOT EXISTS `imagenes` (
   PRIMARY KEY (`id`),
   KEY `id_anuncio` (`id_anuncio`),
   CONSTRAINT `imagenes_ibfk_1` FOREIGN KEY (`id_anuncio`) REFERENCES `anuncios` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.imagenes: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.imagenes: ~29 rows (aproximadamente)
 DELETE FROM `imagenes`;
 INSERT INTO `imagenes` (`id`, `id_anuncio`, `ruta`) VALUES
-	(19, 1, 'media/anuncios/1/224663.jpg'),
-	(20, 1, 'media/anuncios/1/359101.jpg'),
-	(21, 1, 'media/anuncios/1/zoro-one-piece.jpg'),
-	(23, 28, 'media/anuncios/28/Ichigo Y Rukia.jpeg'),
-	(27, 28, 'media/anuncios/28/image.png'),
-	(29, 2, 'media/anuncios/2/Captura de pantalla 2024-07-24 130915.png');
+	(48, 48, 'img/anuncios/48/i6012642593.webp'),
+	(49, 48, 'img/anuncios/48/i6012642540.webp'),
+	(50, 48, 'img/anuncios/48/i6012642418.webp'),
+	(51, 48, 'img/anuncios/48/i6012642404.webp'),
+	(52, 49, 'img/anuncios/49/i6029615175.webp'),
+	(53, 49, 'img/anuncios/49/i6029614887.webp'),
+	(54, 49, 'img/anuncios/49/i6029614837.webp'),
+	(55, 50, 'img/anuncios/50/i6029605471.webp'),
+	(56, 50, 'img/anuncios/50/i6029605499.webp'),
+	(57, 50, 'img/anuncios/50/i6029605449.webp'),
+	(58, 51, 'img/anuncios/51/i5990418789.webp'),
+	(59, 51, 'img/anuncios/51/i5989847739.webp'),
+	(60, 51, 'img/anuncios/51/i5989847706.webp'),
+	(61, 52, 'img/anuncios/52/i6029398330.webp'),
+	(62, 52, 'img/anuncios/52/i6029398315.webp'),
+	(63, 53, 'img/anuncios/53/i6028212068.webp'),
+	(64, 53, 'img/anuncios/53/i6028211878.webp'),
+	(65, 54, 'img/anuncios/54/i6025245626.webp'),
+	(66, 54, 'img/anuncios/54/i6025245346.webp'),
+	(67, 55, 'img/anuncios/55/i6010530638.webp'),
+	(68, 55, 'img/anuncios/55/i6010530622.webp'),
+	(69, 55, 'img/anuncios/55/i6010530635.webp'),
+	(70, 55, 'img/anuncios/55/i6010530621.webp'),
+	(71, 55, 'img/anuncios/55/i6010530592.webp'),
+	(72, 55, 'img/anuncios/55/i6010530642.webp'),
+	(73, 56, 'img/anuncios/56/i6024334629.webp'),
+	(74, 56, 'img/anuncios/56/i6024340170.webp'),
+	(75, 56, 'img/anuncios/56/i6024340144.webp'),
+	(76, 56, 'img/anuncios/56/i6024334639.webp');
 
 -- Volcando estructura para tabla comercios_vitoria.mensaje
 CREATE TABLE IF NOT EXISTS `mensaje` (
@@ -105,9 +143,9 @@ CREATE TABLE IF NOT EXISTS `mensaje` (
   KEY `id_receptor` (`id_receptor`),
   CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`id_emisor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   CONSTRAINT `mensaje_ibfk_2` FOREIGN KEY (`id_receptor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.mensaje: ~16 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.mensaje: ~39 rows (aproximadamente)
 DELETE FROM `mensaje`;
 INSERT INTO `mensaje` (`id`, `id_emisor`, `id_receptor`, `mensaje`, `fecha_envio`) VALUES
 	(1, 4, 5, 'Hola bro, que taL?', '2025-10-20 08:50:08'),
@@ -124,9 +162,35 @@ INSERT INTO `mensaje` (`id`, `id_emisor`, `id_receptor`, `mensaje`, `fecha_envio
 	(20, 4, 5, '78', '2025-10-20 12:08:46'),
 	(21, 5, 4, 'Acepto', '2025-10-20 12:08:58'),
 	(22, 4, 5, 'Jajja', '2025-10-20 12:30:31'),
-	(23, 5, 4, 'Hola', '2025-10-20 12:30:42'),
 	(24, 4, 5, 'Porno de enanitos', '2025-10-20 12:31:13'),
-	(25, 5, 4, 'me gusta mucho', '2025-10-20 12:31:21');
+	(25, 5, 4, 'me gusta mucho', '2025-10-20 12:31:21'),
+	(37, 4, 5, 'Hola', '2025-10-27 10:38:38'),
+	(38, 4, 5, 'Me interesa el seat', '2025-10-27 10:38:57'),
+	(39, 5, 4, 'Hola', '2025-10-27 10:40:07'),
+	(40, 5, 4, 'Cuanto ofreces?', '2025-10-27 10:40:17'),
+	(41, 4, 5, 'Hola', '2025-10-27 10:40:54'),
+	(42, 4, 5, '1800€', '2025-10-27 10:41:01'),
+	(43, 5, 4, 'Bro eres tonto o que?', '2025-10-27 10:41:18'),
+	(44, 4, 6, 'Hola', '2025-10-27 11:46:03'),
+	(45, 4, 6, 'Me interesa lo que vendes', '2025-10-27 11:46:10'),
+	(46, 4, 5, 'Hola', '2025-10-28 08:25:03'),
+	(47, 4, 5, 'todo bien?', '2025-10-28 08:25:09'),
+	(48, 4, 5, 'Hola', '2025-10-28 09:38:37'),
+	(49, 4, 5, 'Hola', '2025-10-28 09:49:53'),
+	(50, 5, 5, 'Hola', '2025-10-28 10:02:40'),
+	(51, 5, 4, 'hola', '2025-10-28 10:02:51'),
+	(52, 4, 4, 'Hola', '2025-10-28 10:50:12'),
+	(53, 4, 6, 'CALLA PUTITTA', '2025-10-29 12:12:40'),
+	(54, 6, 5, 'Hola', '2025-10-30 08:28:21'),
+	(55, 9, 6, 'Hola', '2025-11-02 22:24:32'),
+	(56, 9, 6, 'Me interesa la cinta', '2025-11-02 22:24:55'),
+	(57, 9, 6, 'Hola', '2025-11-02 22:29:14'),
+	(58, 9, 6, 'Hola', '2025-11-02 22:33:08'),
+	(59, 9, 5, 'Hola', '2025-11-02 22:36:05'),
+	(60, 9, 5, 'Me interesa la ropa que vendes', '2025-11-02 22:36:11'),
+	(61, 5, 9, 'Cuanto ofreces?', '2025-11-02 22:36:30'),
+	(62, 6, 9, 'Cuanto me das?', '2025-11-02 22:37:02'),
+	(63, 6, 9, 'Yo pido minumo 70', '2025-11-02 22:37:21');
 
 -- Volcando estructura para tabla comercios_vitoria.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
@@ -141,17 +205,19 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `telefono` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_name` (`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla comercios_vitoria.usuarios: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla comercios_vitoria.usuarios: ~8 rows (aproximadamente)
 DELETE FROM `usuarios`;
 INSERT INTO `usuarios` (`id`, `user_name`, `password`, `nombre`, `apellidos`, `email`, `fecha_nacimiento`, `tipo_usuario`, `telefono`) VALUES
 	(1, 'aaron', '$2y$10$318KFkjgRDVDWthPbPXiIO6tJ4MNwnjNkqnhKRCsSh8qm5Zc9LPlu', 'aaron', 'jimenez', 'a@gmail.com', '2006-08-11', 'admin', '676676767'),
 	(2, 'imanol', '$2y$10$PXFEtPTe/7kNWdHlqEuQIOhl6k7ZaBfdkwB5BOUz3nn0YKJpEgnia', 'imanol', 'manero', 'i@gmail.com', '2006-02-28', 'admin', '909090909'),
 	(3, 'unax', '$2y$10$3Q/KPey2r5wJtS9zuEgCpO2lF5Ogot3jOm3xriN6QeGPcYQlt3Sri', 'unax', 'iriondo', 'u@gmail.com', '2006-10-24', 'admin', '656565656'),
-	(4, 'daniel', '$2y$10$318KFkjgRDVDWthPbPXiIO6tJ4MNwnjNkqnhKRCsSh8qm5Zc9LPlu', 'daniel', 'hernandez', 'daniel@gmail.com', '2006-08-11', 'usuario', '623323232'),
+	(4, 'daniel', '$2y$10$318KFkjgRDVDWthPbPXiIO6tJ4MNwnjNkqnhKRCsSh8qm5Zc9LPlu', 'daniel', 'hernandez', 'danielher@gmail.com', '2006-08-11', 'usuario', '623456787'),
 	(5, 'jaime', '$2y$10$PXFEtPTe/7kNWdHlqEuQIOhl6k7ZaBfdkwB5BOUz3nn0YKJpEgnia', 'jaime', 'barinagarrementeria', 'jaime@gmail.com', '2006-02-28', 'usuario', '642525252'),
-	(6, 'jorge', '$2y$10$3Q/KPey2r5wJtS9zuEgCpO2lF5Ogot3jOm3xriN6QeGPcYQlt3Sri', 'jorge', 'emaldi', 'jorge@gmail.com', '2006-10-24', 'usuario', '678514352');
+	(6, 'jorge', '$2y$10$3Q/KPey2r5wJtS9zuEgCpO2lF5Ogot3jOm3xriN6QeGPcYQlt3Sri', 'jorge', 'emaldi', 'jorge@gmail.com', '2006-10-24', 'usuario', '678514352'),
+	(8, 'kevin', '$2y$10$FaVc25xFifaSm80DY4MM/OOCcZuZG3Zc72FSIqHxVV.iSBBUcno7u', 'Kevin', 'Madero', 'kevin@hotmail.com', '2002-04-13', 'usuario', '778899663'),
+	(9, 'ainhoa', '$2y$10$Uu2QzpFf78h1.Ikz4Q/vN.EsGl3tC0iXRsHX/3rJM6LYDyrlsU9W6', 'Ainhoa', 'Alvarez Curros', 'ainhoa@gmail.com', '2007-07-27', 'usuario', '696969696');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
